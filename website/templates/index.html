@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Horizon Travels Booking{% endblock %}
+
+{% block content %}
+<div id="content" class="container-fluid vh-100 p-0" style="padding: 56px;">
+
+    <!-- Hero image -->
+    <div id="hero" class="container-fluid h-50 p-0" style="">
+    
+        <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+
+            <!-- Carousel page change -->>
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2"></button>
+            </div>
+            
+            <!-- Carousel sliding images -->
+            <div class="carousel-inner" style="border-bottom-right-radius: 50% 120px;">
+              <div class="carousel-item active">
+                <img src="{{url_for('static', filename='img/plane.jpg')}}" alt="Air Travel" class="d-block" style="width:100%; height:60vh; object-fit: cover;">
+                <div class="carousel-caption">
+                  <h3>Air Travel</h3>
+                  <p>Thinking about going abroad? Book here.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="{{url_for('static', filename='img/train.jpg')}}" alt="Travel by Train" class="d-block" style="width:100%; height:60vh; object-fit: cover;">
+                <div class="carousel-caption">
+                    <h3>Travel by Train</h3>
+                    <p>Book a Train and enjoy the scenary!</p>
+                </div> 
+              </div>
+              <div class="carousel-item">
+                <img src="{{url_for('static', filename='img/roadtrip.jpg')}}" alt="Coach Travel" class="d-block" style="width:100%; height:60vh; object-fit: cover;">
+                <div class="carousel-caption">
+                    <h3>Coach Travel</h3>
+                    <p>Enjoy road travel? Book a ticket.</p>
+                </div>  
+              </div>
+            </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block footer %}
+    <div id="footer"></div>
+{% endblock %}

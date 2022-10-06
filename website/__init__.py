@@ -4,7 +4,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 def create_flask_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='/static')
     
     from .views import views
     from .auth import auth
