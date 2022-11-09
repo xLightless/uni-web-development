@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Horizon Travels Booking{% endblock %}
-
 {% block content %}
 <div id="content" class="container-fluid vh-100 p-0" style="padding: 56px;">
 
   <!-- Hero Content -->
-  <div id="hero" class="container-fluid vh-60 p-0" style="">  
-    
-    
+  <div id="hero" class="container-fluid p-0" style="min-height: 60%;">
+    <!-- Hero Top -->
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
 
         <!-- Carousel page change -->
@@ -42,27 +40,57 @@
           </div>
         </div>
     </div>
+    <!-- Hero Top -->
   </div>
+    
+    <!-- Hero Bottom -->
+    <div class="container-lg d-flex justify-content-center align-items-center" style="min-height: 40vh">
+      <div class="row w-100">
+        <!-- Horizon Travels slogan -->
+        <div class="col-lg d-flex flex-column justify-content-center align-items-center">
+          <h1 class="text-center">Horizon Travels</h1>
+          <h6 class="text-center"><i>Travel more for less.</i></h6>
+        </div>
+        <!-- Horizon Travels slogan -->
+        
+        <!-- Travel for less booking form -->
+        <form class="col-lg" style="border: 1px solid red; height: 100px">
+          <div class="row">
+            <div class="col-6">
+              <!-- Travel input boxes -->
 
-  <div class="container-fluid p-3" style="height:40%">
-    <div class="row w-100 h-100 d-flex justify-content-center m-0">
-      <div class="col-12 col-md-6 col-lg-4 m-auto">
-        <h1 class="text-center">Horizon Travels</h1>
-        <h6 class="text-center"><i>Travel more for less.</i></h6>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 m-auto">
-        <img src="{{url_for('static',filename='img/save_money.jpg')}}" class="mx-auto d-block shadow rounded" style="width: 400px;">
+              <div class="col-4 d-inline">
+                <span>From: </span>
+              </div>
+              <div class="col-8 d-inline">
+                <input type="text" placeholder="Enter destination...">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="col-4 d-inline">
+                <span>To: </span>
+              </div>
+              <div class="col-8 d-inline">
+                <input type="text" placeholder="Enter destination...">
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <h3>To: </h3>
+            <input type="text" placeholder="Enter destination...">
+          </div> -->
+        </form>
+        <!-- Travel for less booking form -->
       </div>
     </div>
-  </div>
+    <!-- Hero Bottom -->
 
-    <!-- Travel Container -->
+  <!-- Travel locations container -->
   <div class="container-fluid border border-transparent border-end-0 border-start-0 p-5" style="">
     
     <h1 class="text-center p-3">Planning a trip? Here is some suggestions.</h1>
-
+    
     <div class="row g-5">
-
       <div class="col-12 col-md-6 col-lg-4">
         <div class="card">
           <img src="{{url_for('static', filename='img/placeholder.png')}}" alt="A place in Europe" class="card-img-top">
@@ -103,7 +131,7 @@
 
     </div>
   </div>
-  <!-- Travel Container -->
+  <!-- Travel locations container -->
 
 
   <!-- Booking Discount-->
