@@ -1,4 +1,7 @@
 from flask import Blueprint, render_template
+from datetime import datetime
+
+from website import sitemap
 
 views = Blueprint('views', __name__)
 
@@ -10,4 +13,7 @@ def index():
 def booking():
     return render_template('booking.html')
 
-# url_for('static', filename='index.html')
+@sitemap.register_generator
+def index():
+    yield 'views.index', {}, datetime.now(), 'monthly', 0.7
+    yield 'views.booking', {}, datetime.now(), 'monthly', 0.7
