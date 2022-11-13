@@ -1,3 +1,5 @@
+/* This file is used to modify bootstrap css */
+
 .card:hover {
     transform: scale(1.1);
 }
@@ -5,3 +7,15 @@
 .card {
     transition: transform .5s;
 }
+
+.navbar-toggler-icon:focus,
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.div-hamburger {
+    margin: 0;
+    padding: 0;
+    background-color: red;
+} 

@@ -6,32 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{url_for('static',filename='css/stylesheet.css')}}" rel="stylesheet">
     <link href="{{url_for('static',filename='css/index.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/modifiers.css')}}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="{{url_for('static',filename='css/modifiers.css')}}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="">
 
     <!-- Navigation bar -->
     {% block navbar %}
-    <nav id="navbar" class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{url_for('views.index')}}">Horizon Travels</a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="collapse navbar-collapse " id="navbarNav">
+    <nav id="navbar" class="navbar navbar-dark bg-dark fixed-top p-1"> <!-- navbar-expand-sm -->
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Navbar hamburger -->
+                <div class="div-hamburger">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span><i class="fa-sharp fa-solid fa-bars"></i></span>
+                    </button>
+                </div>
+                <!-- Navbar hamburger -->
+
+                <!-- Account Button -->
+                <div>
+                    <button class="btn btn-primary" type="button">
+                        <i class="fa fa-user" aria-hidden="true">
+                        </i>
+                    </button>
+                </div>
+                <!-- Account Button -->
+            </div>
+
+            <a class="navbar-brand m-0" href="{{url_for('views.index')}}">Horizon Travels</a>
+
+            <!-- Navbar website paths -->
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav">
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="loginDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                    
+                        <div class="dropdown-menu px-2" style="">
+                            <form class="form-horizontal" method="post" accept-charset="UTF-8">
+                                <input class="form-control login" type="text" name="username" placeholder="Email address"><br>
+                                <input class="form-control login" type="password" name="password" placeholder="Password"><br>
+
+                                <div class="text-center">
+                                    <div class="btn-group w-100">
+                                        <input class="btn rounded btn-secondary me-1 w-100" type="submit" name="submit" value="Register">
+                                        <input class="btn rounded btn-primary ms-1 w-100" type="submit" name="submit" value="Login">
+                                    </div>
+                                    <p class="m-0"><span><a id="recoverPassword" href="#" style="text-decoration: none; color: rgba(var(--fe0,0,55,107),1);">Forgotten password?</a></span></p>
+                                </div>
+                            </form>
+                        </div>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{url_for('views.booking')}}">Booking</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="#">About</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- Navbar website paths -->
+
+            <!-- Account Button Navigation -->
+            <!-- <div class="collapse navbar-collapse" id="btnAccount">
+                <ul class="nav navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="loginDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="loginDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                     
                         <div class="dropdown-menu px-2" style="">
                             <form class="form-horizontal" method="post" accept-charset="UTF-8">
@@ -49,7 +108,8 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> -->
+            <!-- Account Button Navigation -->
 
         </div>
     </nav>

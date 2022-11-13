@@ -13,7 +13,10 @@ def index():
 def booking():
     return render_template('booking.html')
 
+
+
+
 @sitemap.register_generator
-def index():
+def pages():
     yield 'views.index', {}, datetime.now(), 'monthly', 0.7
     yield 'views.booking', {}, datetime.now(), 'monthly', 0.7
