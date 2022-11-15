@@ -21,9 +21,6 @@ def about():
 def legal():
     return render_template('legal.html')
 
-
-
-
 @sitemap.register_generator
 def pages():
     yield 'views.index', {}, datetime.now(), 'monthly', 0.7
