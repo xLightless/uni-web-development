@@ -1,8 +1,9 @@
 Installation process:
 
 - Online version (currently privated)
-git clone https://github.com/xLightless/Horizon-Travels.git
-pip install -r requirements.txt
+1. git clone https://github.com/xLightless/Horizon-Travels.git
+
+2. pip install -r requirements.txt
 
 - Locally:
 1. Locate the drive of the folder (If it is a UWE campus PC make sure to use 'H:' in cmd first).
