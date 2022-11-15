@@ -1,3 +1,41 @@
+/* Modifies the index html page elements only */
+
+/* Content div */
+.content {
+    height: 100vh;
+}
+
+/* Hero */
+/* Hero Carousel */
+.hero-carousel {
+    height: 45vh;
+}
+
+.carousel-border-style {
+    border-bottom-right-radius: 100px;
+}
+
+.carousel-img-style {
+    width:100%; height:45vh; object-fit: cover;
+}
+
 .c-item {
     opacity: 0.8;
 }
+
+/* Hero Bottom */
+.hero-bottom {
+    height: 55vh;
+}
+
+.form-style {
+    height: 100%;
+}
+
+.input-style {
+    border: none; border-bottom: 2px solid gray; outline: none;
+}
+
+/* Booking */
+
+/* Cards */

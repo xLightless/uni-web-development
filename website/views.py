@@ -13,6 +13,14 @@ def index():
 def booking():
     return render_template('booking.html')
 
+@views.route('/about-us')
+def about():
+    return render_template('about.html')
+
+@views.route('/terms-and-conditions')
+def legal():
+    return render_template('legal.html')
+
 
 
 
@@ -20,3 +28,5 @@ def booking():
 def pages():
     yield 'views.index', {}, datetime.now(), 'monthly', 0.7
     yield 'views.booking', {}, datetime.now(), 'monthly', 0.7
+    yield 'views.about', {}, datetime.now(), 'monthly', 0.7
+    yield 'views.legal', {}, datetime.now(), 'monthly', 0.7
