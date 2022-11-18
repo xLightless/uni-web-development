@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{url_for('static',filename='css/stylesheet.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/navbar.css')}}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
     {% block link %}{% endblock %}
@@ -12,115 +13,70 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="">
+    {% block header %}
 
-    <!-- Navigation bar -->
-    {% block navbar %}
-    <nav id="navbar" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="d-flex justify-content-between align-items-center">
-                
-                <!-- Navbar hamburger -->
-                <div class="p-1">
-                    <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="padding: 0.8rem;">
-                        <span><i class="fas fa-bars"></i></span>
-                    </button>
-                </div>
-                <!-- Navbar hamburger -->
+        {% block navbar %}
+            <a class="navbar-toggler-close collapsed" aria-label="Navbar toggle" aria-expanded="false"></a>
 
-                <!-- Account Button -->
-                <div class="p-1">
-                    <a class="btn btn-primary btn-lg" href="{{url_for('auth.account')}}" type="button">
-                        <i class="fa fa-user" aria-hidden="true">
-                        </i>
-                    </a>
-                </div>
-                <!-- Account Button -->
-
-                <div class="p-1 d-flex justify-content-end">
-                    <a class="navbar-brand" href="{{url_for('views.index')}}">Horizon Travels</a>
-                </div>
-            </div>
-
-            <!-- Navbar website paths -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav navbar-nav">
-
-                    <!-- Navbar Account old dropdown -->
-                    <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="loginDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-                    
-                        <div class="dropdown-menu px-2" style="">
-                            <form class="form-horizontal" method="post" accept-charset="UTF-8">
-                                <input class="form-control login" type="text" name="username" placeholder="Email address"><br>
-                                <input class="form-control login" type="password" name="password" placeholder="Password"><br>
-
-                                <div class="text-center">
-                                    <div class="btn-group w-100">
-                                        <input class="btn rounded btn-secondary me-1 w-100" type="submit" name="submit" value="Register">
-                                        <input class="btn rounded btn-primary ms-1 w-100" type="submit" name="submit" value="Login">
-                                    </div>
-                                    <p class="m-0"><span><a id="recoverPassword" href="#" style="text-decoration: none; color: rgba(var(--fe0,0,55,107),1);">Forgotten password?</a></span></p>
-                                </div>
-                            </form>
+            <nav id="navbar" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                <div class="container-fluid d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        
+                        <!-- Navbar hamburger -->
+                        <div class="p-1">
+                            <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="padding: 0.8rem;">
+                                <span><i class="fas fa-bars"></i></span>
+                            </button>
+                            <a class="btn btn-primary btn-lg" href="{{url_for('auth.account')}}" type="button">
+                                <i class="fa fa-user" aria-hidden="true">
+                                </i>
+                            </a>
                         </div>
-                    </li> -->
-                    <!-- Navbar Account old dropdown -->
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{url_for('views.booking')}}">Booking</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{url_for('views.about')}}">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{url_for('views.legal')}}">Legal</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- Navbar website paths -->
-
-            <!-- Account Button Navigation -->
-            <!-- <div class="collapse navbar-collapse" id="btnAccount">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="loginDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-                    
-                        <div class="dropdown-menu px-2" style="">
-                            <form class="form-horizontal" method="post" accept-charset="UTF-8">
-                                <input class="form-control login" type="text" name="username" placeholder="Email address"><br>
-                                <input class="form-control login" type="password" name="password" placeholder="Password"><br>
-
-                                <div class="text-center">
-                                    <div class="btn-group w-100">
-                                        <input class="btn rounded btn-secondary me-1 w-100" type="submit" name="submit" value="Register">
-                                        <input class="btn rounded btn-primary ms-1 w-100" type="submit" name="submit" value="Login">
-                                    </div>
-                                    <p class="m-0"><span><a id="recoverPassword" href="#" style="text-decoration: none; color: rgba(var(--fe0,0,55,107),1);">Forgotten password?</a></span></p>
-                                </div>
-                            </form>
+                        <!-- Navbar hamburger -->
+        
+                        <!-- Account Button -->
+                        <div class="p-1">
+                            <!-- <a class="btn btn-primary btn-lg" href="{{url_for('auth.account')}}" type="button">
+                                <i class="fa fa-user" aria-hidden="true">
+                                </i>
+                            </a> -->
                         </div>
-                    </li>
-                </ul>
-            </div> -->
-            <!-- Account Button Navigation -->
+                        <!-- Account Button -->
+        
+                        <div class="p-1">
+                            <a class="navbar-brand m-0" href="{{url_for('views.index')}}">Horizon Travels</a>
+                        </div>
+                    </div>
+        
+                    <!-- Navbar website paths -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="nav navbar-nav">
+        
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{url_for('views.booking')}}">Booking</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{url_for('views.about')}}">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{url_for('views.legal')}}">Legal</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Navbar website paths -->
+        
+                </div>
+            </nav>
+        {% endblock %}
 
-        </div>
-    </nav>
     {% endblock %}
-    <!-- End Navigation -->
 
-    <!-- Content -->
-    {% block content %}
-    {% endblock %}
-    <!-- End Content -->
+    {% block body %}{% endblock %}
     
-    <!-- Page Footer -->
-    {% block footer %}
-    
-    {% endblock %}
-    <!-- End Footer -->
+    {% block footer %}{% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

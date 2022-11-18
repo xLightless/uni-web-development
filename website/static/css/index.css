@@ -1,12 +1,11 @@
 /* Modifies the index html page elements only */
 
-/* Content div */
-.content {
-    height: 100vh;
+body {
+    margin: auto;
+    width: 100%;
 }
 
-/* Hero */
-/* Hero Carousel */
+/* hero */
 .hero-carousel {
     height: 45vh;
 }

@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% block link %}<link href="{{url_for('static',filename='css/index.css')}}" rel="stylesheet">{% endblock %}
-{% block title %}Horizon Travels Booking{% endblock %}
-{% block content %}
-<div id="content" class="container-fluid p-0 content">
+{% block title %}Explore with Horizon Travels{% endblock %}
 
+{% block body %}
   <!-- Hero Content -->
   <div id="hero" class="container-fluid p-0">
     <!-- Hero Top -->
@@ -161,17 +160,15 @@
         </div>
       </div>
 
-      <p>All types of travel are subject to limited availability. See <a href="#">terms and conditions</a> for more.</p>
+      <p>All types of travel are subject to limited availability. See <a href="{{url_for('views.legal')}}">terms and conditions</a> for more.</p>
 
     </div>
   </div>
   <!-- Travel locations container -->
 
-
   <!-- Booking Discount-->
   <div class="container-fluid border border-primary h-25">
   </div>
   <!-- Booking Discount-->
-</div>
-    <!-- Hero Content -->
+
 {% endblock %}
