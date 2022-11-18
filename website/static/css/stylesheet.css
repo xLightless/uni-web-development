@@ -19,19 +19,3 @@
   xl: 1200px,
   xxl: 1400px
 ); */
-
-/* The classes below are used to modify bootstrap css */
-
-.card:hover {
-    transform: scale(1.1);
-}
-
-.card {
-    transition: transform .5s;
-}
-
-.navbar-toggler-icon:focus,
-.navbar-toggler:focus {
-    box-shadow: none;
-    outline: none;
-}

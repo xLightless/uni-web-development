@@ -39,3 +39,16 @@
 /* Booking */
 
 /* Cards */
+.card:hover {
+    transform: scale(1.1);
+}
+
+.card {
+    transition: transform .5s;
+}
+
+.navbar-toggler-icon:focus,
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
