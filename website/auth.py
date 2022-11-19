@@ -1,67 +1,49 @@
 from flask import Blueprint, render_template, session, url_for, redirect, request
-from datetime import timedelta
+from website import database
 
 auth = Blueprint('auth', __name__)
-# session.permanent = timedelta(minutes = 5)
+
+# This file is for authentication purposes only
 
 @auth.route('/success/<name>')
 def success(name):
    return 'welcome %s' % name
 
-# Account routing
-@auth.route('/account/')
-def account():
-    return render_template('account.html')
+@auth.route('/login/', methods=['GET', 'POST'])
+def login():
+    """ Gets login data from the user form """
+    
+    # Used for checking the client side
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
+        return redirect(url_for('views.index'))
+    
+    # Used for when the server gets a response
+    if request.method == 'GET':
+        for i in session.keys():
+            if i in session:
+                if i == 'username':
+                    print("username : " +session[i])
+                    return redirect(url_for('views.account_page'))
+    
+    return render_template('login.html')
 
-@auth.route('/account/register')
+# Account routing
+@auth.route('/account/', methods=['POST', 'GET'])
+def account():
+    if session.get('username') == None:
+        return redirect(url_for('auth.login'))
+    elif session.get('username') != None:
+        return redirect(url_for('views.account_page'))
+
+@auth.route('/account/register/')
 def register():
     return render_template('register.html')
 
-@auth.route('/account/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        session['password'] = request.form['password']
-        print(username)
-        return redirect(url_for('views.index'))
-    if request.method == 'GET':
-        username = request.args.get('username')
-        password = request.args.get('password')
-        
-    return render_template('login.html')
-    
-    
-    
-    
-    
-    
-
-# @auth.route('/account/<arguments>', methods = ['POST', 'GET'])
-# def account_post(arguments:str):
-#     """ Handles account URL manipulation """
-    
-#     # This variable will be changed for an SQL database quiery
-#     logged_in = True
-    
-#     # Tuple containing url points
-#     account_args = (
-#         "register",
-#         "login",
-#         "logout"
-#     )
-    
-#     for args in account_args:
-#         if args == arguments:
-#             return render_template(f'{arguments}.html')
-    
-#     if request.method == 'POST':
-#         username = request.form['password']
-#         password = request.form['password']
-#         return redirect(url_for('auth.success', name = username))
-    
-#     if request.method == 'GET':
-#         username = request.args.get('username')
-#         return redirect(url_for('auth.success', name = username))
-        
-    
-    
+@auth.route('/account/logout/') 
+def logout():
+    for key in list(session.keys()):
+        session.pop(key, None)
+        session.clear()
+    return redirect(url_for('views.index'))

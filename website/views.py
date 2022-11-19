@@ -9,17 +9,22 @@ views = Blueprint('views', __name__)
 def index():
     return render_template('index.html')
 
-@views.route('/booking')
+@views.route('/booking/')
 def booking():
     return render_template('booking.html')
 
-@views.route('/about-us')
+@views.route('/about-us/')
 def about():
     return render_template('about.html')
 
-@views.route('/terms-and-conditions')
+@views.route('/terms-and-conditions/')
 def legal():
     return render_template('legal.html')
+
+@views.route('/account/')
+def account_page():
+    """ Used to display a logged in user account info """
+    return render_template('account.html')
 
 @sitemap.register_generator
 def pages():

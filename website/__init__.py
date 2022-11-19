@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from flask_sitemap import Sitemap
+from datetime import timedelta
 
 sitemap = Sitemap()
 
@@ -11,7 +12,8 @@ def create_flask_app():
     """ Creates a flask application """
     
     app = Flask(__name__, static_url_path='/static')
-    app.config['SECRET_KEY'] = '192b9dec89xz1281has1jkl12jk12hb38i0a08asdnas'
+    app.secret_key = '192b9dec89xz1281has1jkl12jk12hb!][etr]#a1jhz38i0a08asdnas'
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=20)
     
     from .auth import auth
     from .views import views
