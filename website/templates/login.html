@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block header %}{% endblock %}
+{% block body %}
+    <div class="d-flex justify-content-center align-items-center m-3 p-3"  style="height: 100vh">
+        <form action="" method="post" class="">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter a username..." value="{{
+                    request.form.username }}">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter a password..." value="{{
+                    request.form.password }}">
+                <small class="form-text d-block">We will not share your information with anyone.</small>
+            </div>
+            <div class="form-group">
+                <label>No account? <span>Register <a href="{{url_for('auth.register')}}">here.</a></span></label>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+{% endblock %}

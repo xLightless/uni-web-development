@@ -9,3 +9,8 @@
 .navbar-toggler-close.collapsed {
     z-index: -1;
 }
+
+.navbar-brand.style {
+    position: absolute;
+    right: 0;
+}
