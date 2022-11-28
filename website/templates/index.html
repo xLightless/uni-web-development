@@ -43,71 +43,35 @@
     <!-- Hero Top -->
 
     <!-- Hero Bottom -->
-    <div class="container-lg d-flex justify-content-center align-items-center hero-bottom">
+    <div class="container-lg hero-bottom d-flex justify-content-center align-items-center">
       <div class="row w-100">
         <!-- Horizon Travels slogan -->
-        <div class="col-lg d-flex flex-column justify-content-center align-items-center">
+        <div class="col-lg d-flex flex-column justify-content-center align-items-center my-5">
           <h1 class="text-center">Horizon Travels</h1>
-          <h6 class="text-center"><i>Travel more for less.</i></h6>
+          <h5 class="text-center"><i>Travel more for less.</i></h5>
         </div>
         <!-- Horizon Travels slogan -->
         
         <!-- Travel for less booking form -->
-        <div class="col-lg">
-          <form class="d-flex flex-column justify-content-center align-items-center form-style">
+        <div class="col-lg d-flex justify-content-center align-items-center">
+          <form class="form-style">
 
-            <!-- Type of Traverse -->
-            <div class="d-flex justify-content-center">
-              <div class="form-check ms-2 me-2">
-                <input class="form-check-input" type="radio">
-                <label class="form-check-label">Plane</label>
-              </div>
-
-              <div class="form-check ms-2 me-2">
-                <input class="form-check-input" type="radio">
-                <label class="form-check-label">Train</label>
-              </div>
-
-              <div class="form-check ms-2 me-2">
-                <input class="form-check-input" type="radio">
-                <label class="form-check-label">Coach</label>
-              </div>
-
-              <div class="form-check ms-2 me-2">
-                <input class="form-check-input" type="radio">
-                <label class="form-check-label">Taxi</label>
-              </div>
+            <div class="input-group input-group-lg w-100">
+              <input type="text" class="form-control" placeholder="Origin" id="originLocation" required>
+              <span class="input-group-text"><i class="fa-solid fa-arrow-right"></i></span>
+              <input type="text" class="form-control" placeholder="Destination" id="destinat ionLocation" required>
+            
             </div>
-              <!-- Type of Traverse -->
 
-            <!-- Location Search -->
-            <div class="row w-100 mt-2 mb-2">
-              <input class="mt-1 mb-1 input-style" type="text" placeholder="Enter city or location...">
-              <input class="mt-1 mb-1 input-style" type="text" placeholder="Enter destination...">
+            <div class="input-group input-group-lg w-100">
+              <input type="datetime-local" class="form-control" id="datetimeOut" required>
+              <span class="input-group-text"><i class="fa-solid fa-arrow-right"></i></span>
+              <input type="datetime-local" class="form-control" id="datetimeReturn" required>
             </div>
-            <!-- Location Search -->
-
-            <!-- Type of Travel -->
-            <div class="d-flex justify-content-center">
-              <div class="form-check ms-2 me-2">
-                <input class="form-check-input" type="radio">
-                <label class="form-check-label">One way</label>
-              </div>
-
-              <div class="form-check ms-2 me-2">
-                <input class="form-check-input" type="radio">
-                <label class="form-check-label">Return</label>
-              </div>
+            <div class="form-group form-group-lg w-100 mt-3">
+              <button type="submit" class="btn btn-primary btn-gradient w-100">Search</button>
             </div>
-            <!-- Type of Travel -->
 
-            <!-- Search Button -->
-            <div class="row d-flex justify-content-center w-75 mt-2 mb-2">
-              <button type="button" class="btn btn-success">
-                <h5>Get prices now</h5>
-              </button>
-            </div>
-            <!-- Search Button -->
           </form>
         </div>
         <!-- Travel for less booking form -->

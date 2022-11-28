@@ -31,7 +31,13 @@
                                 <i class="fa-solid fa-user"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                                <li><a class="dropdown-item" href="{{url_for('auth.account')}}">Account</a></li>
+                                {% if session['logged_in'] %}
+                                    <li><a class="dropdown-item" href="{{url_for('auth.account')}}">{{session['username'] | capitalize}} Account</a></li>
+                                    <div style="height: 5px; border-bottom: 1px solid gray;"></div>
+                                    <li><a class="dropdown-item" href="{{url_for('auth.logout')}}"><div>Logout</div></a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{{url_for('auth.login')}}">Login</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         

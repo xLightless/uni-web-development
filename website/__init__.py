@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template
 from flask_sitemap import Sitemap
 from datetime import timedelta
 
@@ -17,6 +17,7 @@ def create_flask_app():
     
     from .auth import auth
     from .views import views
+    from .database import database
     
     # Registers URL pointers
     app.register_blueprint(views, url_prefix='/')
