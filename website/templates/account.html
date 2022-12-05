@@ -3,6 +3,10 @@
 
 {% block body %}
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh; width: 100vw">
-        <p>This page is supposed to only show when the user is logged into their account </p>
+        {% if session["logged_in"] %}
+            <!-- Account code -->
+        {% else %}
+            <span style="font-size: 2rem">It appears you are not logged in. Please create an <a href="{{url_for('auth.register')}}">account</a> or <a href="{{url_for('auth.login')}}">login</a> to view this page.</span>
+        {% endif %}
     </div>
 {% endblock %}

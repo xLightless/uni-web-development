@@ -6,3 +6,10 @@ font-awesome
 
 they are all royalty free and anyone can use the images.
 i may change them in the future though.
+
+
+https://fontawesome.com/icons/facebook?s=&f=brands
+https://fontawesome.com/v5/icons/copyright?s=regular&f=classic
+<i class="fa-brands fa-facebook"></i>
+<i class="fa-brands fa-twitter"></i>
+<i class="fa-brands fa-cc-paypal"></i>

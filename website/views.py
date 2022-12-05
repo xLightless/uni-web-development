@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from datetime import datetime
 
 from website import sitemap
@@ -9,8 +9,10 @@ views = Blueprint('views', __name__)
 def index():
     return render_template('index.html')
 
-@views.route('/booking/')
+@views.route('/booking/', methods=['GET', 'POST'])
 def booking():
+    if session.get('username') is None:
+        return redirect(url_for('views.account_page'))
     return render_template('booking.html')
 
 @views.route('/about-us/')
