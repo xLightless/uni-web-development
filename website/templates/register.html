@@ -2,5 +2,76 @@
 {% block header %}{% endblock %}
 
 {% block body %}
-<p>this is the register page</p>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .body-wrapper {
+        min-height: 100vh;
+    }
+</style>
+
+<div class="body-wrapper d-flex justify-content-center align-items-center p-5 m-2">
+    <div class="row w-100">
+        <div class="col d-block d-flex justify-content-center align-items-center p-3">
+            <h1 class="display-6 text-center">
+                Create an Account
+            </h1>
+        </div>
+        <div class="col-sm-8 d-block">
+            <form class="">
+                <div class="mb-2 form-group">
+                    <label class="form-label">Email Address:</label>
+                    <input type="email" class="form-control" required>
+                </div>
+    
+                <div class="mb-2 form-group">
+                    <label class="form-label">Username:</label>
+                    <input type="text" class="form-control" required>
+                </div>
+        
+                <div class="mb-2 form-group">
+                    <label class="form-label">Password:</label>
+                    <input type="password" class="form-control" required>
+                </div>
+        
+                <div class="mb-2 form-group">
+                    <label class="form-label">Confirm Password:</label>
+                    <input type="password" class="form-control" required>
+                </div>
+        
+                <div class="mb-2 form-group">
+                    <label class="form-label">First Name:</label>
+                    <input type="text" class="form-control" required>
+                </div>
+        
+                <div class="mb-2 form-group">
+                    <label class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" required>
+                </div>
+        
+                <div class="mb-2 form-outline">
+                    <label class="form-label" for="dateOfBirth">Date of Birth:</label>
+                    <input type="date" class="form-control" required>
+                </div>
+    
+                <div class="mb-2 form-group">
+                    <label class="form-label">Phone Number:</label>
+                    <input type="number" class="form-control" required>
+                </div>
+    
+                <div class="m-2 form-group form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label">You must agree to the <a href="{{url_for('views.legal')}}">terms and conditions</a></label>
+                </div>
+
+                <div class="mt-5 mb-2 form-group">
+                    <button type="submit" class="btn btn-primary form-control">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

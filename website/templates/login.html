@@ -5,21 +5,23 @@
 {% block body %}
     <div class="d-flex justify-content-center align-items-center m-3 p-3"  style="height: 100vh">
         <form action="/auth/login/" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
+            <div class="form-group m-2">
+                <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" required placeholder="Enter a username..." value="{{
-                    request.form.username }}">
+                    request.form.username }}" class="form-control">
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
+            <div class="form-group m-2">
+                <label for="password" class="form-label">Password</label>
                 <input type="password" id="password" name="password" required placeholder="Enter a password..." value="{{
-                    request.form.password }}">
+                    request.form.password }}" class="form-control">
                 <small class="form-text d-block">We will not share your information with anyone.</small>
             </div>
-            <div class="form-group">
-                <label>No account? <span>Register <a href="{{url_for('auth.register')}}">here.</a></span></label>
+            <div class="form-group m-2">
+                <button type="submit" class="btn btn-primary form-control">Login</button>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="form-group m-2">
+                <label class="form-label">No account? <span>Register <a href="{{url_for('auth.register')}}">here.</a></span></label>
+            </div>
         </form>
     </div>
 {% endblock %}

@@ -14,7 +14,7 @@
 
 body {
   /* Allows the navbar to sit above body to prevent overlap */
-  padding-top: 64px; 
+  padding-top: 64px;
 }
 
 .navbar {
@@ -45,8 +45,7 @@ body {
 ); */
 
 footer {
-  position: fixed;
-  bottom: 0;
+  display: block;
   width: 100%;
 }
 
