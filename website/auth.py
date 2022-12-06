@@ -1,9 +1,32 @@
 from flask import Blueprint, render_template, session, url_for, redirect, request
-from website import database
+from website.database.database import db
 
 auth = Blueprint('auth', __name__)
 
 # This file is for authentication purposes only
+
+class AuthenticateUser(object):
+    def __init__(
+        self,
+        email = None,
+        username = None,
+        password = None
+    ) -> str:
+        
+        self.email = (request.form.get("email") if email is None else email)
+        self.__username = (request.form.get("username") if username is None else username)
+        self.__password = (request.form.get("password") if password is None else password)
+        
+        self.__confirm_password = request.form.get("confirmPassword")
+        
+        first_name = request.form.get("legalFirstName")
+        last_name = request.form.get("legalLastName")
+        dob = request.form.get("dob")
+        phone_number = request.form.get("phoneNumber")
+        is_tos_checked = request.form.get("isTOSChecked")
+        
+    def validate_user(*args):
+        print(args)
 
 def contains(string:str, has:str):
     """ Checks if an iterable object contains some element of string type """
@@ -28,7 +51,10 @@ def login():
             return redirect(url_for('views.index'))
         else:
             login_error = 'Invalid username or password used.'
+            print(login_error)
             return render_template('login.html')
+    
+    au = AuthenticateUser()
     
     # Used for when the server gets a response
     if request.method == 'GET':
@@ -50,12 +76,29 @@ def account():
         return redirect(url_for('views.account_page'))
 
 
-@auth.route('/account/register/')
+@auth.route('/account/register/', methods=['POST', 'GET'])
 def register():
     # register_error = None
     # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
     # if contains(str(session['password']), special_chars) == False:
     #     register_error = 'Invalid use of special characters'
+    
+    if request.method == 'POST':
+        error = None
+        
+        # Account Session
+        session['email']            = request.form['email']
+        session['username']         = request.form['username']
+        session['password']         = request.form['password']
+        
+        # # Customer info of account
+        # session['legalFirstName']   = request.form['legalFirstName']
+        # session['legalLastName']    = request.form['legalLastName']
+        # session['dob']              = request.form['dob']
+        # session['phoneNumber']      = request.form['phoneNumber']
+        # session['isTOSChecked']     = request.form['isTOSChecked']           
+            
+        
     return render_template('register.html')
 
 @auth.route('/account/logout/') 
