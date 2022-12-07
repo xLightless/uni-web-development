@@ -13,7 +13,7 @@ class AuthenticateUser(object):
         password = None
     ) -> str:
         
-        self.email = (request.form.get("email") if email is None else email)
+        self.__email = (request.form.get("email") if email is None else email)
         self.__username = (request.form.get("username") if username is None else username)
         self.__password = (request.form.get("password") if password is None else password)
         
@@ -25,8 +25,12 @@ class AuthenticateUser(object):
         phone_number = request.form.get("phoneNumber")
         is_tos_checked = request.form.get("isTOSChecked")
         
-    def validate_user(*args):
-        print(args)
+    def is_user_in_database(self):
+        """ Checks if the user is in account table else append new data """
+        pass
+        
+    def validate_credentials(self, email:str, password:str):
+        pass
 
 def contains(string:str, has:str):
     """ Checks if an iterable object contains some element of string type """
