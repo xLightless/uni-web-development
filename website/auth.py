@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, session, url_for, redirect, request
 
+from website.database import Database
+
 auth = Blueprint('auth', __name__)
 
 # This file is for authentication purposes only
@@ -23,13 +25,6 @@ class AuthenticateUser(object):
         dob = request.form.get("dob")
         phone_number = request.form.get("phoneNumber")
         is_tos_checked = request.form.get("isTOSChecked")
-        
-    def is_user_in_database(self):
-        """ Checks if the user is in account table else append new data """
-        pass
-        
-    def validate_credentials(self, email:str, password:str):
-        pass
 
 def contains(string:str, has:str):
     """ Checks if an iterable object contains some element of string type """
@@ -57,8 +52,6 @@ def login():
             print(login_error)
             return render_template('login.html')
     
-    au = AuthenticateUser()
-    
     # Used for when the server gets a response
     if request.method == 'GET':
         for key in session.keys():
@@ -79,28 +72,14 @@ def account():
         return redirect(url_for('views.account_page'))
 
 
-@auth.route('/account/register/', methods=['POST', 'GET'])
+@auth.route('/account/register/', methods=['GET', 'POST'])
 def register():
     # register_error = None
     # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
     # if contains(str(session['password']), special_chars) == False:
     #     register_error = 'Invalid use of special characters'
     
-    if request.method == 'POST':
-        error = None
-        
-        # Account Session
-        session['email']            = request.form['email']
-        session['username']         = request.form['username']
-        session['password']         = request.form['password']
-        
-        # # Customer info of account
-        # session['legalFirstName']   = request.form['legalFirstName']
-        # session['legalLastName']    = request.form['legalLastName']
-        # session['dob']              = request.form['dob']
-        # session['phoneNumber']      = request.form['phoneNumber']
-        # session['isTOSChecked']     = request.form['isTOSChecked']           
-            
+    
         
     return render_template('register.html')
 

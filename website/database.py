@@ -5,7 +5,7 @@ import pandas as pd
 # Disables pandas sql warning
 warnings.simplefilter(action='ignore', category=UserWarning)
 
-class DatabaseHandler(object):
+class Database(object):
     def __init__(
         self,
         host:str = "localhost",
@@ -13,7 +13,7 @@ class DatabaseHandler(object):
         password:str = "password1",
         database:str = "horizon_travels"
     ) -> str:
-        """ Handles database connections """
+        """ Establish mysql connection """
     
         self.__db = mysql.connector.connect(
             host = host,
@@ -115,9 +115,3 @@ class DatabaseHandler(object):
                     return record[x]
         except IndexError:
             pass
-
-database = DatabaseHandler()
-# print(database.get_table('account'))
-# print(database.get_table_cell('account','accountID', 0))
-# print(database.get_table_record('account', 0, True))
-# print(database.get_table_header_x('account', 'accountID'))

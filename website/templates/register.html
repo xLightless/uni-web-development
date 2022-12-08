@@ -25,59 +25,59 @@
                 <div class="mb-2 form-group">
                     <label class="form-label">Email Address:</label>
                     <input type="email" id="email" name="email" class="form-control" value="{{
-                        request.form.email }}" required>
+                        request.form.email }}" >
                 </div>
     
                 <div class="mb-2 form-group">
                     <label class="form-label">Username:</label>
                     <input type="text" id="username" name="username" class="form-control" value="{{
-                        request.form.username }}" required>
+                        request.form.username }}" >
                 </div>
         
                 <div class="mb-2 form-group">
                     <label class="form-label">Password:</label>
                     <input type="password" id="password" name="password" class="form-control" value="{{
-                        request.form.password }}" required>
+                        request.form.password }}" >
                 </div>
         
                 <div class="mb-2 form-group">
                     <label class="form-label">Confirm Password:</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" value="{{
-                        request.form.confirmPassword }}" required>
+                        request.form.confirmPassword }}" >
                 </div>
         
                 <div class="mb-2 form-group">
                     <label class="form-label">First Name:</label>
                     <input type="text" id="legalFirstName" name="legalFirstName" class="form-control" value="{{
-                        request.form.legalFirstName }}" required>
+                        request.form.legalFirstName }}" >
                 </div>
         
                 <div class="mb-2 form-group">
                     <label class="form-label">Last Name:</label>
                     <input type="text" id="legalLastName" name="legalLastName" class="form-control" value="{{
-                        request.form.legalLastName }}" required>
+                        request.form.legalLastName }}" >
                 </div>
         
                 <div class="mb-2 form-outline">
                     <label class="form-label" for="dateOfBirth">Date of Birth:</label>
                     <input type="date" id="dob" name="dob" class="form-control" value="{{
-                        request.form.dob }}" required>
+                        request.form.dob }}" >
                 </div>
     
                 <div class="mb-2 form-group">
                     <label class="form-label">Phone Number:</label>
                     <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" value="{{
-                        request.form.phoneNumber }}" required>
+                        request.form.phoneNumber }}" >
                 </div>
     
                 <div class="m-2 form-group form-check">
                     <input class="form-check-input" type="checkbox" id="isTOSChecked" name="isTOSChecked"value="{{
-                        request.form.isTOSChecked }}" required>
+                        request.form.isTOSChecked }}" >
                     <label class="form-check-label">You must agree to the <a href="{{url_for('views.legal')}}">terms and conditions</a></label>
                 </div>
 
                 <div class="mt-5 mb-2 form-group">
-                    <button type="submit" class="btn btn-primary form-control">Register</button>
+                    <input type="submit" class="btn btn-primary form-control" value="Register">
                 </div>
             </form>
         </div>
