@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, session, url_for, redirect, request
-from website.database.database import db
 
 auth = Blueprint('auth', __name__)
 
