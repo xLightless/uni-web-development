@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block header %} {% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center align-items-center w-100" style="margin: 0; padding: 0; min-height: 100vh;">
+        <p>It seems you already have account, please login <a href="{{url_for('auth.login')}}">here</a>.</p>
+    </div>
+{% endblock %}
+
+{% block footer %} {% endblock %}

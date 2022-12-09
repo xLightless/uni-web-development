@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, session, url_for, redirect, reques
 from website.database import Database
 
 auth = Blueprint('auth', __name__)
+database = Database()
 
 # This file is for authentication purposes only
 
@@ -60,7 +61,15 @@ def login():
                     print("username : " +session[key])
                     return redirect(url_for('views.account_page'))
     
+    
+    
+    
+    
     return render_template('login.html')
+
+# @auth.route('/login/<email>/<password>/')
+# def form_login(email, password):
+#     return ""
 
 # Account routing
 @auth.route('/account/', methods=['GET','POST'])
@@ -72,16 +81,75 @@ def account():
         return redirect(url_for('views.account_page'))
 
 
-@auth.route('/account/register/', methods=['GET', 'POST'])
+@auth.route('/account/register/', methods=['POST', 'GET'])
 def register():
     # register_error = None
     # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
     # if contains(str(session['password']), special_chars) == False:
     #     register_error = 'Invalid use of special characters'
     
-    
+    if request.method == 'POST':
+        email_ = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        check_password = request.form['confirmPassword']
+        first_name = request.form['legalFirstName']
+        last_name = request.form['legalLastName']
+        date_of_birth = request.form['dob']
+        telephone = request.form['phoneNumber']
         
-    return render_template('register.html')
+        session['password'] = password
+        session['confirmPassword'] = check_password
+        
+        return redirect(url_for(
+            'auth.form_register',
+            email=email_,
+            name=username,
+            secret=password,
+            csecret=check_password,
+            fname=first_name,
+            lname=last_name,
+            dob=date_of_birth,
+            phonenumber=telephone
+            )
+        )
+    else:
+        return render_template('register.html')
+        
+    # return render_template('register.html')
+
+@auth.route('/account/register/<email>/<name>/<secret>/<csecret>/<fname>/<lname>/<dob>/<phonenumber>/')
+def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
+    """ Registers the user using entered form data """
+    
+    error = None
+    email_in_table = database.is_value_in_table(table='customer', column_name='email', value=str(email))
+    if email_in_table == True:
+        # Update the page and tell the user information is invalid
+        return render_template('bad_login.html')
+    
+    if email_in_table == False:
+        
+        # If account not made before then check form data conditions and create an account
+        if (str(session.get('password')) == str(session.get('confirmPassword'))):
+        
+            # Set customer record data first to obtain customerID for account table customerID
+            database.set_table_record(table='customer', pk_id=database.count_table_rows('customer')+1, values=(email, fname, lname, dob, phonenumber))
+            
+            # Set account record data
+            database.set_table_record(table='account', pk_id=database.count_table_rows('account')+1, values=(name, secret, '0', 'Normal', str(database.count_table_rows('customer'))))
+        
+            return redirect(url_for('auth.login'))
+        
+        if not (str(session.get('password')) == str(session.get('confirmPassword'))):
+            error = "Confirm password and password do not match!"
+            print(error)
+            return redirect(url_for('auth.register'))
+        
+        
+        # return redirect(url_for('auth.register'))
+        return "<h3>No email found in table but other parameters are incorrect which lead you to this page</h3>"
+
 
 @auth.route('/account/logout/') 
 def logout():
