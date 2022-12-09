@@ -53,7 +53,7 @@ class Database(object):
         return df
     
     def get_table_header_x(self, table:str, column_name:str):
-        """ Returns the integer position of a table column name
+        """ Returns the integer position and name of a table column name
 
         Args:
             table (str): Name of the table.
@@ -125,7 +125,7 @@ class Database(object):
 
         Args:
             table (str): Name of the table.
-            column (str): The column name in 'table'.
+            column_name (str): The column name in 'table'.
             row (int): The iterable row of the record.
         """
         
@@ -177,21 +177,91 @@ class Database(object):
         self.cursor.execute(query)
         self.__db.commit()
         
-    def is_value_in_table(self, table:str, column_name:str, value:str):
+    def is_value_in_table(self, table:str, column_name:str, value:str) -> bool:
         """ Checks if value is in a table already """
-
+        
         # Probably an inefficient method on a large scale of table data
-        # Checks if table is empty and returns False if so
-        if len(self.get_table_column(table, column_name=column_name)[1]) == 0:
-            return False
-        else:
-            # If not empty and has value return True
-            for column in self.get_table_column(table, column_name=column_name)[1]:
-                for row in column:
-                    if str(row) == value:
-                        return True
+        # Checks if table is empty and returns False if so        
+        table_column = self.get_table_column(table, column_name=column_name)[1]
+        for column in table_column:
+            for row in column:
+                if row == value:
+                    return True if row == value else False
+        # return True if row == value else False
+    
+    def get_table_record_y(self, table:str, column_name:str, value:str):
+        """ Returns the integer value of a tuple row
 
-            
-# db = Database()
-# x = db.is_value_in_table('customer', 'email', 'lightlessgaming@gmail.com')
-# print(x)
+        Args:
+            table (str): Name of the table.
+            column_name (str): The column name in 'table'.
+            value (str): The value in 'column_name' to return integer position
+
+        Returns:
+            _type_: _description_
+        """
+        
+        tbl = self.get_table_column(table, column_name)[1]
+        row_int = 0
+        for column in tbl:
+            for row in column:
+                row_int += 1
+                if row == value:
+                    # break
+                    return (row, row_int)
+    
+    def get_map_of(self, table:str, column_name:str, value:str):
+        """ Returns the physical table (row, col) number of f(X) -> Y.
+            Can be really useful for comparing coordinates of a table to their values.
+
+        Args:
+            table (str): Name of the table.
+            column_name (str): The column name in 'table'.
+            value (str): The value in 'column_name' to return integer position.
+
+        Returns:
+            tuple (int, int): x and y of 'table'.
+        """
+        # Get table col x
+        # column_name = self.get_table_header_x(table, column_name)[0]
+        
+        x = self.get_table_header_x(table, column_name)[1]
+        y = self.get_table_record_y(table, column_name, value=value)[1]
+        return (x, y)
+    
+    def get_key_shift_value(self, table1:str, table2:str, primary_key:str, x1:int, column_name:str, value:str, x2:int) -> str:
+        """ Compare two tables to see if key values exist on both then return a value of x2
+
+        Args:
+            table1 (str): Parent table.
+            table2 (str): Child table.
+            primary_key (str): The key to compare.
+            x1 (int): Used to get on the left or right of the parent table cell. Subtracted by default.
+            x2 (int): Move left or right of the child table cell to get a value.
+            column_name (str): The column_name of the child table.
+            value (str): The data used to reference left or right data of the parent table.
+
+        Returns:
+            str: Child table left or right cell data
+        """
+
+        # Map email cell
+        table1_map = self.get_map_of(table1, column_name, value)                # (2, 1)
+
+        # Gets the customerID from email
+        table1_xy = (table1_map[0]-x1, table1_map[1])                          # PK CID  (1, 1)
+
+        # Map customerID to account from customer map
+        table2_map = self.get_map_of(table2, primary_key, table1_map[1])       # FK CID(6, 1)
+        table2_xy = (table2_map[0], table2_map[1])
+
+        # Check if both locations are customerID then do something
+        table1_head = self.get_table_header_x(table1, primary_key)[1]
+        
+        foreign_key = primary_key
+        table2_head = self.get_table_header_x(table2, foreign_key)[1]
+        
+        # Checks if map(x) = table_header_x
+        if ((table1_xy[0] == table1_head) and (table2_xy[0] == table2_head)):
+            record = self.get_table_record(table2, table2_xy[1]-1)
+            return str(record[x2])

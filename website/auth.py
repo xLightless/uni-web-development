@@ -31,45 +31,77 @@ def contains(string:str, has:str):
     """ Checks if an iterable object contains some element of string type """
     return True if any(i in has for i in string) else False
 
-@auth.route('/success/<name>')
-def success(name):
-   return 'welcome %s' % name
-
 @auth.route('/login/', methods=['GET', 'POST'])
 def login():
     """ Gets login data from the user form """
     
-    # Used for checking the client side
-    if request.method == 'POST':
-        login_error = None
-        session['username'] = request.form['username']
-        session['password'] = request.form['password']
+    # # Used for checking the client side
+    # if request.method == 'POST':
+    #     login_error = None
+    #     session['username'] = request.form['username']
+    #     session['password'] = request.form['password']
         
-        if (session['username']) and (len(str(session['password'])) >= 8) and (login_error is None):
-            session['logged_in'] = True
-            return redirect(url_for('views.index'))
-        else:
-            login_error = 'Invalid username or password used.'
-            print(login_error)
-            return render_template('login.html')
+    #     if (session['username']) and (len(str(session['password'])) >= 8) and (login_error is None):
+    #         session['logged_in'] = True
+    #         return redirect(url_for('views.index'))
+    #     else:
+    #         login_error = 'Invalid username or password used.'
+    #         print(login_error)
+    #         return render_template('login.html')
     
-    # Used for when the server gets a response
-    if request.method == 'GET':
-        for key in session.keys():
-            if key in session:
-                if key == 'username':
-                    print("username : " +session[key])
-                    return redirect(url_for('views.account_page'))
+    # # Used for when the server gets a response
+    # if request.method == 'GET':
+    #     for key in session.keys():
+    #         if key in session:
+    #             if key == 'username':
+    #                 print("username : " +session[key])
+    #                 return redirect(url_for('views.account_page'))
     
-    
-    
-    
-    
+    if request.method == 'POST':
+        login_input_email = request.form['loginEmail']
+        login_input_password = request.form['password']
+        
+        return redirect(url_for(
+            'auth.form_login',
+            email=login_input_email,
+            password=login_input_password
+            )
+        )
+
     return render_template('login.html')
 
-# @auth.route('/login/<email>/<password>/')
-# def form_login(email, password):
-#     return ""
+@auth.route('/login/<email>/<password>/')
+def form_login(email, password):
+
+    login_error = None
+    # Fixes some string issues when returning values
+    email_str = "".join((email)).replace(' ', '')
+    password_str = "".join((password)).replace(' ', '')
+    
+    # Check if form input email and password exist in relative tables
+    email_in_table = database.is_value_in_table(table='customer', column_name='email', value=str(email_str))
+    password_in_table = database.is_value_in_table(table='account', column_name='password', value=str(password_str))
+    print(email_in_table, password_in_table)
+    
+    if (email_in_table == True) and (password_in_table == True):
+        session['logged_in'] = True
+        
+        session['username'] = database.get_key_shift_value(
+            table1='customer',
+            table2='account',
+            primary_key='customerID',
+            x1=1,
+            column_name='email',
+            value=email_str,
+            x2=1
+        )
+        
+        
+        return redirect(url_for('views.index'))
+    else:
+        login_error = 'Invalid username or password used.'
+        print(login_error)
+        return redirect(url_for('auth.login'))
 
 # Account routing
 @auth.route('/account/', methods=['GET','POST'])
@@ -148,7 +180,7 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
         
         
         # return redirect(url_for('auth.register'))
-        return "<h3>No email found in table but other parameters are incorrect which lead you to this page</h3>"
+        return "<h3>Email not found in table but other parameters that are incorrect lead you to this page</h3>"
 
 
 @auth.route('/account/logout/') 
