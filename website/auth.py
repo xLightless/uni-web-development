@@ -26,6 +26,8 @@ class AuthenticateUser(object):
         dob = request.form.get("dob")
         phone_number = request.form.get("phoneNumber")
         is_tos_checked = request.form.get("isTOSChecked")
+        
+    def set_password_hash(self): pass
 
 def contains(string:str, has:str):
     """ Checks if an iterable object contains some element of string type """
@@ -34,28 +36,6 @@ def contains(string:str, has:str):
 @auth.route('/login/', methods=['GET', 'POST'])
 def login():
     """ Gets login data from the user form """
-    
-    # # Used for checking the client side
-    # if request.method == 'POST':
-    #     login_error = None
-    #     session['username'] = request.form['username']
-    #     session['password'] = request.form['password']
-        
-    #     if (session['username']) and (len(str(session['password'])) >= 8) and (login_error is None):
-    #         session['logged_in'] = True
-    #         return redirect(url_for('views.index'))
-    #     else:
-    #         login_error = 'Invalid username or password used.'
-    #         print(login_error)
-    #         return render_template('login.html')
-    
-    # # Used for when the server gets a response
-    # if request.method == 'GET':
-    #     for key in session.keys():
-    #         if key in session:
-    #             if key == 'username':
-    #                 print("username : " +session[key])
-    #                 return redirect(url_for('views.account_page'))
     
     if request.method == 'POST':
         login_input_email = request.form['loginEmail']
@@ -115,10 +95,6 @@ def account():
 
 @auth.route('/account/register/', methods=['POST', 'GET'])
 def register():
-    # register_error = None
-    # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
-    # if contains(str(session['password']), special_chars) == False:
-    #     register_error = 'Invalid use of special characters'
     
     if request.method == 'POST':
         email_ = request.form['email']
@@ -156,11 +132,8 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
     
     error = None
     email_in_table = database.is_value_in_table(table='customer', column_name='email', value=str(email))
-    if email_in_table == True:
-        # Update the page and tell the user information is invalid
-        return render_template('bad_login.html')
     
-    if email_in_table == False:
+    if email_in_table != True:
         
         # If account not made before then check form data conditions and create an account
         if (str(session.get('password')) == str(session.get('confirmPassword'))):
@@ -178,9 +151,7 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
             print(error)
             return redirect(url_for('auth.register'))
         
-        
-        # return redirect(url_for('auth.register'))
-        return "<h3>Email not found in table but other parameters that are incorrect lead you to this page</h3>"
+    return render_template('bad_login.html')
 
 
 @auth.route('/account/logout/') 
@@ -190,3 +161,13 @@ def logout():
         session.clear()
     session['logged_in'] = False
     return redirect(url_for('views.index'))
+
+
+
+
+        
+            # register_error = None
+            # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
+            # if contains(str(), special_chars) == False:
+            #     register_error = 'Invalid use of special characters'
+            #     print(register_error)
