@@ -2,8 +2,10 @@ from flask import Blueprint, render_template, session, url_for, redirect, reques
 
 from website.database import Database
 
+import time
+
 auth = Blueprint('auth', __name__)
-database = Database()
+database = Database(database="ht_database")
 
 # This file is for authentication purposes only
 
@@ -59,22 +61,22 @@ def form_login(email, password):
     password_str = "".join((password)).replace(' ', '')
     
     # Check if form input email and password exist in relative tables
-    email_in_table = database.is_value_in_table(table='customer', column_name='email', value=str(email_str))
-    password_in_table = database.is_value_in_table(table='account', column_name='password', value=str(password_str))
+    email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email_str))
+    password_in_table = database.is_value_in_table(table='accounts', column_name='password', value=str(password_str))
     print(email_in_table, password_in_table)
     
     if (email_in_table == True) and (password_in_table == True):
         session['logged_in'] = True
         
-        session['username'] = database.get_key_shift_value(
-            table1='customer',
-            table2='account',
-            primary_key='customerID',
-            x1=1,
-            column_name='email',
-            value=email_str,
-            x2=1
-        )
+        # session['username'] = database.get_key_shift_value(
+        #     table1='customer',
+        #     table2='account',
+        #     primary_key='customerID',
+        #     x1=1,
+        #     column_name='email',
+        #     value=email_str,
+        #     x2=1
+        # )
         
         
         return redirect(url_for('views.index'))
@@ -131,7 +133,7 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
     """ Registers the user using entered form data """
     
     error = None
-    email_in_table = database.is_value_in_table(table='customer', column_name='email', value=str(email))
+    email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))
     
     if email_in_table != True:
         
@@ -139,10 +141,43 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
         if (str(session.get('password')) == str(session.get('confirmPassword'))):
         
             # Set customer record data first to obtain customerID for account table customerID
-            database.set_table_record(table='customer', pk_id=database.count_table_rows('customer')+1, values=(email, fname, lname, dob, phonenumber))
             
-            # Set account record data
-            database.set_table_record(table='account', pk_id=database.count_table_rows('account')+1, values=(name, secret, '0', 'Normal', str(database.count_table_rows('customer'))))
+            customers_primary_key = database.count_table_rows('customers')+10000
+            contacts_primary_key = database.count_table_rows('contacts')+20000
+            accounts_primary_key = database.count_table_rows('accounts')+25000
+            
+            
+            database.set_table_record(
+                table='customers', 
+                pk_id=customers_primary_key, 
+                values=(
+                    str(fname),
+                    str(lname),
+                    str(dob)
+                )
+            )
+
+            database.set_table_record(
+                table='contacts', 
+                pk_id=contacts_primary_key, 
+                values=(
+                    str(customers_primary_key),
+                    str(phonenumber),
+                    str(email)
+                )
+            )
+            
+            # Set account record data for contact_id
+            database.set_table_record(
+                table='accounts', 
+                pk_id=accounts_primary_key, 
+                values=(
+                    str(contacts_primary_key),
+                    str(name),
+                    str(secret),
+                    'Normal'
+                )
+            )
         
             return redirect(url_for('auth.login'))
         

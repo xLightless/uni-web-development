@@ -147,7 +147,7 @@ class Database(object):
         except IndexError:
             pass
         
-    def count_table_rows(self, table:str):
+    def count_table_rows(self, table:str) -> int:
         """ Returns the total record rows in a table
 
         Args:
@@ -173,6 +173,7 @@ class Database(object):
         """
         
         record_values = "', '".join((values))
+        print(record_values)
         query = f"INSERT INTO {table} VALUES ({pk_id}, '{record_values}')"
         self.cursor.execute(query)
         self.__db.commit()
@@ -265,3 +266,5 @@ class Database(object):
         if ((table1_xy[0] == table1_head) and (table2_xy[0] == table2_head)):
             record = self.get_table_record(table2, table2_xy[1]-1)
             return str(record[x2])
+        
+# database = Database(database="ht_database")
