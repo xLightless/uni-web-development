@@ -16,7 +16,14 @@ class AuthenticateUser(object):
     ) -> str:
         pass
         
-    def set_password_hash(self): pass
+    def set_password_hash(self):
+
+        # register_error = None
+        # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
+        # if contains(str(), special_chars) == False:
+        #     register_error = 'Invalid use of special characters'
+        #     print(register_error)
+        pass
 
 def contains(string:str, has:str):
     """ Checks if an iterable object contains some element of string type """
@@ -105,8 +112,6 @@ def register():
         )
     else:
         return render_template('register.html')
-        
-    # return render_template('register.html')
 
 @auth.route('/account/register/<email>/<name>/<secret>/<csecret>/<fname>/<lname>/<dob>/<phonenumber>/')
 def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
@@ -117,11 +122,10 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
     
     if email_in_table != True:
         
-        # If account not made before then check form data conditions and create an account
+        # If account not made before then check form data conditions match and create an account
         if (str(session.get('password')) == str(session.get('confirmPassword'))):
         
-            # Set customer record data first to obtain customerID for account table customerID
-            
+            # Set record data for the registering user
             customers_primary_key = database.count_table_rows('customers')+10000
             contacts_primary_key = database.count_table_rows('contacts')+20000
             accounts_primary_key = database.count_table_rows('accounts')+25000
@@ -146,8 +150,7 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
                     str(email)
                 )
             )
-            
-            # Set account record data for contact_id
+
             database.set_table_record(
                 table='accounts', 
                 pk_id=accounts_primary_key, 
@@ -178,11 +181,8 @@ def logout():
     return redirect(url_for('views.index'))
 
 
-
-
-        
-            # register_error = None
-            # special_chars = "!#$%^&*()_{-}.:=?@\/[]~"
-            # if contains(str(), special_chars) == False:
-            #     register_error = 'Invalid use of special characters'
-            #     print(register_error)
+# @auth.route('/booking/')
+# def booking():
+#     if session['logged_in'] == True:
+#         return redirect(url_for('views.booking'))
+#     return redirect(url_for('auth.login'))

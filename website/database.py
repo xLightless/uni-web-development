@@ -295,3 +295,4 @@ class Database(object):
 # print(database.get_table('contacts'))
 # print(database.get_table('accounts'))
 # print(database.get_primary_key_record('accounts', 25000))
+# print(database.get_table_column('bookings', 'booking_id')[1])
