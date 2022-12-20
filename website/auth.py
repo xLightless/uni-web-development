@@ -2,8 +2,6 @@ from flask import Blueprint, render_template, session, url_for, redirect, reques
 
 from website.database import Database
 
-import time
-
 auth = Blueprint('auth', __name__)
 database = Database(database="ht_database")
 
@@ -16,18 +14,7 @@ class AuthenticateUser(object):
         username = None,
         password = None
     ) -> str:
-        
-        self.__email = (request.form.get("email") if email is None else email)
-        self.__username = (request.form.get("username") if username is None else username)
-        self.__password = (request.form.get("password") if password is None else password)
-        
-        self.__confirm_password = request.form.get("confirmPassword")
-        
-        first_name = request.form.get("legalFirstName")
-        last_name = request.form.get("legalLastName")
-        dob = request.form.get("dob")
-        phone_number = request.form.get("phoneNumber")
-        is_tos_checked = request.form.get("isTOSChecked")
+        pass
         
     def set_password_hash(self): pass
 
@@ -37,16 +24,20 @@ def contains(string:str, has:str):
 
 @auth.route('/login/', methods=['GET', 'POST'])
 def login():
-    """ Gets login data from the user form """
+    """ Renders the login page """
+    
+    if session['logged_in'] == True:
+        return redirect(url_for('auth.account'))
     
     if request.method == 'POST':
         login_input_email = request.form['loginEmail']
         login_input_password = request.form['password']
         
-        return redirect(url_for(
-            'auth.form_login',
-            email=login_input_email,
-            password=login_input_password
+        return redirect(
+            url_for(
+                'auth.form_login',
+                email=login_input_email,
+                password=login_input_password
             )
         )
 
@@ -54,7 +45,8 @@ def login():
 
 @auth.route('/login/<email>/<password>/')
 def form_login(email, password):
-
+    """ Login form function """
+    
     login_error = None
     # Fixes some string issues when returning values
     email_str = "".join((email)).replace(' ', '')
@@ -63,22 +55,10 @@ def form_login(email, password):
     # Check if form input email and password exist in relative tables
     email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email_str))
     password_in_table = database.is_value_in_table(table='accounts', column_name='password', value=str(password_str))
-    print(email_in_table, password_in_table)
     
     if (email_in_table == True) and (password_in_table == True):
         session['logged_in'] = True
-        
-        # session['username'] = database.get_key_shift_value(
-        #     table1='customer',
-        #     table2='account',
-        #     primary_key='customerID',
-        #     x1=1,
-        #     column_name='email',
-        #     value=email_str,
-        #     x2=1
-        # )
-        
-        
+        session['username'] = database.get_primary_key_record('accounts', 25000)[2]
         return redirect(url_for('views.index'))
     else:
         login_error = 'Invalid username or password used.'
@@ -88,15 +68,15 @@ def form_login(email, password):
 # Account routing
 @auth.route('/account/', methods=['GET','POST'])
 def account():
-    username = session.get('username')
-    if username is None:
-        return redirect(url_for('auth.login'))
-    elif username is not None:
+    """ Manages account page authenticated users """
+    
+    if session['logged_in'] == True:
         return redirect(url_for('views.account_page'))
-
+    return redirect(url_for('auth.login'))
 
 @auth.route('/account/register/', methods=['POST', 'GET'])
 def register():
+    """ Register page """
     
     if request.method == 'POST':
         email_ = request.form['email']
@@ -130,7 +110,7 @@ def register():
 
 @auth.route('/account/register/<email>/<name>/<secret>/<csecret>/<fname>/<lname>/<dob>/<phonenumber>/')
 def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
-    """ Registers the user using entered form data """
+    """ Registers the user using entered form data from register page """
     
     error = None
     email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))

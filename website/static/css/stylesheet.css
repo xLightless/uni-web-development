@@ -24,6 +24,7 @@ html, body {
 
 .navbar {
   z-index: 2;
+  min-height: 64px
 }
 
 .navbar-toggler-close {

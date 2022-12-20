@@ -25,7 +25,9 @@ def legal():
 
 @views.route('/account/')
 def account_page():
-    """ Used to display a logged in user account info """
+    """ Redirects the user from auth to the genuine account page """
+    if session['logged_in'] == False:
+        return redirect(url_for('auth.login'))
     return render_template('account.html')
 
 @sitemap.register_generator

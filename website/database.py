@@ -103,7 +103,7 @@ class Database(object):
         df = pd.DataFrame(dataframe)
         return "%s" %  df.iloc[[row]]        
     
-    def get_table_column(self, table:str, column_name:str):
+    def get_table_column(self, table:str, column_name:str) -> tuple:
         """ Gets the column header and values from a table
 
         Args:
@@ -190,7 +190,7 @@ class Database(object):
                     return True if row == value else False
         # return True if row == value else False
     
-    def get_table_record_y(self, table:str, column_name:str, value:str):
+    def get_table_record_y(self, table:str, column_name:str, value:str) -> tuple:
         """ Returns the integer value of a tuple row
 
         Args:
@@ -211,7 +211,7 @@ class Database(object):
                     # break
                     return (row, row_int)
     
-    def get_map_of(self, table:str, column_name:str, value:str):
+    def get_map_of(self, table:str, column_name:str, value:str) -> tuple:
         """ Returns the physical table (row, col) number of f(X) -> Y.
             Can be really useful for comparing coordinates of a table to their values.
 
@@ -267,4 +267,31 @@ class Database(object):
             record = self.get_table_record(table2, table2_xy[1]-1)
             return str(record[x2])
         
+    def truncate_table_data(self, table:str) -> list:
+        """ Removes all records from a table """
+        
+        query = "TRUNCATE TABLE %s" % table
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+    
+    def get_primary_key_record(self, table:str, pk_id):
+        """ Similar to get_table_record() except uses the primary key instead of row number """
+        
+        query = "SHOW COLUMNS FROM %s" % table
+        self.cursor.execute(query)
+        pk_column_name = str(self.cursor.fetchall()[0][0])
+        
+        query = "SELECT * FROM %s WHERE %s = '%s'" % (table, pk_column_name, pk_id)
+        
+        try:
+            self.cursor.execute(query)
+            return self.cursor.fetchall()[0]
+        except IndexError:
+            return "Primary key '%s' not found in '%s'." % (pk_id, table)
+    
+    def get_foreign_key_record():pass
+        
 # database = Database(database="ht_database")
+# print(database.get_table('contacts'))
+# print(database.get_table('accounts'))
+# print(database.get_primary_key_record('accounts', 25000))
