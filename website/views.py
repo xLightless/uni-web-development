@@ -7,14 +7,14 @@ from website.database import Database
 views = Blueprint('views', __name__)
 database = Database(database="ht_database")
 
-class Bookings(object):
-    """ Manages table UI for the booking web page """
+# class Bookings(object):
+#     """ Manages table UI for the booking web page """
     
-    booking_id = database.get_table_column('bookings', 'booking_id')[1]
-    booking_date = database.get_table_column('bookings', 'booking_date')[1]
-    journey_seat_types = database.get_table_column('bookings', 'journey_seat_types')[1]
-    advance_booking_days = database.get_table_column('bookings', 'advance_booking_days')[1]
-    booking_return_date = database.get_table_column('bookings', 'booking_return_date')[1]
+#     booking_id = database.get_table_column('bookings', 'booking_id')[1]
+#     booking_date = database.get_table_column('bookings', 'booking_date')[1]
+#     journey_seat_types = database.get_table_column('bookings', 'journey_seat_types')[1]
+#     advance_booking_days = database.get_table_column('bookings', 'advance_booking_days')[1]
+#     booking_return_date = database.get_table_column('bookings', 'booking_return_date')[1]
     
 
 @views.route('/')
@@ -41,6 +41,10 @@ def account_page():
     if session['logged_in'] == False:
         return redirect(url_for('auth.login'))
     return render_template('account.html')
+
+@views.route('/travelComponent/')
+def travel_component():
+    return render_template('travel_component.html')
 
 @sitemap.register_generator
 def pages():

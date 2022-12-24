@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-size: 16px;
+    --bs-font-primary: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 * {
@@ -12,19 +13,25 @@
     padding: 0;
 }
 
-html, body {
-  /* Allows the navbar to sit above body to prevent overlap */
-  padding-top: 64px;
-}
+/* Breakpoints */
+/* $grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+); */
 
 html, body {
+  /* Move block-body below navbar */
   overflow-x: hidden;
-  max-width: 100%;
+  height: 100%
 }
 
 .navbar {
   z-index: 2;
-  min-height: 64px
+  min-height: 64px;
 }
 
 .navbar-toggler-close {
@@ -40,19 +47,15 @@ html, body {
   right: 0;
 }
 
-/* Breakpoints */
-/* $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
-); */
+.block-body {
+  margin-top: 64px;
+  min-height: calc(100% - 196px);
+}
 
 footer {
   display: block;
   width: 100%;
+  min-height: 132px;
 }
 
 hr.divider {
@@ -61,3 +64,10 @@ hr.divider {
   width: 80%;
   margin: auto;
 }
+
+
+
+/* Booking travel component css */
+/* .form-wrapper {
+  position: relative;
+} */

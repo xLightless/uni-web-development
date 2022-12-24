@@ -78,7 +78,7 @@ class Database(object):
             pass
     
     def get_table_record(self, table:str, row:int, dataframe: bool = False):
-        """ Gets a single row from a table
+        """ Gets a single row from a table via row number
 
         Args:
             table (str): Name of the table.
@@ -101,7 +101,23 @@ class Database(object):
         
         dataframe = pd.read_sql_query(query, self.__db)
         df = pd.DataFrame(dataframe)
-        return "%s" %  df.iloc[[row]]        
+        return "%s" %  df.iloc[[row]]
+    
+    def get_table_value_record(self, table:str, column_name:str, value:str):
+        """ Gets a table record by value rather than row number
+
+        Args:
+            table (str): Name of the table.
+            column_name (str): The column name in 'table'.
+            value (str): The value in 'column_name' to get a record.
+
+        Returns:
+            tuple: Returns record of table.
+        """
+        
+        query = "SELECT * FROM %s WHERE %s = '%s'" % (table, column_name, value)
+        self.cursor.execute(query)
+        return self.cursor.fetchall()[0]
     
     def get_table_column(self, table:str, column_name:str) -> tuple:
         """ Gets the column header and values from a table
@@ -173,7 +189,6 @@ class Database(object):
         """
         
         record_values = "', '".join((values))
-        print(record_values)
         query = f"INSERT INTO {table} VALUES ({pk_id}, '{record_values}')"
         self.cursor.execute(query)
         self.__db.commit()
@@ -199,7 +214,7 @@ class Database(object):
             value (str): The value in 'column_name' to return integer position
 
         Returns:
-            _type_: _description_
+            tuple: (record, record_y)
         """
         
         tbl = self.get_table_column(table, column_name)[1]
@@ -246,17 +261,17 @@ class Database(object):
             str: Child table left or right cell data
         """
 
-        # Map email cell
+        # Map cell
         table1_map = self.get_map_of(table1, column_name, value)                # (2, 1)
 
-        # Gets the customerID from email
+        # Gets the XY from a table
         table1_xy = (table1_map[0]-x1, table1_map[1])                          # PK CID  (1, 1)
 
-        # Map customerID to account from customer map
+        # Map XY to table2 from table1 map
         table2_map = self.get_map_of(table2, primary_key, table1_map[1])       # FK CID(6, 1)
         table2_xy = (table2_map[0], table2_map[1])
 
-        # Check if both locations are customerID then do something
+        # Check if both locations are equal then do something
         table1_head = self.get_table_header_x(table1, primary_key)[1]
         
         foreign_key = primary_key
@@ -292,7 +307,10 @@ class Database(object):
     def get_foreign_key_record():pass
         
 # database = Database(database="ht_database")
-# print(database.get_table('contacts'))
-# print(database.get_table('accounts'))
-# print(database.get_primary_key_record('accounts', 25000))
-# print(database.get_table_column('bookings', 'booking_id')[1])
+
+# x = database.get_table_record_y('contacts', 'email_address', 'lightlessgaming@gmail.com')
+# contact_record = database.get_table_value_record('contacts', 'email_address', 'lightlessgaming@gmail.com')
+# contact_id = str(contact_record[0])
+
+# account_record = database.get_table_value_record('accounts', 'contact_id', contact_id)
+# account_password = str(account_record[3])

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+<style>
+</style>
+
+<div class="d-flex justify-content-center align-items-center" style="min-width: 100%; min-height: 250px; background-color: gray;">
+    <form class="p-3">
+        <div class="border border-primary">
+            <label class="p-1">
+                <input type="radio" aria-label="Return">
+                <span>Return</span>
+            </label>
+            <label class="p-1">
+                <input type="radio" aria-label="One way">
+                <span>One way</span>
+            </label>
+        </div>
+
+        <!-- Travel info container -->
+        <div class="border border-primary bg-primary p-3">
+            
+            <div class="travel-wrapper d-inline-block">
+                <div class="form-item d-inline-block">
+                    <div class="location-origin-selection">
+                        <label class="" for="search-location-origin" style="font-size: 0.9rem;"><strong>From</strong></label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Location" name="search-location-origin" value="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swap locations button -->
+                <div class="form-item location-swapper d-inline-block">
+                    <label></label>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="swap-locations-btn btn btn-light text-primary" type="button" name="swap-locations">
+                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--  -->
+
+                <div class="form-item d-inline-block">
+                    <div class="location-origin-selection">
+                        <label class="" for="search-location-destination" style="font-size: 0.9rem;"><strong>To</strong></label>
+                        <div>
+                            <input type="text" placeholder="Location" name="search-location-destination" value="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+         
+            <div class="date-range-wrapper d-inline-block">
+                <div class="form-item d-inline-block">
+                    <div class="departure-date">
+                        <label class="" for="departure-date" style="font-size: 0.9rem;"><strong>Departure</strong></label>
+                        <div>
+                            <input type="date" placeholder="DD/MM/YYYY" name="departure-date" value="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-item d-inline-block">
+                    <div class="return-date">
+                        <label class="" for="return-date" style="font-size: 0.9rem;"><strong>Return</strong></label>
+                        <div>
+                            <input type="date" placeholder="DD/MM/YYYY" name="return-date" value="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="seat-type-wrapper d-inline-block">
+                <div class="form-item"></div>
+                <div class="form-item"></div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
