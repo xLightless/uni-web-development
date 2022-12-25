@@ -124,6 +124,57 @@ html [data-theme="dark"] {
     color: white;
 }
 
+/* Top navbar */
+.grid-nav-nav-parent {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    width: calc(100vw - 200px);
+    height: 100%;
+
+    /* temp */
+    border: 1px solid red;
+}
+
+.hamburger {
+    float: right;
+    height: 64px;
+    width: 64px;
+    
+    /* Align toggle-navbar button to center of hamburger */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggle-navbar {
+    margin-right: 2rem;
+}
+
+.hamburger button {
+    color: white;
+    float: right;
+    background-color: var(--secondary-color);
+    border: none;
+    outline: none;
+}
+
+.hamburger button:hover {
+    transform: rotate(90deg);
+    transition: 0.5s ease-in-out;
+}
+
+.hamburger > button > i {
+    font-size: 2rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .toggle-navbar {
+        display: none
+    }
+}
+
+
 /* Left Sidebar */
 .grid-sidebar {
     display: block;
@@ -194,8 +245,9 @@ html [data-theme="dark"] {
     float: right;
     width: 12px;
     height: 12px;
-    background-color: white;
-    /* border-radius: 50%; */
+    top:50%;
+    background-color: gray;
+    border-radius: 10px 10px 0px 10px;
     /* transform: rotate(45deg); */
     visibility: hidden;
 
@@ -208,7 +260,7 @@ html [data-theme="dark"] {
 }
 
 .grid-sidebar-nav-item > label > .hover-circle {
-    transform: translateY(50%) rotate(45deg);
+    transform: translateY(50%) rotate(135deg);
 }
 
 .grid-sidebar-nav-item:hover > label > .hover-circle {
