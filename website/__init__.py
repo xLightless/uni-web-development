@@ -13,7 +13,7 @@ def create_flask_app():
     
     app = Flask(__name__, static_url_path='/static')
     app.secret_key = '192b9dec89xz1281has1jkl12jk12hb!][etr]#a1jhz38i0a08asdnas'
-    # app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=20)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=86400)
     
     from .auth import auth
     from .views import views

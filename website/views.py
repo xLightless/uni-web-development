@@ -42,9 +42,27 @@ def account_page():
         return redirect(url_for('auth.login'))
     return render_template('account.html')
 
+
+
+
+
+
+
+# Testing material for modernisation of website
 @views.route('/travelComponent/')
 def travel_component():
-    return render_template('travel_component.html')
+    return render_template('component_travel_box.html')
+
+@views.route('/newbase/')
+def newbase():
+    return render_template('component_base.html')
+
+
+
+
+
+
+
 
 @sitemap.register_generator
 def pages():

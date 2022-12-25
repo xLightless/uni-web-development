@@ -153,14 +153,14 @@ def register():
 @auth.route('/account/register/<email>/<name>/<secret>/<csecret>/<fname>/<lname>/<dob>/<phonenumber>/')
 def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
     """ Registers the user using entered form data from register page """
-    
+
     error = None
     email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))
     
     if email_in_table != True:
         
         # If account not made before then check form data conditions match and create an account
-        if (str(session['password']) == str(session['confirmPassword'])):
+        if (secret == csecret):
             if len(secret) >= 8:
                 
                 # Set record data for the registering user

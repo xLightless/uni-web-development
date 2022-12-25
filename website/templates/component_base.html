@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New base template</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
+
+  <link href="{{url_for('static',filename='css/newbase.css')}}" rel="stylesheet">
+</head>
+<body style="height: 3000px"> <!-- data-theme="dark" -->
+  {% block body %}
+
+  <div class="grid-container">
+    <div class="grid-nav" id="navbar">
+      <div class="grid-nav-brand-parent">
+        <div class="grid-nav-brand">
+          <a class="grid-nav-brand-text" href="{{url_for('views.index')}}">Horizon Travels</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-sidebar" id="sidebar">
+      <div class="grid-sidebar-divider-parent">
+        <div class="grid-sidebar-divider">
+          <hr class="divider">
+        </div>
+      </div>
+
+      <div class="grid-sidebar-nav-parent">
+        <div>
+          <div class="grid-sidebar-nav-heading small">
+          <span>NAVIGATION 1:</span></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+        </div>
+
+        <div>
+          <div class="grid-sidebar-nav-heading small">
+          <span>NAVIGATION 2:</span></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+        </div>
+
+        <div>
+          <div class="grid-sidebar-nav-heading small">
+          <span>NAVIGATION 3:</span></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+        </div>
+      </div>
+
+      <div class="grid-sidebar-footer-parent">
+        <div class="grid-sidebar-footer">
+          <div class="grid-sidebar-footer-left">
+            <div class="small-text">Logged in as:</div>
+            <div class="small-text username">{% if session['logged_in'] %}{{session['username'] | capitalize}}{% endif%}</div>
+          </div>
+          <div class="grid-sidebar-footer-right">
+            <button type="button"><i class="fa-solid fa-user"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-main" id="main">MAIN</div>
+  <div class="grid-footer text-dark" id="footer">FOOTER</div>
+
+  {% endblock %}
+</body>
+</html>

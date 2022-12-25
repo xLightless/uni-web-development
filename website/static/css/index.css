@@ -24,7 +24,7 @@ body {
 
 /* Hero Bottom */
 .hero-bottom {
-    height: 55vh;
+    height: calc(55vh - 64px);
 }
 
 .form-style {
