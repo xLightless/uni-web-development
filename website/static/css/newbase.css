@@ -131,9 +131,6 @@ html [data-theme="dark"] {
     left: 200px;
     width: calc(100vw - 200px);
     height: 100%;
-
-    /* temp */
-    border: 1px solid red;
 }
 
 .hamburger {
