@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New base template</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="{{url_for('static',filename='css/newbase.css')}}" rel="stylesheet">
 </head>
-<body style="height: 3000px"> <!-- data-theme="dark" -->
+<body>
+  <!-- data-theme="dark" -->
   {% block body %}
-
   <div class="grid-container">
     <div class="grid-nav" id="navbar">
       <div class="grid-nav-brand-parent">
@@ -21,69 +18,187 @@
           <a class="grid-nav-brand-text" href="{{url_for('views.index')}}">Horizon Travels</a>
         </div>
       </div>
-
       <div class="grid-nav-nav-parent">
-          <div class="hamburger">
-            <button type="button" class="toggle-navbar"><i class="fas fa-bars"></i></button>
-          </div>
+        <div class="hamburger">
+          <button type="button" class="toggle-navbar"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <div class="grid-nav-account-button">
+          <button type="button"><i class="fa-solid fa-user"></i>
+        </div>
+
       </div>
     </div>
-
     <div class="grid-sidebar" id="sidebar">
       <div class="grid-sidebar-divider-parent">
         <div class="grid-sidebar-divider">
           <hr class="divider">
         </div>
       </div>
-
       <div class="grid-sidebar-nav-parent">
         <div>
           <div class="grid-sidebar-nav-heading small">
-          <span>NAVIGATION 1:</span></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+            <span>Booking:</span>
+          </div>
+          <a class="grid-sidebar-nav-item">
+            <label><i class="fa-solid fa-book pr-2"></i><span>Create Booking</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+
+            <!-- Drop down bootstrap item -->
+
+          </a>
         </div>
 
         <div>
           <div class="grid-sidebar-nav-heading small">
-          <span>NAVIGATION 2:</span></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+            <span>NAVIGATION 2:</span>
+          </div>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+
+            <!-- Drop down bootstrap item -->
+
+          </a>
         </div>
 
         <div>
           <div class="grid-sidebar-nav-heading small">
-          <span>NAVIGATION 3:</span></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
-          <div class="grid-sidebar-nav-item"><label><span>Some page link</span><div class="hover-circle"></div></label></div>
+            <span>NAVIGATION 3:</span>
+          </div>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+            <label><span>Some page link</span></label>
+            <div class="hover-circle"></div>
+          </a>
+          <a class="grid-sidebar-nav-item">
+
+            <!-- Drop down bootstrap item -->
+
+          </a>
         </div>
       </div>
-
       <div class="grid-sidebar-footer-parent">
         <div class="grid-sidebar-footer">
           <div class="grid-sidebar-footer-left">
-            <div class="small-text">Logged in as:</div>
-            <div class="small-text username">{% if session['logged_in'] %}{{session['username'] | capitalize}}{% endif%}</div>
+            <div class="small-text">
+              Logged in as:
+            </div>
+            <div class="small-text username">
+              {% if session['logged_in'] %}{{session['username'] | capitalize}}{% endif%}
+            </div>
           </div>
-          <div class="grid-sidebar-footer-right">
-            <button type="button"><i class="fa-solid fa-user"></i></button>
+          <div class="grid-sidebar-footer-right"><button type="button"><i class="fa-solid fa-user"></i></button></div>
         </div>
       </div>
     </div>
+
+
+    <div class="grid-footer" id="footer">
+      <footer class="grid-footer-parent">
+        <label class="copyright"><span>© 2022 Copyright: HorizonTravels.com</span></label>
+        <label class="terms-and-conditions"><a href="">Terms & Conditions</a></label>
+      </footer>
+    </div>
+
+    <main class="grid-main" id="main">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fugiat omnis reiciendis optio molestias a ab enim voluptatibus, amet unde. Voluptates, nam? Magnam expedita assumenda incidunt? Doloremque eos officiis labore?
+      Molestias perspiciatis corporis consequatur, dignissimos ad quisquam quis ut sint blanditiis. Est velit soluta, iste dignissimos repellat rerum cum sequi laboriosam sunt voluptate maiores libero sapiente praesentium vero officiis odit.
+      Velit mollitia voluptatibus sequi beatae enim facilis esse soluta atque porro quis ducimus unde ullam, vitae dolorem in molestias at reiciendis laudantium et dignissimos suscipit! Beatae distinctio quia eum quo?
+      Enim amet numquam placeat exercitationem labore maiores magnam et est quisquam voluptas? In eius consequatur eum nostrum doloremque nihil, quae ut labore sapiente nemo corporis, sequi earum temporibus fugiat ex.
+      Repellat iusto libero magnam quam! Rerum dolor voluptatum ducimus ab quam possimus culpa nulla iusto architecto? Cumque, eaque veritatis fugit ducimus eius accusantium doloremque quasi dolorum eligendi nobis laborum. Ducimus?
+      Labore porro, earum ullam nihil corrupti quibusdam vel ratione minus, cum nobis illo ipsam, eveniet molestias iusto animi. In est saepe quod alias iure magni, animi quae odit ex iusto!
+      Hic cum harum perferendis ut saepe tenetur facilis velit, ipsa maiores corporis cumque provident? Nesciunt dolorem corporis quas molestias eum aperiam omnis illo sed voluptatibus natus? Sit aut optio velit!
+      Molestias asperiores eaque sit, consequatur ab quasi aspernatur voluptatibus tenetur atque earum qui eveniet perferendis ad itaque. Consequatur, tenetur adipisci iure quasi, natus praesentium animi voluptates id consequuntur a quis.
+    
+      <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fugiat omnis reiciendis optio molestias a ab enim voluptatibus, amet unde. Voluptates, nam? Magnam expedita assumenda incidunt? Doloremque eos officiis labore?
+      Molestias perspiciatis corporis consequatur, dignissimos ad quisquam quis ut sint blanditiis. Est velit soluta, iste dignissimos repellat rerum cum sequi laboriosam sunt voluptate maiores libero sapiente praesentium vero officiis odit.
+      Velit mollitia voluptatibus sequi beatae enim facilis esse soluta atque porro quis ducimus unde ullam, vitae dolorem in molestias at reiciendis laudantium et dignissimos suscipit! Beatae distinctio quia eum quo?
+      Enim amet numquam placeat exercitationem labore maiores magnam et est quisquam voluptas? In eius consequatur eum nostrum doloremque nihil, quae ut labore sapiente nemo corporis, sequi earum temporibus fugiat ex.
+      Repellat iusto libero magnam quam! Rerum dolor voluptatum ducimus ab quam possimus culpa nulla iusto architecto? Cumque, eaque veritatis fugit ducimus eius accusantium doloremque quasi dolorum eligendi nobis laborum. Ducimus?
+      Labore porro, earum ullam nihil corrupti quibusdam vel ratione minus, cum nobis illo ipsam, eveniet molestias iusto animi. In est saepe quod alias iure magni, animi quae odit ex iusto!
+      Hic cum harum perferendis ut saepe tenetur facilis velit, ipsa maiores corporis cumque provident? Nesciunt dolorem corporis quas molestias eum aperiam omnis illo sed voluptatibus natus? Sit aut optio velit!
+      Molestias asperiores eaque sit, consequatur ab quasi aspernatur voluptatibus tenetur atque earum qui eveniet perferendis ad itaque. Consequatur, tenetur adipisci iure quasi, natus praesentium animi voluptates id consequuntur a quis.
+      Voluptatibus, nihil. Ratione eaque provident atque animi sit temporibus laudantium consequatur repellat laborum deleniti quidem consectetur veniam reprehenderit fugiat magni corrupti ipsa expedita rerum unde modi ad, itaque rem impedit.
+      Non tenetur, cum suscipit quia pariatur, modi quam totam eligendi deleniti fuga nulla, provident vero repudiandae? Eligendi dolorum voluptatibus enim molestiae saepe hic, mollitia sequi similique, explicabo vel neque maiores.
+      Tempore quas, praesentium odio dignissimos laborum aut officiis reiciendis sequi natus illo! Similique consequatur maiores quae libero sunt ex neque fugiat, voluptates eaque, repudiandae recusandae quasi adipisci unde sequi exercitationem.
+      Magni omnis, perferendis aliquam, blanditiis sed voluptatibus repellat eaque repellendus deleniti libero dicta laboriosam illum officiis animi culpa possimus odio earum error explicabo saepe iusto necessitatibus aspernatur ex tempora? Accusantium?
+      Natus asperiores quas quaerat tenetur. Eveniet reiciendis quisquam necessitatibus illo quis tempore corporis et nemo illum ullam nobis laudantium dolor, consectetur pariatur deserunt iure, ipsum quasi odit, deleniti ad obcaecati.
+      Reiciendis, beatae, provident perferendis veritatis quisquam tempore dolorum natus unde rerum nulla libero exercitationem nemo ipsam aliquid ullam voluptatibus laudantium placeat, aliquam ratione. Blanditiis iste natus sequi amet, dolor incidunt.
+      Minus tempora at, recusandae molestias fugit, magni itaque modi nemo dolore exercitationem veniam quia quas? Enim facere tempora aliquid dolores aliquam cupiditate esse ad cum, error saepe ipsum culpa nam.
+      Quas totam dignissimos impedit veniam eveniet. Officiis voluptates laudantium reprehenderit nesciunt perspiciatis! Aspernatur cum a fugiat sed. Tempora porro ab quos dolorum nobis placeat id error, ratione, ad veniam fugit.
+      Unde dolore, odit vero inventore quisquam sit similique adipisci eveniet! Maxime obcaecati quisquam, magnam aspernatur laudantium possimus quidem, veritatis itaque necessitatibus voluptas recusandae, nisi mollitia vitae dolores quis natus quas.
+      Temporibus optio assumenda aut velit commodi. Dolorem, perspiciatis. Sequi dolorum aliquid dolore porro numquam amet sapiente aliquam, quidem labore! Obcaecati pariatur placeat architecto molestias enim temporibus doloremque cupiditate mollitia ullam?
+      Eius soluta distinctio velit porro quidem, quis provident minima cumque nobis dicta dolore labore optio nemo. Ducimus optio vero, sint molestias porro, itaque voluptates, pariatur perspiciatis sequi inventore nam odit.
+      Numquam natus magni incidunt, vero molestias consequuntur corporis tenetur voluptatem quos fugit harum deleniti quis ab voluptatibus alias expedita rerum quo quae dicta accusamus. Voluptatem consequatur itaque repellendus impedit harum!
+    
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque fugiat omnis reiciendis optio molestias a ab enim voluptatibus, amet unde. Voluptates, nam? Magnam expedita assumenda incidunt? Doloremque eos officiis labore?
+      Molestias perspiciatis corporis consequatur, dignissimos ad quisquam quis ut sint blanditiis. Est velit soluta, iste dignissimos repellat rerum cum sequi laboriosam sunt voluptate maiores libero sapiente praesentium vero officiis odit.
+      Velit mollitia voluptatibus sequi beatae enim facilis esse soluta atque porro quis ducimus unde ullam, vitae dolorem in molestias at reiciendis laudantium et dignissimos suscipit! Beatae distinctio quia eum quo?
+      Enim amet numquam placeat exercitationem labore maiores magnam et est quisquam voluptas? In eius consequatur eum nostrum doloremque nihil, quae ut labore sapiente nemo corporis, sequi earum temporibus fugiat ex.
+      Repellat iusto libero magnam quam! Rerum dolor voluptatum ducimus ab quam possimus culpa nulla iusto architecto? Cumque, eaque veritatis fugit ducimus eius accusantium doloremque quasi dolorum eligendi nobis laborum. Ducimus?
+      Labore porro, earum ullam nihil corrupti quibusdam vel ratione minus, cum nobis illo ipsam, eveniet molestias iusto animi. In est saepe quod alias iure magni, animi quae odit ex iusto!
+      Hic cum harum perferendis ut saepe tenetur facilis velit, ipsa maiores corporis cumque provident? Nesciunt dolorem corporis quas molestias eum aperiam omnis illo sed voluptatibus natus? Sit aut optio velit!
+      Molestias asperiores eaque sit, consequatur ab quasi aspernatur voluptatibus tenetur atque earum qui eveniet perferendis ad itaque. Consequatur, tenetur adipisci iure quasi, natus praesentium animi voluptates id consequuntur a quis.
+      Voluptatibus, nihil. Ratione eaque provident atque animi sit temporibus laudantium consequatur repellat laborum deleniti quidem consectetur veniam reprehenderit fugiat magni corrupti ipsa expedita rerum unde modi ad, itaque rem impedit.
+      Non tenetur, cum suscipit quia pariatur, modi quam totam eligendi deleniti fuga nulla, provident vero repudiandae? Eligendi dolorum voluptatibus enim molestiae saepe hic, mollitia sequi similique, explicabo vel neque maiores.
+      Tempore quas, praesentium odio dignissimos laborum aut officiis reiciendis sequi natus illo! Similique consequatur maiores quae libero sunt ex neque fugiat, voluptates eaque, repudiandae recusandae quasi adipisci unde sequi exercitationem.
+      Magni omnis, perferendis aliquam, blanditiis sed voluptatibus repellat eaque repellendus deleniti libero dicta laboriosam illum officiis animi culpa possimus odio earum error explicabo saepe iusto necessitatibus aspernatur ex tempora? Accusantium?
+      Natus asperiores quas quaerat tenetur. Eveniet reiciendis quisquam necessitatibus illo quis tempore corporis et nemo illum ullam nobis laudantium dolor, consectetur pariatur deserunt iure, ipsum quasi odit, deleniti ad obcaecati.
+      Reiciendis, beatae, provident perferendis veritatis quisquam tempore dolorum natus unde rerum nulla libero exercitationem nemo ipsam aliquid ullam voluptatibus laudantium placeat, aliquam ratione. Blanditiis iste natus sequi amet, dolor incidunt.
+      Minus tempora at, recusandae molestias fugit, magni itaque modi nemo dolore exercitationem veniam quia quas? Enim facere tempora aliquid dolores aliquam cupiditate esse ad cum, error saepe ipsum culpa nam.
+      Quas totam dignissimos impedit veniam eveniet. Officiis voluptates laudantium reprehenderit nesciunt perspiciatis! Aspernatur cum a fugiat sed. Tempora porro ab quos dolorum nobis placeat id error, ratione, ad veniam fugit.
+      Unde dolore, odit vero inventore quisquam sit similique adipisci eveniet! Maxime obcaecati quisquam, magnam aspernatur laudantium possimus quidem, veritatis itaque necessitatibus voluptas recusandae, nisi mollitia vitae dolores quis natus quas.
+      Temporibus optio assumenda aut velit commodi. Dolorem, perspiciatis. Sequi dolorum aliquid dolore porro numquam amet sapiente aliquam, quidem labore! Obcaecati pariatur placeat architecto molestias enim temporibus doloremque cupiditate mollitia ullam?
+      Eius soluta distinctio velit porro quidem, quis provident minima cumque nobis dicta dolore labore optio nemo. Ducimus optio vero, sint molestias porro, itaque voluptates, pariatur perspiciatis sequi inventore nam odit.
+      Numquam natus magni incidunt, vero molestias consequuntur corporis tenetur voluptatem quos fugit harum deleniti quis ab voluptatibus alias expedita rerum quo quae dicta accusamus. Voluptatem consequatur itaque repellendus impedit harum! -->
+    </main>
+
   </div>
-
-  <div class="grid-main" id="main">MAIN</div>
-  <div class="grid-footer text-dark" id="footer">FOOTER</div>
-
   {% endblock %}
+
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

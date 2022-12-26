@@ -55,6 +55,9 @@ def travel_component():
 
 @views.route('/newbase/')
 def newbase():
+    
+    if session['logged_in'] == False:
+        return redirect(url_for('auth.login'))
     return render_template('component_base.html')
 
 
