@@ -30,10 +30,34 @@
     --m-3: 1rem;
     --m-4: 1rem*1.5;
     --m-5: 1rem*3;
+
+    /* Breakpoints */
+    --bp-s: 576px;
+    --bp-md: 768px;
+    --bp-lg: 992px;
+    --bp-xl: 1200;
+    --bp-xxl: 1400px; 
 }
 
+
+/* Modify scroll bar */
+/* ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+} */
+
+/* HTML, body and dark theme */
 html, body {
     height: 100%;
+    width: 100%;
 }
 
 html [data-theme="dark"] {
@@ -45,16 +69,17 @@ html [data-theme="dark"] {
 
 
 
-
 /* Page grid layout */
 .grid-container {
     display: grid;
     height: 100%;
     width: 100%;
     grid-template-columns: 200px 1fr;
-    grid-template-rows: 64px 1fr 1fr 75px;
+    grid-template-rows: 64px;
+
+    /* Desktops and larger screens */
     grid-template-areas: 
-        "navbar navbar"
+        "navbar main"
         "sidebar main"
         "sidebar main"
         "sidebar footer";
@@ -88,6 +113,7 @@ html [data-theme="dark"] {
         display: none;
     }
 
+    /* Mobile mode */
     .grid-container {
         grid-template-areas: 
         "navbar navbar"
@@ -103,6 +129,7 @@ html [data-theme="dark"] {
     position: fixed;
     width: 100%;
     height: 64px;
+
 }
 
 .grid-nav-brand-parent {
@@ -141,24 +168,33 @@ html [data-theme="dark"] {
     left: 200px;
     width: calc(100vw - 200px);
     height: 100%;
+    padding-right: var(--p-3);
 }
 
 /* Hamburger container */
 .hamburger {
     float: right;
     height: 64px;
-    width: 64;
+    width: 64px;
     
     /* Align toggle-navbar button to center of hamburger */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: var(--m-3);
 }
 
-/* .toggle-navbar {
-    margin-right: 2rem;
-} */
+button {
+    height: fit-content;
+    width: fit-content;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+    
+    /* Centers icon to middle of button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 
 .hamburger button {
     color: white;
@@ -172,16 +208,14 @@ html [data-theme="dark"] {
     transition: 0.1s ease-in-out;
 }
 
-
 .hamburger > button > i {
     font-size: 2rem;
 }
 
 /* Navbar top account button */
 .grid-nav-account-button {
-    width: 57px;
+    width: 64px;
     height: 64px;
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,7 +227,6 @@ html [data-theme="dark"] {
     /* Match width and height to size of other elements */
     width: 2rem;
     height: 2rem;
-
     border: 2px solid white;
     border-radius: 50%;
     outline: none;
@@ -203,16 +236,73 @@ html [data-theme="dark"] {
     border-radius: 30%;
 }
 
+.grid-nav-basket-button {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    
+}
 
-@media only screen and (min-width: 768px) {
+.grid-nav-basket-button > button {
+    /* Match width and height to size of other elements */
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid white;
+    border-radius: 50%;
+    outline: none;
+}
+
+.grid-nav-basket-button > button:hover {
+    border-radius: 30%;
+}
+
+@media only screen and (min-width: 769px) {
+
     .toggle-navbar {
         display: none
     }
 
-    .grid-nav-account-button {
+    .grid-nav-nav-parent > * {
+        display: none
+    }
+
+    .grid-nav-nav-parent {
+        display: none
+    }
+
+    .grid-nav {
+        width: 200px;
+    }
+}
+
+/* Hide element past breakpoint */
+@media screen and (max-width: 576px) {
+    .grid-nav-account-button,
+    .grid-nav-account-button > * {
+        display: none;
+    }
+    .grid-nav-basket-button,
+    .grid-nav-basket-button > * {
         display: none
     }
 }
+
+/* Top Nav dropdown */
+.grid-nav-nav-dropdown {
+    width: 100%;
+    height: 300px;
+    background-color: red;
+}
+
+.grid-nav-nav-dropdown-item {
+}
+
+
+
+
 
 
 /* Left Sidebar */
@@ -279,6 +369,7 @@ html [data-theme="dark"] {
 
 .grid-sidebar-nav-item:hover {
     color: var(--tertiary-color);
+    font-weight: 500;
 }
 
 .hover-circle {
@@ -290,26 +381,30 @@ html [data-theme="dark"] {
     border-radius: 10px 10px 0px 10px;
     /* transform: rotate(45deg); */
     visibility: hidden;
-
+    transform: translateY(50%) rotate(135deg);
 }
 
 .grid-sidebar-nav-item > label {
     width: 100% - 12px;
     height: 100%;
-    /* background-color: gray; */
 }
 
-.grid-sidebar-nav-item > .hover-circle {
-    transform: translateY(50%) rotate(135deg);
+.grid-sidebar-nav-item > label > i {
+    width: 26px;
 }
 
 .grid-sidebar-nav-item:hover > .hover-circle {
     visibility: visible;
 }
 
-.grid-sidebar-nav-item:active > .hover-circle {
+.grid-sidebar-nav-item:active > .hover-circle.click {
+    transform: translateX(-5px) translateY(50%) rotate(135deg);
+}
+
+.grid-sidebar-nav-item:active > .hover-circle.dropdown {
     top: 50%;
     transform: translateY(50%) rotate(45deg);
+    
 }
 
 /* Sidebar footer */
@@ -381,6 +476,17 @@ html [data-theme="dark"] {
 
     /* Adds padding to main container for contents */
     padding: 1rem;
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Move footer up when screen resized if no contents */
+    .grid-container > #main {
+        padding: 1rem;
+        height: fit-content;
+    }
+    
 }
 
 
