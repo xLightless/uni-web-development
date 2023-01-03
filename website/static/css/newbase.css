@@ -75,7 +75,7 @@ html [data-theme="dark"] {
     height: 100%;
     width: 100%;
     grid-template-columns: 200px 1fr; /* 200px 1fr */
-    grid-template-rows: 64px auto 75px; /* 64px. Adding auto for main fixed alignment for footer and footer 75px */
+    grid-template-rows: 64px auto auto 75px; /* 64px. Adding 'auto auto' for main fixes alignment for footer and footer 75px */
 
     /* Desktops and larger screens */
     grid-template-areas: 
@@ -130,6 +130,7 @@ html [data-theme="dark"] {
     width: 100%;
     height: 64px;
 
+    z-index: 9999;
 }
 
 .grid-nav-brand-parent {
@@ -234,6 +235,8 @@ button {
 
 .grid-nav-account-button > button:hover {
     border-radius: 30%;
+
+    
 }
 
 .grid-nav-basket-button {
@@ -300,6 +303,8 @@ button {
     top: 64px;
     width: 200px;
     height: calc(100vh - 64px);
+
+    z-index: 9998;
 }
 
 /* Places divider elements in sidebar as a block */
@@ -433,49 +438,68 @@ button {
     flex-direction: column;
 }
 
-.grid-sidebar-footer-right > button {
+.grid-sidebar-footer-right > a {
+    /* Centers user account image and adds styling to interior of button*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 57px;
     height: 57px;
     border: 2px solid white;
+    color: black;
+    background-color: white;
     border-radius: 50%;
     outline: none;
 }
 
-.grid-sidebar-footer-right > button:hover {
+.grid-sidebar-footer-right > a:hover {
     border-radius: 30%;
     /* transform: 0.5s; */
 }
 
-.grid-sidebar-footer-right > button:active {
+.grid-sidebar-footer-right > a:active {
     transform: scale(0.95)
 }
 
+/* Account login profile picture */
+.grid-sidebar-account-button-img {
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+}
+
+.grid-sidebar-account-button-img:hover {
+    border-radius: 30%;
+}
+
+/* small text class */
 .small-text {
     font-size: 0.8rem;
     color: white;
 }
 
+/* Small text username of sidebar footer */
 .small-text.username {
     font-size: 0.9rem;
 }
 
-/* Main */
+/* Main
 .grid-container > #main {
 
-    /* Adds padding to main container for contents */
+    Adds padding to main container for contents
     padding: 1rem;
     
-}
+} */
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) { */
 
     /* Move footer up when screen resized if no contents */
-    .grid-container > #main {
-        padding: 1rem;
+    /* .grid-container > #main { */
+        /* padding: 1rem; */
         /* height: fit-content; */
-    }
+    /* }
     
-}
+} */
 
 
 /* Footer */
@@ -522,11 +546,9 @@ button {
 #overlay-backdrop {
     position: fixed;
     display: none;
+    background-color: rgba(0,0,0,0.5);
     width: calc(100%);
     height: calc(100% - 64px);
     top: 64px;
-    /* left: 200px; */
     left: 0;
-    background-color: rgba(0,0,0,0.5);
-    /* cursor: pointer; */
 }

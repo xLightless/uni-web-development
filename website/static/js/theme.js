@@ -36,10 +36,10 @@ window.addEventListener('resize', () => {
 function toggleNavbar() {
     var sidebar = document.getElementsByClassName('grid-sidebar')
 
-    // Checks if user clicks outside or inside sidebar/nav hamburger
+    // Checks if user clicks outside or inside sidebar/nav toggle-navbar
     window.addEventListener('click', function(e){
-        if (document.getElementById('hamburger').contains(e.target)) {
-            // Expand sidebar if mouse clicks hamburger
+        if (document.getElementById('toggle-navbar').contains(e.target)) {
+            // Expand sidebar if mouse clicks toggle-navbar
             for (i = 0; i < sidebar.length; i++) {
                 // Update sidebar
                 sidebar[i].style.display = "initial"
@@ -52,7 +52,7 @@ function toggleNavbar() {
             }
 
         } else {
-            // If mouse outside hamburger then it must be on sidebar else none
+            // If mouse outside toggle-navbar then it must be on sidebar else none
             // if (document.getElementById('sidebar').contains(e.target)){
             //     console.log("inside  sidebar")
 
@@ -81,7 +81,7 @@ function toggleNavbar() {
             }
         }
 
-        if (!document.getElementById('hamburger').contains(e.target)) {
+        if (!document.getElementById('toggle-navbar').contains(e.target)) {
             if (width > 768) {
                 for (i = 0; i < sidebar.length; i++) {
                     sidebar[i].style.display = "block"

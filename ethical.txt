@@ -13,3 +13,8 @@ https://fontawesome.com/v5/icons/copyright?s=regular&f=classic
 <i class="fa-brands fa-facebook"></i>
 <i class="fa-brands fa-twitter"></i>
 <i class="fa-brands fa-cc-paypal"></i>
+
+
+
+New images used:
+https://www.pexels.com/video/digital-simulation-of-airplanes-flying-around-the-earth-s-atmosphere-3125448/
