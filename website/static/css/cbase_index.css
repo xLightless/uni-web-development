@@ -15,12 +15,43 @@ section {
 }
 
 section.landing {
-    background-color: purple;
+    background-color: gray;
+    position: relative;
 }
 
-section.s2 {
-    background-color: green;
+section.landing > img {
+    object-position: center;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
+
+.landing-content {
+    width: 100%;
+    height: 100%;
+    margin: var(--p-none);
+    padding: var(--p-none);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+.landing-content > .row {
+    height: 100%;
+    margin: 0!important;
+}
+
+.landing-content[class*="col-"] {
+    height: 100%;
+    width: 100%;
+}
+
+.landing-col {
+    border: 1px solid white;
+}
+
 
 /* Media queries */
 @media only screen and (max-width: 768px) {

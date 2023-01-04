@@ -14,7 +14,7 @@ window.addEventListener('resize', () => {
     height = h
 
     // // Min-width
-    if (width >= 768) {
+    if (width >= 1366) {
         var sidebar = document.getElementsByClassName("grid-sidebar")
         for (i = 0; i < sidebar.length; i++) {
         sidebar[i].style.display = "block"
@@ -24,7 +24,7 @@ window.addEventListener('resize', () => {
     }
 
     // Max-width
-    if (width <= 767) {
+    if (width <= 1365) {
         if (document.getElementById('overlay-backdrop').style.display == "none") {
             var sidebar = document.getElementsByClassName("grid-sidebar")
             console.log("backdrop is none")
@@ -84,7 +84,7 @@ function toggleNavbar() {
         }
 
         if (!document.getElementById('toggle-navbar').contains(e.target)) {
-            if (width >= 768) {
+            if (width >= 1366) {
                 for (i = 0; i < sidebar.length; i++) {
                     sidebar[i].style.display = "block"
                     sidebar[i].style.width = "200px"

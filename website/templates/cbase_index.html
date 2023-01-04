@@ -2,8 +2,19 @@
 {% block head %}<link href="{{url_for('static',filename='css/cbase_index.css')}}" rel="stylesheet">{% endblock %}
 
 {% block main %}
-<section class="landing">
-    <!-- <img src="{{url_for('static', filename='img/index/pexels-pixabay-219692.jpg')}}"> -->
-  </section>
-<section class="s2"></section>
+    <!-- Landing/Hero content -->
+    <section class="landing">
+        <img src="{{url_for('static', filename='img/index/pexels-pixabay-219692.jpg')}}">
+        
+        <!-- Landing page row col -->
+        <div class="landing-content">
+            <div class="row">
+                <div class="col-md-6 landing-col"></div>
+                <div class="col-md-6 landing-col"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Some other content -->
+    <section class="s2"></section>
 {% endblock %}

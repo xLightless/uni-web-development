@@ -449,6 +449,8 @@ button {
     height: calc(100% - 64px);
     top: 64px;
     left: 0;
+
+    z-index: 9997;
 }
 
 /* main {
@@ -468,7 +470,7 @@ section.test2 {
     background-color: red;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1366px) {
     /* Grid in mobile mode by default, update to larger resolutions */
     .grid-container {
         display: grid;
@@ -496,7 +498,7 @@ section.test2 {
     }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1365px) {
     .grid-container > #sidebar {
         display: none;
     }
