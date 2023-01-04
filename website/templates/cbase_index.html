@@ -4,17 +4,38 @@
 {% block main %}
     <!-- Landing/Hero content -->
     <section class="landing">
-        <img src="{{url_for('static', filename='img/index/pexels-pixabay-219692.jpg')}}">
+        <img src="{{url_for('static', filename='img/index/pexels-aleksandar-pasaric-1119723.jpg')}}">
         
         <!-- Landing page row col -->
         <div class="landing-content">
             <div class="row">
-                <div class="col-md-6 landing-col"></div>
-                <div class="col-md-6 landing-col"></div>
+                <!-- Grid left -->
+                <div class="col-md-12 landing-col top">
+                    <div class="landing-header">Horizon Travels</div>
+                    <div class="landing-text">Get cheap tickets with us.</div>
+                </div>
+
+                <div class="col-md-12 landing-col bottom">
+                    <!-- Tab menu -->
+                    <!-- <div class="tab-container">
+                        <div class="tab">
+                            <div class="tab-link"></div>
+                            <div class="tab-link"></div>
+                            <div class="tab-link"></div>
+                        </div>
+
+                        <div class="tab-content"></div>
+                    </div> -->
+                    <!-- <div class="landing-text">Get cheap tickets to travel with us.</div> -->
+                    <a class="btn btn-inline-block book">Create a booking now</a>
+                    <a class="btn btn-inline-block trip">Planning a trip?</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Some other content -->
     <section class="s2"></section>
+
+    <script src="{{url_for('static',filename='js/cbase_index.js')}}"></script>
 {% endblock %}
