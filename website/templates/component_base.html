@@ -112,21 +112,29 @@
       </div>
     </div>
 
-    <main class="grid-main" id="main" style="">
+    <main class="grid-main" id="main">
 
       <!-- Navigation sidebar overlay -->
       <div id="overlay-backdrop"></div>
       
       <!-- Main page content -->
       {% block main %}{% endblock %}
-    </main>
 
+      
     <div class="grid-footer" id="footer">
       <footer class="grid-footer-parent">
         <label class="copyright"><span>© 2022 Copyright: HorizonTravels.com</span></label>
         <label class="terms-and-conditions"><a href="">Terms & Conditions</a></label>
       </footer>
     </div>
+    </main>
+<!-- 
+    <div class="grid-footer" id="footer">
+      <footer class="grid-footer-parent">
+        <label class="copyright"><span>© 2022 Copyright: HorizonTravels.com</span></label>
+        <label class="terms-and-conditions"><a href="">Terms & Conditions</a></label>
+      </footer>
+    </div> -->
 
   </div>
   {% endblock %}

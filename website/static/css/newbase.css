@@ -60,11 +60,8 @@ html [data-theme="dark"] {
 .grid-container {
     display: grid;
     height: 100%;
-    grid-template-rows: 64px 1fr 75px;
-    grid-template-areas: 
-    "navbar"
-    "main"
-    "footer";
+    grid-template-rows: 64px 1fr;
+    /* grid-template-rows: 64px 1fr 75px; */
 }
 
 .grid-container > #navbar {
@@ -480,7 +477,6 @@ section.test2 {
         grid-template-areas: 
         "sidebar main"
         "sidebar main"
-        "sidebar footer";
     }
 
     .toggle-navbar {
@@ -503,6 +499,14 @@ section.test2 {
 @media only screen and (max-width: 767px) {
     .grid-container > #sidebar {
         display: none;
+    }
+
+    .grid-container {
+        grid-template-columns: 100%;
+        grid-template-rows: 64px 1fr;
+        grid-template-areas: 
+        "navbar"
+        "main";
     }
 }
 
