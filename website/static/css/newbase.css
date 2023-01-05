@@ -287,11 +287,6 @@ button {
     color: gray;
 }
 
-.grid-sidebar-nav-item:hover {
-    color: var(--tertiary-color);
-    font-weight: 500;
-}
-
 .hover-circle {
     float: right;
     width: 12px;
@@ -307,10 +302,16 @@ button {
 .grid-sidebar-nav-item > label {
     width: 100% - 12px;
     height: 100%;
+
 }
 
 .grid-sidebar-nav-item > label > i {
     width: 26px;
+}
+
+.grid-sidebar-nav-item:hover > label {
+    color: white;
+    font-weight: 500;
 }
 
 .grid-sidebar-nav-item:hover > .hover-circle {

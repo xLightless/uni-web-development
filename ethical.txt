@@ -26,6 +26,10 @@ https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
     https://www.pexels.com/photo/arch-structure-near-canal-2893285/
     https://www.pexels.com/photo/view-of-the-old-trafford-11014210/
     - Glasgow https://www.pexels.com/photo/brown-castle-387232/
+    - Edinburgh https://www.pexels.com/photo/medieval-building-2682675/
+
+- font awesome:
+<i class="fa-solid fa-location-pin"></i>
 
 TO DO LIST:
 - add location icon and the picture location to card head description

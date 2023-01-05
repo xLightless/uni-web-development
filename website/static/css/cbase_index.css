@@ -220,12 +220,31 @@ section.travel {
     width: 100%;
     height: 30vh;
     object-fit: cover;
+    object-position: center;
     /* object-position: center; */
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
     background-color: gray;
 }
 
+/* Adds some padding to the location icon in card head */
+.card-title > i {
+    margin-right: 0.5rem;
+}
+
+/* Align title and address in card */
+.card-body {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+}
+
+/* Location address  */
+.address {
+    margin-left: 0.5rem;
+    color: gray;
+}
 
 /* Media queries */
 @media only screen and (max-width: 768px) {
