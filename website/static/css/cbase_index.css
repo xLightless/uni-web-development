@@ -4,7 +4,7 @@
     
     --primary-color: #FFFFFF;
     --secondary-color: #212529;
-    --tertiary-color: #FFFFFF;
+    --tertiary-color: #1B1B1B;
     --text-color: black;
 }
 
@@ -74,9 +74,13 @@ section.landing > img {
 }
 
 .landing-text {
+    padding-right: 5px;
     font-size: 1.5rem;
     font-weight: 200;
     color: white;
+    overflow: hidden;
+    max-width: fit-content;
+    white-space: nowrap;
 }
 
 /* landing bottom container */
@@ -164,6 +168,64 @@ section.landing > img {
     background-color: rgba(0, 0, 0, 0.7);
     border: 2px solid white;
 }
+
+section.travel {
+    position: relative;
+    background-color: #1B1B1B;
+    height: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.travel-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Set max width of cards to stop blowout */
+    max-width: 1920px;
+}
+
+.travel-container > div {
+    /* height: 100%;
+    width: 100%; */
+    margin: 0!important;
+    padding: 1rem;
+}
+
+.travel-container > div > div {
+    /* border: 1px solid blue; */
+}
+
+.card {
+    filter: drop-shadow(0 0 0.55rem black);
+    border-radius: 15px;
+    border: 0;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    border: 1px solid white;
+}
+
+.card-body {
+    height: 136px;
+    max-height: 136px;
+}
+
+.card > img {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+    /* object-position: center; */
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    background-color: gray;
+}
+
 
 /* Media queries */
 @media only screen and (max-width: 768px) {

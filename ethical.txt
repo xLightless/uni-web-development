@@ -19,3 +19,13 @@ https://www.pexels.com/video/digital-simulation-of-airplanes-flying-around-the-e
 New images used:
 - Landing page image
 https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
+
+- Card images
+    https://www.pexels.com/photo/people-rowing-near-the-bristol-harbour-6053628/
+    https://www.pexels.com/photo/lighted-ferrys-wheel-near-body-of-water-during-nighttime-230794/
+    https://www.pexels.com/photo/arch-structure-near-canal-2893285/
+    https://www.pexels.com/photo/view-of-the-old-trafford-11014210/
+    - Glasgow https://www.pexels.com/photo/brown-castle-387232/
+
+TO DO LIST:
+- add location icon and the picture location to card head description
