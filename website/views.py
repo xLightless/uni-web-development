@@ -46,8 +46,6 @@ def account_page():
 
 
 
-
-
 # Testing material for modernisation of website
 
 # Temp routing for modifications to base

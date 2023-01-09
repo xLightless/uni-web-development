@@ -9,9 +9,27 @@
     <title>Login to your account</title>
 </head>
 <body>
-    <div class="grid-container">
-        <div class="grid-item" id="login"></div>
-        <div class="grid-item" id="signup"></div>
+    <div class="background">
+        <img src="{{url_for('static', filename='img/login/pexels-asad-photo-maldives-1450360.jpg')}}">
+        <div class="color-overlay"></div>
+
+        <div class="login-container">
+            <div class="page-account">
+
+                <div class="text">
+                    <p>Account</p>
+                    <div class="page-button-switcher">
+                        <button type="button" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-secondary">Signup</button>
+                    </div>
+
+                    <!-- Use js to swap between the containers -->
+                    <div class="page-account-login"></div>
+                    <div class="page-account-signup"></div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </body>
 </html>
