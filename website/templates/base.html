@@ -1,102 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block basecss %}<link href="{{url_for('static',filename='css/stylesheet.css')}}" rel="stylesheet">{% endblock %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
-    {% block link %}{% endblock %}
-    {% block script %}{% endblock %}
-    <title>{% block title %}{% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="{{url_for('static',filename='css/base.css')}}" rel="stylesheet">
+  {% block head %}{% endblock %}
 </head>
 <body>
-    {% block header %}
+  <!-- data-theme="dark" -->
+  {% block body %}
+  <div class="grid-container">
+    <div class="grid-nav" id="navbar">
+      <div class="grid-nav-brand-parent">
+        <div class="grid-nav-brand">
+          <a class="grid-nav-brand-text" href="{{url_for('views.index')}}">Horizon Travels</a>
+        </div>
+      </div>
+      <div class="grid-nav-nav-parent">
+        <!-- Navbar top icons -->
+        <div class="hamburger" id="hamburger" onclick="toggleNavbar()">
+          <button type="button" id="toggle-navbar" class="toggle-navbar"><i class="fas fa-bars"></i></button>
+        </div>
 
-        {% block navbar %}
-            <a class="navbar-toggler-close collapsed" aria-label="Navbar toggle" aria-expanded="false"></a>
+        <div class="grid-nav-account-button">
+          <button type="button"><i class="fa-solid fa-user"></i></button>
+        </div>
 
-            <nav id="navbar" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                <div class="container-fluid d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        
-                        <!-- Navbar buttons -->
-                        <button class="btn navbar-toggler mx-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="padding: 0.8rem;">
-                            <span><i class="fas fa-bars"></i></span>
-                        </button>
-                        
-                        {% if request.path != "/account/" %}
-                        {% if request.path != "/auth/login/" %}
-                        <div class="btn-group">
-                            <button class="btn btn-primary btn-lg dropdown-toggle mx-1" href="" type="button" id="accountDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                <i class="fa-solid fa-user"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                                {% if session['logged_in'] %}
-                                    <li><a class="dropdown-item" href="{{url_for('auth.account')}}">{{session['username'] | capitalize}} profile</a></li>
-                                    <div style="height: 5px; border-bottom: 1px solid gray;"></div>
-                                    <li><a class="dropdown-item" href="{{url_for('auth.logout')}}"><div>Logout</div></a></li>
-                                {% else %}
-                                    <li><a class="dropdown-item" href="{{url_for('auth.login')}}">Login</a></li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                        {% endif %}
-                        {% endif %}
-                        
+        <div class="grid-nav-basket-button">
+          <button type="button">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </button>
+        </div>
+      </div>
 
-                        <a class="navbar-brand style" href="{{url_for('views.index')}}">Horizon Travels</a>
-                        <!-- Navbar buttons -->
-                    </div>
-        
-                    <!-- Navbar website paths -->
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="nav navbar-nav">
-        
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="{{url_for('views.index')}}">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="{{url_for('views.booking')}}">Booking</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="{{url_for('views.about')}}">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="{{url_for('views.legal')}}">Legal</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Navbar website paths -->
-        
-                </div>
-            </nav>
-        {% endblock %}
 
-    {% endblock %}
-
-    <div class="block-body">
-        {% block body %}{% endblock %}
     </div>
-    
-    {% block footer %}
-        <footer id="footer" class="page-footer bg-dark text-light">
-            <div class="container display-6 d-flex justify-content-center align-items-center p-4">
-                <i class="fa-brands fa-facebook pe-3 ps-3"></i>
-                <i class="fa-brands fa-twitter pe-3 ps-3"></i>
-                <i class="fa-brands fa-cc-paypal pe-3 ps-3"></i>
+
+    <div class="grid-sidebar" id="sidebar">
+      <div class="grid-sidebar-divider-parent">
+        <div class="grid-sidebar-divider">
+          <hr class="divider">
+        </div>
+      </div>
+      <div class="grid-sidebar-nav-parent">
+        <div>
+          <div class="grid-sidebar-nav-heading small-text">
+            <span>NAVIGATION</span>
+          </div>
+          <a class="grid-sidebar-nav-item" href="/">
+            <label><i class="fa-solid fa-house pr-2"></i><span>Home</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+
+          <a class="grid-sidebar-nav-item" href="{{url_for('views.about')}}">
+            <label><i class="fa-solid fa-book pr-2"></i><span>About Us</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+
+          <a class="grid-sidebar-nav-item" href="">
+            <label><i class="fa-solid fa-phone pr-2"></i><span>Contact</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+
+          <a class="grid-sidebar-nav-item" href="{{url_for('views.legal')}}">
+            <label><i class="fa-solid fa-file-contract pr-2"></i><span>Legal</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+        </div>
+
+        <div>
+          <div class="grid-sidebar-nav-heading small-text">
+            <span>BOOKING</span>
+          </div>
+          <a class="grid-sidebar-nav-item">
+            <label><i class="fa-solid fa-plus pr-2"></i><span>Create</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+
+          <a class="grid-sidebar-nav-item">
+            <label><i class="fa-solid fa-bookmark pr-2"></i><span>History</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+          
+          <a class="grid-sidebar-nav-item">
+            <label><i class="fa-sharp fa-solid fa-tags pr-2"></i><span>Discounts</span></label>
+            <div class="hover-circle click"></div>
+          </a>
+        </div>
+
+      </div>
+      <div class="grid-sidebar-footer-parent">
+        <div class="grid-sidebar-footer">
+          <div class="grid-sidebar-footer-left">
+            <div class="small-text">
+              {% if session['logged_in'] %}Logged in as: {% else %}<strong>Login to make bookings.</strong>{% endif %}
             </div>
-
-            <hr class="divider">
-
-            <div class="container bg-dark text-light d-flex justify-content-center align-items-center p-2">
-                <span><i class="far fa-copyright"></i> 2022 Copyright: Horizon Travels Ltd.</span>
+            <div class="small-text username">
+              {% if session['logged_in'] %}<strong>{{session['username'] | capitalize}}</strong>{% endif %}
             </div>
+          </div>
+          <div class="grid-sidebar-footer-right">
+            <a type="button" href="{{url_for('auth.login')}}">
+              {% if not session['logged_in'] %}<i class="fa-solid fa-user"></i>{% endif %}
+              {% if session['logged_in'] %}<img class="grid-sidebar-account-button-img" src="{{url_for('static', filename='img/profileimg.png')}}">{% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        </footer>
-    {% endblock %}
+    <main class="grid-main" id="main">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <!-- Navigation sidebar overlay -->
+      <div id="overlay-backdrop"></div>
+      
+      <!-- Main page content -->
+      {% block main %}{% endblock %}
+
+      
+    <div class="grid-footer" id="footer">
+      <footer class="grid-footer-parent">
+        <label class="copyright"><span>© 2022 Copyright: Horizontravels.com</span></label>
+        <label class="terms-and-conditions"><a href="{{url_for('views.legal')}}">Terms & Conditions</a></label>
+      </footer>
+    </div>
+    </main>
+
+  </div>
+  {% endblock %}
+
+
+  <script src="{{url_for('static',filename='js/theme.js')}}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

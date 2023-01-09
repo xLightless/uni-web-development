@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{session['username'] | capitalize}} Profile{% endblock %}
 
-{% block body %}
+{% block main %}
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh; width: 100vw">
         {% if session["logged_in"] %}
             <!-- Account code -->

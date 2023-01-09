@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block link %}<link href="{{url_for('static',filename='css/index.css')}}" rel="stylesheet">{% endblock %}
+{% block title %}Explore with Horizon Travels{% endblock %}
+
+{% block body %}
+  <!-- Hero Content -->
+  <div id="hero" class="container-fluid p-0">
+    <!-- Hero Top -->
+    <div id="hero-carousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+
+        <!-- Carousel page change -->
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2"></button>
+        </div>
+        
+        <!-- Carousel sliding images -->
+        <div class="carousel-inner carousel-border-style">
+          <div class="carousel-item active c-item">
+            <img src="{{url_for('static', filename='img/plane.jpg')}}" alt="Air Travel" class="d-block carousel-img-style">
+            <div class="carousel-caption">
+              <h1>Air Travel</h1>
+              <p class="h4">Thinking about going abroad? Book <a href="{{url_for('views.booking')}}" class="text-decoration-none">here</a>.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{{url_for('static', filename='img/train.jpg')}}" alt="Travel by Train" class="d-block carousel-img-style">
+            <div class="carousel-caption">
+                <h1>Travel by Train</h1>
+                <p class="h4"><a href="{{url_for('views.booking')}}" class="text-decoration-none">Book a Train</a> and enjoy the scenery!</p>
+            </div> 
+          </div>
+          <div class="carousel-item">
+            <img src="{{url_for('static', filename='img/roadtrip.jpg')}}" alt="Coach Travel" class="d-block carousel-img-style">
+            <div class="carousel-caption">
+                <h1>Coach Travel</h1>
+                <p class="h4">Enjoy road travel? Book a <a href="{{url_for('views.booking')}}" class="text-decoration-none">ticket</a>.</p>
+            </div>  
+          </div>
+        </div>
+    </div>
+    <!-- Hero Top -->
+
+    <!-- Hero Bottom -->
+    <div class="container-lg hero-bottom d-flex justify-content-center align-items-center">
+      <div class="row w-100">
+        <!-- Horizon Travels slogan -->
+        <div class="col-lg d-flex flex-column justify-content-center align-items-center my-5">
+          <h1 class="text-center">Horizon Travels</h1>
+          <h5 class="text-center"><i>Travel more for less.</i></h5>
+        </div>
+        <!-- Horizon Travels slogan -->
+        
+        <!-- Travel for less booking form -->
+        <div class="col-lg">
+          <form class="form-style">
+
+            <div class="input-group input-group-md w-100">
+              <input type="text" class="form-control" placeholder="Origin" id="originLocation" required>
+              <span class="input-group-text"><i class="fa-solid fa-arrow-right"></i></span>
+              <input type="text" class="form-control" placeholder="Destination" id="destinationLocation" required>
+            </div>
+
+            <div class="input-group input-group-md w-100">
+              <input type="datetime-local" class="form-control" id="datetimeOut" required>
+              <span class="input-group-text"><i class="fa-solid fa-arrow-right"></i></span>
+              <input type="datetime-local" class="form-control" id="datetimeReturn" required>
+            </div>
+            <div class="form-group form-group-md w-100 mt-3">
+              <button type="submit" class="btn btn-primary btn-gradient w-100">Search</button>
+            </div>
+
+          </form>
+        </div>
+        <!-- Travel for less booking form -->
+      </div>
+    </div>
+    <!-- Hero Bottom -->
+  </div>
+
+  <!-- Travel locations container -->
+  <div class="container-fluid border border-transparent border-end-0 border-start-0 p-3">
+    
+    <div class="p-5">
+      <h1 class="text-center">Planning a trip? Here is some suggestions.</h1>
+    </div>
+    
+    <div class="row g-5">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card me-4 ms-4">
+          <img src="{{url_for('static', filename='img/placeholder.png')}}" alt="A place in England" class="card-img-top">
+          <div class="container card-body">
+            <h5 class="card-title">London</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card me-4 ms-4">
+          <img src="{{url_for('static', filename='img/placeholder.png')}}" alt="A place in England">
+          <div class="card-body">
+            <h5 class="card-title">Bristol</h5>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card me-4 ms-4">
+          <img src="{{url_for('static', filename='img/placeholder.png')}}" alt="A place in Europe">
+          <div class="card-body">
+            <h5 class="card-title">Edinburgh</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 d-lg-none">
+        <div class="card me-4 ms-4">
+          <img src="{{url_for('static', filename='img/placeholder.png')}}" alt="A place in Europe">
+          <div class="card-body">
+            <h5 class="card-title">Glasgow</h5>
+          </div>
+        </div>
+      </div>
+
+      <p>All types of travel are subject to limited availability. See <a href="{{url_for('views.legal')}}">terms and conditions</a> for more.</p>
+
+    </div>
+  </div>
+  <!-- Travel locations container -->
+
+  <!-- Booking Discount-->
+  <!-- <div class="container-fluid border border-primary h-25">
+  </div> -->
+  <!-- Booking Discount-->
+
+{% endblock %}

@@ -19,14 +19,6 @@ database = Database(database="ht_database")
 
 @views.route('/')
 def index():
-    # Old index
-    # return render_template('index.html')
-    
-    # New index
-    return render_template('cbase_index.html')
-
-@views.route('/oldindex/')
-def index2():
     return render_template('index.html')
 
 @views.route('/booking/', methods=['GET', 'POST'])
@@ -57,9 +49,6 @@ def account_page():
 
 
 # Testing material for modernisation of website
-@views.route('/travelComponent/')
-def travel_component():
-    return render_template('component_travel_box.html')
 
 # Temp routing for modifications to base
 # @views.route('/newbase/')

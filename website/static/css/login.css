@@ -1,0 +1,37 @@
+:root {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+
+    /* Set color vars to change themes */
+    --primary-color: #212529;
+    --secondary-color: #1B1B1B;
+    --tertiary-color: #121212;
+    --text-color: white;
+}
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    /* background-color: var(--primary-color); */
+}
+
+.grid-container {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 60% 40%;
+    grid-template-areas: "login signup";
+}
+
+#login {
+    background-color: white;
+}
+
+#signup {
+    background-color: #121212;
+}
