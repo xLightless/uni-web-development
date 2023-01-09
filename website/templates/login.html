@@ -12,23 +12,15 @@
     <div class="background">
         <img src="{{url_for('static', filename='img/login/pexels-asad-photo-maldives-1450360.jpg')}}">
         <div class="color-overlay"></div>
+    </div>
 
-        <div class="login-container">
-            <div class="page-account">
+    <div class="foreground">
+        <div class="account">
+            <div class="account-head"></div>
+            <div class="account-slider"></div>
 
-                <div class="text">
-                    <p>Account</p>
-                    <div class="page-button-switcher">
-                        <button type="button" class="btn btn-primary">Login</button>
-                        <button type="button" class="btn btn-secondary">Signup</button>
-                    </div>
-
-                    <!-- Use js to swap between the containers -->
-                    <div class="page-account-login"></div>
-                    <div class="page-account-signup"></div>
-                </div>
-
-            </div>
+            <!-- Check if account-slider is on login or signup then swap content to the type -->
+            <div class="account-slider-content"></div>
         </div>
     </div>
 </body>
