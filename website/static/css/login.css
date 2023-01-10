@@ -18,23 +18,7 @@
 html, body {
     width: 100%;
     height: 100%;
-    /* background-color: var(--primary-color); */
 }
-
-/* .grid-container {
-    display: grid;
-    height: 100%;
-    grid-template-columns: 60% 40%;
-    grid-template-areas: "login signup";
-}
-
-#login {
-    background-color: white;
-}
-
-#signup {
-    background-color: #121212;
-} */
 
 html, body {
     height: 100%;
@@ -87,8 +71,47 @@ html, body {
 }
 
 .account {
-    width: 350px;
-    height: 550px;
+    width: 500px;
+    height: 750px;
     background-color: white;
     border-radius: 16px;
+    padding: 1rem;
+}
+
+.account > div {
+    padding: 1rem;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+}
+
+.account-head {
+    width: 100%;
+    height: 128px;
+    /* background-color: gray; */
+}
+
+.account-head > p {
+    text-align: center;
+}
+
+.account-slider {
+    width: 100%;
+    height: 64px;
+    background-color: blue;
+    padding: 0!important;
+}
+
+.account-slider > .slider {
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+}
+
+.account-slider-content {
+    width: 100%;
+    height: calc(100% - 192px);
+    background-color: red;
 }
