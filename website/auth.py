@@ -51,21 +51,22 @@ class Authenticated(Session):
     def authenticate_user(self, email, password):
         """ Authenticates user into session if account exists """
 
-        contact_record = database.get_table_value_record('contacts', 'email_address', str(email))
-        account_record = database.get_table_value_record('accounts', 'contact_id', str(contact_record[0]))
-        password_in_account = str(account_record[3])
-        username_in_account = str(account_record[2])
-        
-        email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))
-        if email_in_table == True:
-            if self.generate_password_hash(password) == password_in_account:
-                self.set_key('username', username_in_account)
-                self.set_key('logged_in', True)
-                
-                return redirect(url_for('views.index'))
-        
-        login_error =  'Invalid email or password used.'
-        print(login_error)
+        try:
+            contact_record = database.get_table_value_record('contacts', 'email_address', str(email))
+            account_record = database.get_table_value_record('accounts', 'contact_id', str(contact_record[0]))
+            password_in_account = str(account_record[3])
+            username_in_account = str(account_record[2])
+            
+            email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))
+            if email_in_table == True:
+                if self.generate_password_hash(password) == password_in_account:
+                    self.set_key('username', username_in_account)
+                    self.set_key('logged_in', True)
+                    
+                    return redirect(url_for('views.index'))
+        except IndexError:
+            login_error =  'Invalid email or password used.'
+            print(login_error)
     
 user_session = Session()
 user_auth = Authenticated()

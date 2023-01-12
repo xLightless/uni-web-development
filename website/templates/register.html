@@ -21,7 +21,7 @@
     <div class="row w-100">
         <div class="col-4 d-block d-flex justify-content-center align-items-center p-3 mx-auto">
             <div class="w-100">
-                <h1 class="display-6 text-center">
+                <h1 class="display-6 text-center text-light">
                     Create an Account
                 </h1>
             </div>
@@ -29,49 +29,49 @@
         <div class="col-sm-8 d-block mx-auto">
             <form action="#", method="post">
                 <div class="mb-2 form-group">
-                    <label class="form-label">Email Address:</label>
+                    <label class="form-label text-light">Email Address:</label>
                     <input type="email" id="email" name="email" class="form-control" value="{{
                         request.form.email }}" >
                 </div>
     
                 <div class="mb-2 form-group">
-                    <label class="form-label">Username:</label>
+                    <label class="form-label text-light">Username:</label>
                     <input type="text" id="username" name="username" class="form-control" value="{{
                         request.form.username }}" >
                 </div>
         
                 <div class="mb-2 form-group">
-                    <label class="form-label">Password:</label>
+                    <label class="form-label text-light">Password:</label>
                     <input type="password" id="password" name="password" class="form-control" value="{{
                         request.form.password }}" >
                 </div>
         
                 <div class="mb-2 form-group">
-                    <label class="form-label">Confirm Password:</label>
+                    <label class="form-label text-light">Confirm Password:</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" value="{{
                         request.form.confirmPassword }}" required>
                 </div>
         
                 <div class="mb-2 form-group">
-                    <label class="form-label">First Name:</label>
+                    <label class="form-label text-light">First Name:</label>
                     <input type="text" id="legalFirstName" name="legalFirstName" class="form-control" value="{{
                         request.form.legalFirstName }}" required>
                 </div>
         
                 <div class="mb-2 form-group">
-                    <label class="form-label">Last Name:</label>
+                    <label class="form-label text-light">Last Name:</label>
                     <input type="text" id="legalLastName" name="legalLastName" class="form-control" value="{{
                         request.form.legalLastName }}" required>
                 </div>
         
                 <div class="mb-2 form-outline">
-                    <label class="form-label" for="dateOfBirth">Date of Birth:</label>
+                    <label class="form-label text-light" for="dateOfBirth">Date of Birth:</label>
                     <input type="date" id="dob" name="dob" class="form-control" value="{{
                         request.form.dob }}" >
                 </div>
     
                 <div class="mb-2 form-group">
-                    <label class="form-label">Phone Number:</label>
+                    <label class="form-label text-light">Phone Number:</label>
                     <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" value="{{
                         request.form.phoneNumber }}" required>
                 </div>
@@ -79,7 +79,7 @@
                 <div class="m-2 form-group form-check">
                     <input class="form-check-input" type="checkbox" id="isTOSChecked" name="isTOSChecked"value="{{
                         request.form.isTOSChecked }}" required>
-                    <label class="form-check-label">You must agree to the <a href="{{url_for('views.legal')}}">terms and conditions</a></label>
+                    <label class="form-check-label text-light">You must agree to the <a href="{{url_for('views.legal')}}">terms and conditions</a></label>
                 </div>
 
                 <div class="mt-5 mb-2 form-group">
@@ -90,3 +90,8 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block booking %} {% endblock %}
+{% block sidebar_footer %} {% endblock %}
+{% block nav_buttons %} {% endblock %}

@@ -24,6 +24,7 @@
           <button type="button" id="toggle-navbar" class="toggle-navbar"><i class="fas fa-bars"></i></button>
         </div>
 
+        {% block nav_buttons %}
         <div class="grid-nav-account-button">
           <button type="button"><i class="fa-solid fa-user"></i></button>
         </div>
@@ -33,6 +34,7 @@
             <i class="fa-solid fa-basket-shopping"></i>
           </button>
         </div>
+        {% endblock %}
       </div>
 
 
@@ -70,6 +72,7 @@
           </a>
         </div>
 
+        {% block booking %}
         <div>
           <div class="grid-sidebar-nav-heading small-text">
             <span>BOOKING</span>
@@ -89,8 +92,11 @@
             <div class="hover-circle click"></div>
           </a>
         </div>
+        {% endblock %}
 
       </div>
+
+      {% block sidebar_footer %}
       <div class="grid-sidebar-footer-parent">
         <div class="grid-sidebar-footer">
           <div class="grid-sidebar-footer-left">
@@ -109,6 +115,7 @@
           </div>
         </div>
       </div>
+      {% endblock %}
     </div>
 
     <main class="grid-main" id="main">
