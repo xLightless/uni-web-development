@@ -10,8 +10,8 @@ class Database(object):
         self,
         host:str = "localhost",
         user:str = "root",
-        password:str = "password1",
-        database:str = "horizon_travels"
+        password:str = "Password1",
+        database:str = "ht_database"
     ):
         """ Establish a mysql connection 
 

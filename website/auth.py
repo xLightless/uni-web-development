@@ -4,7 +4,7 @@ import hashlib
 from website.database import Database
 
 auth = Blueprint('auth', __name__)
-database = Database(database="ht_database")
+database = Database(database="ht_database", user="root", password="Password1")
 
 class Session(object):
     """ Public session data """        
@@ -62,6 +62,7 @@ class Authenticated(Session):
                 if self.generate_password_hash(password) == password_in_account:
                     self.set_key('username', username_in_account)
                     self.set_key('logged_in', True)
+                    self.set_key('email', email)
                     
                     return redirect(url_for('views.index'))
         except IndexError:
@@ -212,6 +213,7 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
 
 @auth.route('/account/logout/') 
 def logout():
+    print(session.keys())
     for key in list(session.keys()):
         session.pop(key, None)
         session.clear()

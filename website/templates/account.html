@@ -23,8 +23,39 @@
     <section class="main">
         <div class="grid-account">
             <div class="portfolio">
-                <div class="container profile"></div>
-                <div class="container information"></div>
+                <!-- <div class="profile">
+                    <div class="picture d-inline-block">
+                        <div class="user-picture"></div>
+                    </div>
+                    <div class="user-info d-inline-block">
+                        <p class="user-info-name">Reece Turner</p>
+                        <p class="user-info-email">reeceturner35@gmail.com</p>
+                    </div>
+                    <div class="sign-out d-inline-block">
+                        <button type="button" class="btn btn-primary">Sign out</button>
+                    </div>
+                </div> -->
+                <div class="profile">
+                    <div class="container sign-out">
+                        <form action="{{url_for('auth.logout')}}">
+                            <button type="submit" class="btn btn-outline-danger">Sign out</button>
+                        </form>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12 profile-picture">
+                                <div class="picture">
+                                    <img src="{{url_for('static', filename='img/profileimg.png')}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 profile-info">
+                                <p class="name">{{ session['username'] }}</p>
+                                <p class="email">{{ session['email'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="information"></div>
             </div>
             <div class="payments">payments</div>
             <div class="bookings">bookings</div>
