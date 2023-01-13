@@ -1,22 +1,33 @@
 {% extends "base.html" %}
 {% block title %}{{session['username'] | capitalize}} Profile{% endblock %}
+{% block head %}
+    <link href="{{url_for('static', filename='css/account.css')}}" rel="stylesheet">
+{% endblock %}
+
+
+<!-- <div>
+    {% if session["logged_in"] %}
+
+
+    <div class="container bg-dark">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% else %}
+    <span style="font-size: 2rem">It appears you are not logged in. Please create an <a href="{{url_for('auth.register')}}">account</a> or <a href="{{url_for('auth.login')}}">login</a> to view this page.</span>
+{% endif %}
+</div> -->
 
 {% block main %}
     <section class="main">
-        <div>
-            {% if session["logged_in"] %}
-            <!-- Account code -->
-            <div class="container bg-dark">
-                <div class="row">
-                    <div class="col"></div>
-                </div>
+        <div class="grid-account">
+            <div class="portfolio">
+                <div class="container profile"></div>
+                <div class="container information"></div>
             </div>
-        {% else %}
-            <span style="font-size: 2rem">It appears you are not logged in. Please create an <a href="{{url_for('auth.register')}}">account</a> or <a href="{{url_for('auth.login')}}">login</a> to view this page.</span>
-        {% endif %}
+            <div class="payments">payments</div>
+            <div class="bookings">bookings</div>
         </div>
     </section>
-
-    <section style="background-color: red;"></section>
-    <section style="background-color: blue;"></section>
 {% endblock %}
