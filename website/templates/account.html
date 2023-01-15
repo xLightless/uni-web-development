@@ -21,32 +21,58 @@
 
 {% block main %}
     <section class="main">
-        <div class="grid-account">
-            <div class="portfolio">
-                <div class="profile">
-                    <div class="container sign-out">
-                        <form action="{{url_for('auth.logout')}}">
-                            <button type="submit" class="btn btn-outline-danger">Sign out</button>
-                        </form>
+        <div class="grid-container-account">
+            <div class="grid-item account">
+                <div class="nav-container">
+                    <div class="dotted-button">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
                     </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12 profile-picture">
-                                <div class="picture">
-                                    <img src="{{url_for('static', filename='img/profileimg.png')}}">
+                </div>
+
+                <div class="account-container">
+                    <div class="profile">
+                        <div class="profile-head">
+                            <p>PROFILE</p>
+                        </div>
+                        <div class="profile-content">
+                            <div class="d-block">
+                                <div class="profile-picture">
+                                    <div class="image-gray">
+                                        <img src="{{url_for('static', filename='img/profileimg.png')}}">
+                                        <div class="upload-img">
+                                            <i class="fas fa-upload"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="vertical-divider"></div> -->
+                                <div class="profile-account-name">
+                                    <p>Reece Turner</p>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-sm-12 profile-info">
-                                <p class="name">{{ session['username'] }}</p>
-                                <p class="email">{{ session['email'] }}</p>
+                            <div class="d-block">
+                                <div class="horizontal-divider"></div>
+                                <div class="profile-account-email">
+                                    <p class="">reeceturner35@gmail.com</p>
+                                </div>
                             </div>
+
+                        </div>
+                    </div>
+                    
+                    <div class="vertical-divider"></div>
+                    
+                    <div class="activity">
+                        <div class="activity-head">
+                            <p>ACTIVITY</p>
                         </div>
                     </div>
                 </div>
-                <div class="information"></div>
             </div>
-            <div class="payments">payments</div>
-            <div class="bookings">bookings</div>
+
+
+
+            <div class="grid-item contents"></div>
         </div>
     </section>
 {% endblock %}
