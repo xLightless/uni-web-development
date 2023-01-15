@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="account-container">
-                    <div class="profile">
+                    <!-- <div class="profile">
                         <div class="profile-head">
                             <p>PROFILE</p>
                         </div>
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="vertical-divider"></div> -->
+                                
                                 <div class="profile-account-name">
                                     <p>Reece Turner</p>
                                 </div>
@@ -59,20 +59,67 @@
 
                         </div>
                     </div>
+                     -->
+                    <!-- <div class="vertical-divider"></div> -->
                     
-                    <div class="vertical-divider"></div>
-                    
-                    <div class="activity">
-                        <div class="activity-head">
+                    <div class="wrapper">
+                        <div class="container-head">
                             <p>ACTIVITY</p>
                         </div>
+
+                        <div class="container-body">ACTIVITY BODY</div>
                     </div>
+
+
                 </div>
             </div>
 
 
 
-            <div class="grid-item contents"></div>
+            <div class="grid-item contents">
+                <div class="nav-container">
+                    <div class="dotted-button">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+
+                <div class="account-container">
+                    <div class="wrapper">
+                        <div class="container-head">
+                            <p>PROFILE</p>
+                        </div>
+    
+                        <div class="container-body">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12 user-data">
+                                    <div class="row">
+                                        <div class="col-4 col-md-12 picture">
+                                            <div class="picture-wrapper">
+                                                <div class="upload d-block">
+                                                    <i class="fas fa-file-upload"></i>
+                                                    <img src="{{url_for('static', filename='img/profileimg.png')}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 col-md-12 information">
+                                            <div class="information-wrapper w-100 h-100">
+                                                <div class="container-fluid name">
+                                                    <p>Reece Turner</p>
+                                                </div>
+                                                <div class="container-fluid email">
+                                                    <p>reeceturner35@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12 user-manager"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}
