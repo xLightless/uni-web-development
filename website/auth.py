@@ -77,6 +77,7 @@ def login():
     """ Renders the login page """
     
     error = ""
+    print(session.keys())
     
     # If new session then create a login boolean
     if user_session.has_key('logged_in') == False:
@@ -117,8 +118,50 @@ def account():
     """ Manages account page authenticated users """
     
     if user_session.get_key_value('logged_in') == True:
+        
+        if request.method == 'POST':
+            username_ = request.form['username']
+            fname_ = request.form['fname']
+            lname_ = request.form['lname']
+            telephone_ = request.form['telephone']
+            email_ = request.form['email']
+            
+            return redirect(url_for(
+                'auth.update_account',
+                username = username_,
+                fname = fname_,
+                lname = lname_,
+                telephone = telephone_,
+                email = email_
+            ))
         return redirect(url_for('views.account_page'))
     return redirect(url_for('auth.login'))
+
+@auth.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')
+def update_account(username, fname, lname, telephone, email):
+    # print(username, fname, lname, telephone, email)
+    
+    try:
+        contacts = database.get_table_value_record('contacts', 'email_address', str(session['email']))
+        contact_id = contacts[0]
+        customer_id = contacts[1]
+        customer = database.get_table_value_record('customers', 'customer_id', str(customer_id))
+        account = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
+        account_id = account[0]
+        
+        # Account table
+        database.update_table_record('accounts', 'username', username, 'account_id', account_id)
+        
+        # Contacts table
+        database.update_table_record('contacts', 'telephone', telephone, 'contact_id', contact_id)
+        database.update_table_record('contacts', 'email_address', email, 'contact_id', contact_id)
+        
+        # Customers table
+        database.update_table_record('customers', 'first_name', fname, 'customer_id', customer_id)
+        database.update_table_record('customers', 'last_name', lname, 'customer_id', customer_id)
+    except TypeError:
+        pass
+    return redirect(url_for('auth.logout'))
 
 @auth.route('/account/register/', methods=['POST', 'GET'])
 def register():
@@ -204,25 +247,13 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
                 return redirect(url_for('auth.login'))
         
         return redirect(url_for('auth.register'))
-        # if not (str(session.get('password')) == str(session.get('confirmPassword'))):
-        #     error = "Confirm password and password do not match!"
-        #     print(error)
-        #     return redirect(url_for('auth.register'))
         
     return redirect(url_for('auth.login'))
 
 @auth.route('/account/logout/') 
 def logout():
-    print(session.keys())
     for key in list(session.keys()):
         session.pop(key, None)
         session.clear()
     user_session.set_key('logged_in', False)
     return redirect(url_for('views.index'))
-
-
-# @auth.route('/booking/')
-# def booking():
-#     if session['logged_in'] == True:
-#         return redirect(url_for('views.booking'))
-#     return redirect(url_for('auth.login'))

@@ -115,9 +115,12 @@ class Database(object):
             tuple: Returns record of table.
         """
         
-        query = "SELECT * FROM %s WHERE %s = '%s'" % (table, column_name, value)
-        self.cursor.execute(query)
-        return self.cursor.fetchall()[0]
+        try:
+            query = "SELECT * FROM %s WHERE %s = '%s'" % (table, column_name, value)
+            self.cursor.execute(query)
+            return self.cursor.fetchall()[0]
+        except IndexError:
+            return f"Invalid row/record in {table}."
     
     def get_table_column(self, table:str, column_name:str) -> tuple:
         """ Gets the column header and values from a table
@@ -305,12 +308,18 @@ class Database(object):
             return "Primary key '%s' not found in '%s'." % (pk_id, table)
     
     def get_foreign_key_record():pass
+    
+    def update_table_record(self, table:str, column_name:str, set_value, pk_column_name:str, pk_id:int):
+        """ Update a table record by setting a new value in a single row
+
+        Args:
+            table (str): Name of the table.
+            column_name (str): The column name in 'table'.
+            set_value (_type_): Updates the current value to a new value.
+            pk_column_name (str): Primary key column name.
+            pk_id (int): Primary key column name ID.
+        """
         
-# database = Database(database="ht_database")
-
-# x = database.get_table_record_y('contacts', 'email_address', 'lightlessgaming@gmail.com')
-# contact_record = database.get_table_value_record('contacts', 'email_address', 'lightlessgaming@gmail.com')
-# contact_id = str(contact_record[0])
-
-# account_record = database.get_table_value_record('accounts', 'contact_id', contact_id)
-# account_password = str(account_record[3])
+        query = "UPDATE %s SET %s = '%s' WHERE %s = '%s'" % (table, column_name, set_value, pk_column_name, pk_id)
+        self.cursor.execute(query)
+        self.__db.commit()

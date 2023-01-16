@@ -21,105 +21,89 @@
 
 {% block main %}
     <section class="main">
-        <div class="grid-container-account">
-            <div class="grid-item account">
-                <div class="nav-container">
+
+        <div class="account">
+            <div class="header">
+
+                <!-- Nav button dropdown -->
+                <div class="dropdown">
+                    <!-- Nav button -->
                     <div class="dotted-button">
                         <div class="dot"></div>
                         <div class="dot"></div>
                     </div>
+                    <div class="dropdown-content">
+                        <ul class="list-group">
+                            <li class="list-group-item hover">Account</li>
+                            <li class="list-group-item hover">Booking</li>
+                            <li class="list-group-item hover">
+                                <a href="{{url_for('auth.logout')}}" class="text-decoration-none text-danger">Sign Out</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="account-container">
-                    <!-- <div class="profile">
-                        <div class="profile-head">
-                            <p>PROFILE</p>
-                        </div>
-                        <div class="profile-content">
-                            <div class="d-block">
-                                <div class="profile-picture">
-                                    <div class="image-gray">
-                                        <img src="{{url_for('static', filename='img/profileimg.png')}}">
-                                        <div class="upload-img">
-                                            <i class="fas fa-upload"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="profile-account-name">
-                                    <p>Reece Turner</p>
-                                </div>
-                            </div>
-                            <div class="d-block">
-                                <div class="horizontal-divider"></div>
-                                <div class="profile-account-email">
-                                    <p class="">reeceturner35@gmail.com</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                     -->
-                    <!-- <div class="vertical-divider"></div> -->
-                    
-                    <div class="wrapper">
-                        <div class="container-head">
-                            <p>ACTIVITY</p>
-                        </div>
-
-                        <div class="container-body">ACTIVITY BODY</div>
-                    </div>
-
-
+                
+                <div class="title">
+                    <p class="page-title">ACCOUNT</p>
                 </div>
             </div>
 
-
-
-            <div class="grid-item contents">
-                <div class="nav-container">
-                    <div class="dotted-button">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-
-                <div class="account-container">
-                    <div class="wrapper">
-                        <div class="container-head">
-                            <p>PROFILE</p>
-                        </div>
-    
-                        <div class="container-body">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-12 user-data">
-                                    <div class="row">
-                                        <div class="col-4 col-md-12 picture">
-                                            <div class="picture-wrapper">
-                                                <div class="upload d-block">
-                                                    <i class="fas fa-file-upload"></i>
-                                                    <img src="{{url_for('static', filename='img/profileimg.png')}}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-8 col-md-12 information">
-                                            <div class="information-wrapper w-100 h-100">
-                                                <div class="container-fluid name">
-                                                    <p>Reece Turner</p>
-                                                </div>
-                                                <div class="container-fluid email">
-                                                    <p>reeceturner35@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-sm-12 user-manager"></div>
+            <div class="pages-account">
+                <!-- Display information about the user  -->
+                <div class="account-profile-user">
+                    <div class="account-profile-user-picture">
+                        <div class="frame">                        
+                            <div class="upload">
+                                <i class="fas fa-file-upload"></i>
+                                <img src="{{url_for('static', filename='img/profileimg.png')}}">
                             </div>
                         </div>
                     </div>
+
+                    <div class="account-profile-user-info">
+                        <p class="name">{{ current_fname }} {{ current_lname }}</p>
+                        <p class="email">{{ current_email }}</p>
+                    </div>
                 </div>
+                
+                <div class="account-profile-manager">
+                    <form action="{{ url_for('auth.account') }}" method="post">
+                        <div class="form-group mb-2">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" aria-describedby="Update User Name" value="{{ current_username }}">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" id="fname" name="fname" aria-describedby="Update First Name" value="{{ current_fname }}">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" id="lname" name="lname" aria-describedby="Update Last Name"  value="{{ current_lname }}">
+                        </div>
+                        
+                        <div class="form-group mb-2">
+                            <label for="telephone">Telephone</label>
+                            <input type="text" class="form-control" id="telephone" name="telephone" aria-describedby="Update Telephone" value="{{ current_telephone }}">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="email">Email Address</label>
+                            <input type="text" class="form-control" id="email" name="email" aria-describedby="Update Email" value="{{ current_email }}">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary m-0">Update Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pages-booking">
+                <!-- Display active and previous bookings on the account -->
             </div>
         </div>
     </section>
+
+    <script src="{{url_for('static', filename='js/account.js')}}"></script>
 {% endblock %}
