@@ -33,9 +33,9 @@
                         <div class="dot"></div>
                     </div>
                     <div class="dropdown-content">
-                        <ul class="list-group">
-                            <li class="list-group-item hover">Account</li>
-                            <li class="list-group-item hover">Booking</li>
+                        <ul class="list-group" id="dropdown-list">
+                            <li class="list-group-item hover" id="li-g-account" onclick="swapPages();">Account</li>
+                            <li class="list-group-item hover" id="li-g-booking" onclick="swapPages();">Booking</li>
                             <li class="list-group-item hover">
                                 <a href="{{url_for('auth.logout')}}" class="text-decoration-none text-danger">Sign Out</a>
                             </li>
@@ -44,11 +44,11 @@
                 </div>
                 
                 <div class="title">
-                    <p class="page-title">ACCOUNT</p>
+                    <p class="page-title" id="page-title">ACCOUNT</p>
                 </div>
             </div>
 
-            <div class="pages-account">
+            <div class="pages-account" id="page-account">
                 <!-- Display information about the user  -->
                 <div class="account-profile-user">
                     <div class="account-profile-user-picture">
@@ -99,8 +99,9 @@
                 </div>
             </div>
 
-            <div class="pages-booking">
+            <div class="pages-booking" id="page-booking">
                 <!-- Display active and previous bookings on the account -->
+
             </div>
         </div>
     </section>
