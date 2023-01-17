@@ -46,11 +46,13 @@ function toggleNavbar() {
                 // Update sidebar
                 sidebar[i].style.display = "initial"
                 sidebar[i].style.width = "200px"
+                sidebar[i].style.animation = "fade-in 0.4s"
 
                 // Grayscale page content
                 this.document.getElementById('overlay-backdrop').style.display = "block"
                 this.document.getElementById('overlay-backdrop').style.width = 'calc(100% - 200px)'
                 this.document.getElementById('overlay-backdrop').style.left = "200px"
+                this.document.getElementById('overlay-backdrop').style.animation = "fade-in 0.4s"
             }
 
         } else {

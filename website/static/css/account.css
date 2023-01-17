@@ -162,6 +162,10 @@
     position: relative;
 }
 
+.frame:hover {
+    cursor: pointer;
+}
+
 .frame .upload > img {
     width: 100%;
     height: 100%;

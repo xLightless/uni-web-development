@@ -240,7 +240,7 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
                         str(contacts_primary_key),
                         str(name),
                         str(user_auth.generate_password_hash(secret)),
-                        'Normal'
+                        'Standard'
                     )
                 )
             
