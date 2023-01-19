@@ -323,3 +323,8 @@ class Database(object):
         query = "UPDATE %s SET %s = '%s' WHERE %s = '%s'" % (table, column_name, set_value, pk_column_name, pk_id)
         self.cursor.execute(query)
         self.__db.commit()
+        
+        
+        
+database = Database()
+print(database.get_table('customers', False))

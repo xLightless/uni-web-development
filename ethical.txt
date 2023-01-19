@@ -14,6 +14,9 @@ https://fontawesome.com/v5/icons/copyright?s=regular&f=classic
 <i class="fa-brands fa-twitter"></i>
 <i class="fa-brands fa-cc-paypal"></i>
 
+
+<i class="fa fa-plus" aria-hidden="true"></i>
+
 https://www.pexels.com/video/digital-simulation-of-airplanes-flying-around-the-earth-s-atmosphere-3125448/
 
 New images used:

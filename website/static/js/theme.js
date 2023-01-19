@@ -1,6 +1,6 @@
 
 
-// base class theme js
+// BASE CLASS JAVASCRIPT FILE
 
 var width;
 var height;
@@ -34,6 +34,8 @@ window.addEventListener('resize', () => {
         }
     }
 })
+
+// BASE THEME JS
 
 function toggleNavbar() {
     var sidebar = document.getElementsByClassName('grid-sidebar')
@@ -97,3 +99,96 @@ function toggleNavbar() {
 
     });
 }
+
+// LOGIN PAGE JS
+
+var login = document.getElementById('login');
+var password = document.getElementById('forgot-password');
+
+function passwordContainer() {
+    // Change page content container to forgot password
+    login.style.display = 'none';
+    password.style.display = 'initial';
+    var email = document.getElementById('loginEmail').value;
+    reset = document.getElementById('resetEmail').value = email
+}
+
+function loginContainer() {
+    // Changes page content container to login container
+    login.style.display = 'initial';
+    password.style.display = 'none';
+}
+
+// ACCOUNT PAGE JS
+
+function swapPages() {
+    dropdownAccount = document.getElementById('li-g-account');
+    dropdownBooking = document.getElementById('li-g-booking');
+    var accountPage = document.getElementsByClassName('pages-account');
+    var bookingPage = document.getElementsByClassName('pages-booking');
+    var pageTitle = document.getElementById('page-title');
+
+    document.getElementById("dropdown-list").addEventListener("click", function(e) {
+        // e.target will be the item that was clicked on
+        // e.target.style.color = "orange";
+
+        for (i = 0; i < bookingPage.length; i++) {
+            if (e.target == dropdownAccount) {
+                pageTitle.innerText = "ACCOUNT"
+                bookingPage[i].style.display = "none";
+                accountPage[i].style.display = "initial";
+            }
+    
+            if (e.target == dropdownBooking) {
+                pageTitle.innerText = "BOOKING"
+                bookingPage[i].style.display = "unset";
+                accountPage[i].style.display = "none";
+            }
+        }
+    })
+}
+
+// PUBLIC BOOKING PAGE JS
+
+function toggleContainer(e) {
+
+}
+
+// function toggleTravelNav() {
+//     // Toggles the navbar for users on a smaller resolution
+//     // console.log("test")
+//     let isEnabled = false;
+
+//     let nav = document.getElementById("booking-nav");
+//     let bookingContainer = document.getElementById('booking-container');
+
+//     let gridControl = document.getElementsByClassName('container-booking-grid');
+
+
+//     nav.addEventListener("click", function(e) {
+//         if (isEnabled == false && e.target == "booking-nav") {
+//             isEnabled = true;
+//             // nav.style.display = "none";
+//             console.log(e.target)
+
+//             // Change grid areas
+//             for (i = 0; i < gridControl.length; i++) {
+//                 gridControl[i].style.gridTemplateColumns = "1fr";
+//                 gridControl[i].style.gridTemplateRows = "1fr";
+//                 gridControl[i].style.gridTemplateAreas = "booking-nav";
+
+//                 bookingContainer.style.display = "none";
+//             }
+//         }
+//     });
+
+    // .container-booking-grid {
+    //     display: grid; 
+    //     grid-template-columns: 1fr; 
+    //     grid-template-rows: 0.6fr 1.4fr;
+    //     grid-template-areas: 
+    //       "booking-nav"
+    //       "booking-container";
+    //     gap: 0.5rem;
+    //     width: 100%;
+    //     height: 100%;
