@@ -16,6 +16,8 @@ https://fontawesome.com/v5/icons/copyright?s=regular&f=classic
 
 
 <i class="fa fa-plus" aria-hidden="true"></i>
+<i class="fa fa-search" aria-hidden="true"></i>
+<i class="fa fa-exchange" aria-hidden="true"></i>
 
 https://www.pexels.com/video/digital-simulation-of-airplanes-flying-around-the-earth-s-atmosphere-3125448/
 

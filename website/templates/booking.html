@@ -30,7 +30,7 @@
                                 <div class="location-divider-main">
                                     <div class="location-divider"></div>
                                 </div>
-                                <input type="text" class="location-to-input" placeholder="Enter destination">
+                                <input type="text" class="input-style-1" placeholder="Enter destination">
                             </div>
                         </div>
                         
@@ -85,76 +85,61 @@
 
                         <div class="box reset">
                             <div class="search d-flex justify-content-center align-items-center flex-column">
-                                <a class="btn btn-danger btn-outline-none btn-lg btn-block">Create a booking now</a>
-                                <p class="text-muted d-block text-center">All travel is subject to limited availability.</p>
+                                <a class="btn btn-danger btn-outline-none btn-lg btn-block">Search for travel <i class="fa fa-search" aria-hidden="true"></i></a>
+                                <p class="text-muted d-block text-center">All travel is subject to availability.</p>
                             </div>
                         </div>
 
                     </div>
 
+                    <div class="pages-desktop-booking-search p-2">
+                        <div class="desktop-booking-search-container">
+                            <div class="desktop-booking-search-location">
+                                <div class="box-styling d-flex justify-content-center align-items-center">
+                                    <input type="text" class="location-from-input input-rounded location-input" placeholder="Enter location">
+                                </div>
+                            </div>
 
+                            <div class="desktop-booking-search-destination">
+                                <div class="box-styling d-flex justify-content-center align-items-center">
+                                    <input type="text" class="input-style-1 input-rounded destination-input" placeholder="Enter destination">
+                                </div>
+                            </div>
 
+                            <div class="desktop-booking-search-out-return-passengers">
+                                <div class="desktop-booking-search-out-return">
+                                    <div class="outbound-input">
+                                        <label for="return-datetime">Select outbound date</label>
+                                        <input type="datetime-local" class="input-style-1 input-rounded date-return" id="outbound-input">
+                                    </div>
+                                    <div class="return-input">
+                                        <label for="return-datetime">Select return date</label>
+                                        <input type="datetime-local" class="input-style-1 input-rounded date-return" id="return-datetime">
+                                    </div>
+                                </div>
 
-                    <!-- Display on mobile second -->
-                    <!-- <div class="pages-mobile-booking-results"></div> -->
-                    
-                    <!-- Display on mobile last -->
-                    <!-- <div class="pages-mobile-booking-basket"></div> -->
+                                <div class="desktop-booking-search-passengers d-flex justify-content-center align-items-center">
+                                    <div class="passengers-input">
+                                        <label></label>
+                                        <button type="button" class="input-style-1 input-rounded passengers-button" id="passengers-amount">Passengers</button>
+                                    </div>
+                                </div>
+                            </div>
 
-
-                    <!-- Desktop display mode -->
-                    <div class="pages-booking-search">123</div>
-
-
-                </div>
-            </div>
-
-            <div class="booking-leaving" id="booking-leaving">
-                <div class="box">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">DEPARTURE</div>
-                        </div>
-
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
+                            <div class="desktop-booking-search-seat-class">
+                                <div class="seat-class-input">
+                                    <label></label>
+                                    <button type="button" class="input-style-1 input-rounded seat-class-button" id="seat-class-type">Seat class type</button>
+                                </div>
+                            </div>
+                            <div class="desktop-booking-search-button">
+                                <div class="search-input">
+                                    <label></label>
+                                    <button type="button" class="input-style-1 input-rounded search-button" id="seat-class-type">Seat class type</button>
+                                </div>
+                            </div>
+                          </div>
                     </div>
-
-                    <div class="pages-booking-departure"></div>
-                </div>
-            </div>
-            <div class="booking-return" id="booking-return">
-                <div class="box">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">RETURNING</div>
-                        </div>
-
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-
-                    <div class="pages-booking-returning"></div>
-                </div>
-            </div>
-            <div class="booking-basket" id="booking-basket">
-                <div class="box">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">BASKET</div>
-                        </div>
-
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-
-                    <div class="pages-booking-basket"></div>
                 </div>
             </div>
         </div>
