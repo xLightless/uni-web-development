@@ -5,6 +5,12 @@
 var width;
 var height;
 
+var leaving = document.getElementById('booking-leaving');
+var returning = document.getElementById('booking-return');
+var basket = document.getElementById('booking-basket');
+var grid = document.getElementsByClassName('container-booking-grid');
+
+
 // Resize event to check browser window width and height
 window.addEventListener('resize', () => {
     var w = document.documentElement.clientWidth;
@@ -21,6 +27,10 @@ window.addEventListener('resize', () => {
         sidebar[i].style.width = "200px"
         }
         document.getElementById('overlay-backdrop').style.display = "none"
+    
+        if (window.getComputedStyle(leaving).display !== "none") {
+            basket.style.display = "initial";
+        }
     }
 
     // Max-width
@@ -32,6 +42,7 @@ window.addEventListener('resize', () => {
                 sidebar[i].style.display = "none"
             }
         }
+        basket.style.display = "none";
     }
 })
 
@@ -192,3 +203,28 @@ function toggleContainer(e) {
     //     gap: 0.5rem;
     //     width: 100%;
     //     height: 100%;
+
+
+function toggleBookingContainers() {
+
+    let w = window.innerWidth;
+    console.log(w)
+    
+
+    if (w > 1366) {
+        leaving.style.display = "unset";
+        // leaving.style.animation = "js-page-fade-in 5s";
+        returning.style.display = "unset";
+        // returning.style.animation = "js-page-fade-in 2s";
+        basket.style.display = "unset";
+        // basket.style.animation = "js-page-fade-in 2s";
+    }
+
+    // medium screen
+    if (w > 576 && w < 1366) {
+        leaving.style.display = "unset";
+        // leaving.style.animation = "js-page-fade-in 2s";
+        returning.style.display = "unset";
+        // returning.style.animation = "js-page-fade-in 2s";
+    }
+}

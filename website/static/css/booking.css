@@ -38,14 +38,17 @@ section {
 
 .booking-leaving {
     grid-area: booking-leaving;
+    display: none;
 }
 
 .booking-return {
     grid-area: booking-return;
+    display: none;
 }
   
 .booking-basket {
     grid-area: booking-basket;
+    display: none;
 }
 
 .booking-container {
@@ -296,7 +299,11 @@ section {
 }
 
 .passengers-button:hover,
-.search-button:hover {
+.search-button:hover,
+.seat-class-button:hover,
+.destination-input:hover,
+.location-input:hover,
+.date-hover:hover {
     filter: drop-shadow(0 0 0.1rem black);
     /* transform: scale(1.03); */
 }
@@ -307,47 +314,68 @@ section {
 
 
 
-@media only screen and (max-width: 1365px) {
-    /* Version of booking for medium sized screens */
-}
+@media only screen and (min-width: 1366px) {
+    /* Version of booking for large sized screens */
+    .container-booking-grid {
+        display: grid; 
+        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+          "booking-nav booking-nav booking-nav"
+          "booking-leaving booking-return booking-basket";
+        gap: 0.5rem;
+        width: 100%;
+        height: 100%;
+        /* max-width: 1366px; */
+    }
 
-@media only screen and (max-width: 576px) {
-    /* Hide desktop version of booking and convert departure into the main container */
-    .pages-desktop-booking-search {
-        display:none!important;
+    .booking-basket,
+    .booking-leaving,
+    .booking-return {
+        animation: js-pages-fade-in 0.5s;
     }
 }
 
-@media only screen and (min-width: 577px) {
+@media only screen and (max-width: 1365px) and (min-width:577px) {
+    /* Version of booking for medium sized screens */
     .pages-mobile-booking-search {
         display: none!important;
     }
 
     .container-booking-grid {
         display: grid; 
-        grid-template-columns: 1fr; 
-        grid-template-rows: 0.4fr;
+        grid-template-columns: 1fr 1fr; 
+        grid-template-rows: 0.5fr 1fr;
         grid-template-areas: 
-          "booking-nav";
+          "booking-nav booking-nav"
+          "booking-leaving booking-return";
         gap: 0.5rem;
         width: 100%;
         height: 100%;
     }
+
+    .booking-basket {
+        display: none;
+    }
+
+    .booking-basket,
+    .booking-leaving,
+    .booking-return {
+        animation: js-pages-fade-in 0.5s;
+    }
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media only screen and (max-width: 576px) {
+    /* Version of booking for small sized screens */
+    .pages-desktop-booking-search,
+    .booking-return,
+    .booking-leaving,
+    .booking-basket {
+        display:none!important;
+    }
+}
+/* 
 @keyframes page-fade {
     0% {
         display: initial;
@@ -361,5 +389,16 @@ section {
     100% {
         opacity: 0;
         display: none;
+    }
+} */
+
+@keyframes js-pages-fade-in {
+    0% {
+        display: initial;
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
     }
 }
