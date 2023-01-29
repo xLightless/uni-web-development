@@ -28,9 +28,9 @@ window.addEventListener('resize', () => {
         }
         document.getElementById('overlay-backdrop').style.display = "none"
     
-        if (window.getComputedStyle(leaving).display !== "none") {
-            basket.style.display = "initial";
-        }
+        // if (window.getComputedStyle(leaving).display !== "none") {
+        //     basket.style.display = "initial";
+        // }
     }
 
     // Max-width
@@ -161,50 +161,6 @@ function swapPages() {
 
 // PUBLIC BOOKING PAGE JS
 
-function toggleContainer(e) {
-
-}
-
-// function toggleTravelNav() {
-//     // Toggles the navbar for users on a smaller resolution
-//     // console.log("test")
-//     let isEnabled = false;
-
-//     let nav = document.getElementById("booking-nav");
-//     let bookingContainer = document.getElementById('booking-container');
-
-//     let gridControl = document.getElementsByClassName('container-booking-grid');
-
-
-//     nav.addEventListener("click", function(e) {
-//         if (isEnabled == false && e.target == "booking-nav") {
-//             isEnabled = true;
-//             // nav.style.display = "none";
-//             console.log(e.target)
-
-//             // Change grid areas
-//             for (i = 0; i < gridControl.length; i++) {
-//                 gridControl[i].style.gridTemplateColumns = "1fr";
-//                 gridControl[i].style.gridTemplateRows = "1fr";
-//                 gridControl[i].style.gridTemplateAreas = "booking-nav";
-
-//                 bookingContainer.style.display = "none";
-//             }
-//         }
-//     });
-
-    // .container-booking-grid {
-    //     display: grid; 
-    //     grid-template-columns: 1fr; 
-    //     grid-template-rows: 0.6fr 1.4fr;
-    //     grid-template-areas: 
-    //       "booking-nav"
-    //       "booking-container";
-    //     gap: 0.5rem;
-    //     width: 100%;
-    //     height: 100%;
-
-
 function toggleBookingContainers() {
 
     let w = window.innerWidth;
@@ -227,4 +183,29 @@ function toggleBookingContainers() {
         returning.style.display = "unset";
         // returning.style.animation = "js-page-fade-in 2s";
     }
+}
+
+function getFormValues() {
+    var search_inputs = document.getElementsByTagName('input');
+    for (i = 0; i < search_inputs.length; i++) {
+        if (search_inputs[i].value == "") {
+            search_inputs[i].style.border = "2px solid red";
+        }
+
+        if (search_inputs[i].value != "") {
+            search_inputs[i].style.border = "unset";
+        }
+    }
+}
+
+
+function buttonClickEvent(buttonID, eventID) {
+    var btn = document.getElementById(buttonID);
+    var event = document.getElementById(eventID)
+
+    document.addEventListener('click', function(e) {
+        if (e.target == btn) {
+            event.style.display = "unset";
+        }
+    })
 }

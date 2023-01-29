@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block head %}
+    <link href="{{url_for('static',filename='css/booking.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/ui_components.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <section class="main">
+
+        <div class="container-booking-grid">
+            <div class="booking-nav">
+                <div class="box" id="booking-nav">
+                    <div class="header">
+                        <div class="title">
+                            <div class="title-text">Search for travel</div>
+                        </div>
+
+                        <div class="dotted-button">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <!-- Display on mobile first -->
+                    <div class="pages-mobile-booking-search p-3">
+
+                        <div class="box reset">
+                            <div class="location">
+                                <input type="text" class="location-from-input" placeholder="Enter location">
+                                <div class="location-divider-main">
+                                    <div class="location-divider"></div>
+                                </div>
+                                <input type="text" class="input-style-1" placeholder="Enter destination">
+                            </div>
+                        </div>
+                        
+                        <div class="box reset">
+                            <div class="out-return">
+                                <div class="out">
+                                    <div class="header">
+                                        <div class="out-bound-head">Outbound</div>
+                                    </div>
+                                    <div class="header">
+                                        <div class="out-bound-day">31st</div>
+                                    </div>
+                                    <div class="header">
+                                        <div class="out-bound-month">December</div>
+                                    </div>
+                                </div>
+                                <div class="return">
+                                    <div class="header">
+                                        <div class="returning-head">Return</div>
+                                    </div>
+                                    <div class="header">
+                                        <div class="returning-day">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="header"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="box reset">
+                            <div class="passengers-seats">
+                                <div class="passengers">
+                                    <div class="header">
+                                        <div class="passengers-head">Passengers</div>
+                                    </div>
+                                    <div class="header">
+                                        <div class="passengers-amount">5 Adults</div>
+                                    </div>
+                                </div>
+                                <div class="seats">
+                                    <div class="header">
+                                        <div class="seat-class-head">Seat Class</div>
+                                    </div>
+                                    <div class="header">
+                                        <div class="seat-class-type">Economy</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box reset">
+                            <div class="search d-flex justify-content-center align-items-center flex-column">
+                                <a class="btn btn-danger btn-outline-none btn-lg btn-block">Search for travel <i class="fa fa-search" aria-hidden="true"></i></a>
+                                <p class="text-muted d-block text-center">All travel is subject to availability.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="pages-desktop-booking-search p-2">
+                        <div class="desktop-booking-search-container">
+                            <div class="desktop-booking-search-location">
+                                <div class="box-styling d-flex justify-content-center align-items-center">
+                                    <input type="text" class="location-from-input input-rounded location-input" placeholder="Enter location" id="form-feedback">
+                                </div>
+                            </div>
+
+                            <div class="desktop-booking-search-destination">
+                                <div class="box-styling d-flex justify-content-center align-items-center">
+                                    <input type="text" class="input-style-1 input-rounded destination-input" placeholder="Enter destination" id="form-feedback">
+                                </div>
+                            </div>
+
+                            <div class="desktop-booking-search-out-return-passengers">
+                                <div class="desktop-booking-search-out-return">
+                                    <div class="outbound-input">
+                                        <label for="return-datetime">Select outbound date</label>
+                                        <input type="datetime-local" class="input-style-1 input-rounded date-hover" id="outbound-input" id="form-feedback">
+                                    </div>
+                                    <div class="return-input">
+                                        <label for="return-datetime">Select return date</label>
+                                        <input type="datetime-local" class="input-style-1 input-rounded date-hover" id="return-datetime" id="form-feedback">
+                                    </div>
+                                </div>
+
+                                <div class="desktop-booking-search-passengers d-flex justify-content-center align-items-center">
+                                    <div class="passengers-input">
+                                        <label></label>
+                                        <button type="button" class="input-style-1 input-rounded passengers-button" id="passenger-button-btn" onclick="buttonClickEvent('passenger-button-btn', 'pages-passengers');">Passengers</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="desktop-booking-search-seat-class">
+                                <div class="seat-class-input">
+                                    <label></label>
+                                    <button type="button" class="input-style-1 input-rounded seat-class-button" id="form-feedback">Seat Class</button>
+                                </div>
+                            </div>
+
+                            <div class="desktop-booking-search-button">
+                                <div class="search-input">
+                                    <label></label>
+                                    <button type="button" class="input-style-1 input-rounded search-button" id="form-feedback" onclick="getFormValues();">Search for travel <i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                          </div>
+                    </div> -->
+
+                    <!-- Passengers and seat class -->
+                    <!-- <div class="pages-desktop-passenger-seat-class" id="pages-passengers">
+
+                        <div class="desktop-booking-search-passengers-container">
+                            <div class="passengers-amount">123</div>
+                            <div class="seat-class-type">123</div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- <div class="booking-leaving" id="booking-leaving">
+                <div class="box">
+                    <div class="header">
+                        <div class="title">
+                            <div class="title-text">OUTBOUND</div>
+                        </div>
+
+                        <div class="dotted-button">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="pages-desktop-booking-leaving"></div>
+                </div>
+            </div> -->
+
+            <!-- <div class="booking-return" id="booking-return">
+                <div class="box">
+                    <div class="header">
+                        <div class="title">
+                            <div class="title-text">RETURN</div>
+                        </div>
+
+                        <div class="dotted-button">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="pages-desktop-booking-return"></div>
+                </div>
+            </div> -->
+
+            <!-- <div class="booking-basket" id="booking-basket">
+                <div class="box">
+                    <div class="header">
+                        <div class="title">
+                            <div class="title-text">BASKET</div>
+                        </div>
+
+                        <div class="dotted-button">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="pages-desktop-booking-basket"></div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    
+    <script src="{{url_for('static',filename='js/theme.js')}}"></script>
+{% endblock %}
