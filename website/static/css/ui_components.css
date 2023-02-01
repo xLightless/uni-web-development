@@ -117,3 +117,10 @@
     /* background-color: gainsboro; */
     filter: drop-shadow(0 0 0.3rem black);
 }
+
+
+.pre-render-block {
+    width: 100%;
+    height: 100%;
+    background-color: gainsboro;
+}

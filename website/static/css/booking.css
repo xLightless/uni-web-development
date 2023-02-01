@@ -1,264 +1,267 @@
 section {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column; */
+
+    display: block;
+    position: relative;
+    width: 100%;
 }
 
-.main {
-    padding: 1rem;
+section.hero {
+    height: 75vh;
 }
 
-/* .container-booking-grid {
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr; 
-    grid-template-rows: 0.6fr 1.4fr;
-    grid-template-areas: 
-      "booking-nav booking-nav booking-nav"
-      "booking-leaving booking-return booking-basket";
-    gap: 0.5rem;
-    width: 75%;
-    height: 75%;
-} */
-
-.container-booking-grid {
-    display: grid; 
-    grid-template-columns: 1fr; 
-    grid-template-rows: 1fr;
-    grid-template-areas: 
-      "booking-nav";
-    gap: 0.5rem;
+.hero-banner {
     width: 100%;
     height: 100%;
-    /* max-width: 1366px; */
+}
+
+section.hero > .hero-banner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .booking-nav {
-    grid-area: booking-nav;
-}
-
-.booking-leaving {
-    grid-area: booking-leaving;
-    display: none;
-}
-
-.booking-return {
-    grid-area: booking-return;
-    display: none;
-}
-  
-.booking-basket {
-    grid-area: booking-basket;
-    display: none;
-}
-
-/* .booking-container {
-    grid-area: booking-container;
-    display: none;
-} */
-
-/* Pages mobile mode */
-.pages-booking-search {
-    position: relative;
-    display: block;
-}
-
-.pages-booking-search::-webkit-scrollbar {
-    display: none!important;
-}
-
-.reset {
-    width: 100%!important;
-    height: 25%!important;
-    border-radius: 0!important;
-    background-color: #FFF!important;
-}
-
-.box-styling,
-.location,
-.out-return,
-.passengers-seats,
-.search {
-    background-color: #FAF9F6;
-    border-radius: 8px;
-    height: 100%;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-.location-input {
-    display: block;
     width: 100%;
-    height: calc(50% - 0.5px);
-    background-color: rgb(242,242,242);
-    border: transparent;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    outline: none;
-    padding: 0.5rem;
-}
+    height: 320px;
 
-.location-divider-main {
+    position: absolute;
+    bottom: -64px;
+    left: 0;
+    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* .nav {
     width: 100%;
-    height: 1px;
-}
-
-.location-divider {
-    display: block;
-    width: 90%;
-    height: 1px;
-    background-color: gray;
-}
-
-.location-input:hover,
-.location-input:active,
-.out:hover,
-.out:active,
-.return:hover,
-.return:active,
-.passengers:hover,
-.passengers:active,
-.seats:hover,
-.seats:active {
-    background-color: #FAF9F6;
-}
-
-.out,
-.return,
-.passengers,
-.seats {
-    width: calc(50% - 0.2rem);
     height: 100%;
-    background-color: rgb(242,242,242);
+    background-color: #fff;
     border-radius: 8px;
+    max-width: 1920px;
+    max-height: 540px;
 }
 
-.out,
-.passengers {
-    float: left;
-    margin-right: 0.1rem;
+.nav-search-options {
+    height: 25%;
+    min-width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    border-bottom: 1px solid gray;
 }
 
-[class*="out-bound"],
-[class*="returning-"],
-[class*="passengers-"],
-[class*="seat-class-"] {
+.nav-search-options > * {
+    font-size: 1.25rem;
+}
+
+.passengers-value-label {
+    width: 25px;
     text-align: center;
 }
 
-.returning-day > i {
-    font-size: 2rem;
+.nav-search-options:nth-child(1) {
+    width: 15%!important;
 }
 
-.out-bound-head,
-.returning-head,
-.passengers-head,
-.seat-class-head {
-    font-size: 1.1rem;
-    font-weight: 500;
+.nav-search-options:nth-child(2) {
+    width: 15%!important;
 }
 
-.return,
-.seats {
-    float: right;
-    margin-right: 0.1rem;
+.search-options-passengers {
+    width: 40%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.input-rounded {
-    border-radius: 8px!important;
+.nav-search-options:nth-child(4) {
+    width: 15%!important;
 }
 
-@keyframes js-pages-fade-in {
-    0% {
-        display: initial;
-        transform: scale(0);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+.nav-search-options:nth-child(5) {
+    width: 15%!important;
 }
 
-@media screen and (max-width: 576px) {
-    .booking-leaving,
-    .booking-returning,
-    .booking-basket {
-        display: none;
-    }
+.search-options-passengers > button {
+    width: 24px;
+    height: 24px;
+    border-radius: 16px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1rem;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
-@media screen and (min-width: 576px) and (max-width: 1365px) {
+.search-options-passengers > button:hover {
+    transform: scale(1.03);
+} */
 
-    .container-booking-grid {
-        grid-template-columns: 1fr 1fr; 
-        grid-template-rows: 1fr 1fr;
-        grid-template-areas: 
-          "booking-nav booking-nav"
-          "booking-leaving booking-return";
-        /* gap: 0.5rem;
-        width: 100%;
-        height: 100%; */
-        /* max-width: 1366px; */
-    }
-
-    .booking-leaving,
-    .booking-return {
-        display: block;
-    }
-
-    .booking-basket {
-        display: none;
-    }
-
+.booking-nav-container {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: 0.4fr 1.6fr;
+    grid-auto-columns: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row dense;
+    background-color: #fff;
+    border-radius: 16px;
 }
 
-@media screen and (min-width: 1366px) {
+.search-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row;
+    grid-area: 1 / 1 / 2 / 3;
 
-    .container-booking-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        grid-template-areas: 
-          "booking-nav booking-nav booking-nav"
-          "booking-leaving booking-return booking-basket";
-        /* gap: 0.5rem;
-        width: 100%;
-        height: 100%; */
-        /* max-width: 1366px; */
-    }
-    .booking-leaving,
-    .booking-return,
-    .booking-basket {
-        display: block;
-    }
+    border-bottom: 1px solid gray;
+}
 
-    .pages-booking-search > div:nth-child(2) {
-        width: 50%!important;
-        height: 50%!important;
-        float: left!important;
-    }
+.search-options-navigation { 
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "navigation-locations navigation-date-time";
+    grid-area: 2 / 1 / 3 / 3;
+}
 
-    .pages-booking-search > div:nth-child(3) {
-        width: 50%!important;
-        height: 50%!important;
-        float: right!important;
-    }
+.navigation-date-time {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "date-time-out date-time-return";
+    grid-area: navigation-date-time;
+}
 
-    .pages-booking-search > div:nth-child(4) {
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        padding: inherit;
-    }
+.date-time-out {
+    grid-area: date-time-out;
+}
 
+.date-time-return {
+    grid-area: date-time-return;
+}
+
+.navigation-locations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "location-from location-to";
+    grid-area: navigation-locations;
+}
+
+.location-from {
+    grid-area: location-from;
+}
+  
+.location-to {
+    grid-area: location-to;
+}
+
+.search-options-top-left {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "oneway return passengers";
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.oneway {
+    grid-area: oneway;
+}
+
+.return {
+    grid-area: return;
+}
+
+.passengers {
+    grid-area: passengers;
+}
+
+.search-options-top-right { 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "economy business";
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.economy {
+    grid-area: economy;
+}
+
+.business {
+    grid-area: business;
+}
+
+.oneway,
+.return,
+.passengers,
+.economy,
+.business {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.3rem;
+}
+
+#oneway,
+#return,
+#passengers,
+#economy,
+#business {
+}
+
+input[type="radio"] {
+    transform: scale(1.3);
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.passengers > .form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.passengers > .form-group > label {
+    float: left;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.passengers > .form-group > select {
+    float: right;
+    width: fit-content;
 }

@@ -209,3 +209,18 @@ function buttonClickEvent(buttonID, eventID) {
         }
     })
 }
+
+
+// Location inputs
+
+let location_input = document.querySelector('location');
+let destination_input = document.querySelector('destination');
+
+let dropdown_values = document.getElementById('dropdown-search');
+
+location_input.addEventListener('input', updateSearchValues);
+
+function updateSearchValues(e) {
+    // Display dropdown box below input element and updates as user types a value
+    dropdown_values.textContent = e.target.value;
+}

@@ -1,0 +1,244 @@
+.container-booking-grid {
+    display: grid; 
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+      "booking-nav";
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    /* max-width: 1366px; */
+}
+
+.booking-nav {
+    grid-area: booking-nav;
+}
+
+.booking-leaving {
+    grid-area: booking-leaving;
+    display: none;
+}
+
+.booking-return {
+    grid-area: booking-return;
+    display: none;
+}
+  
+.booking-basket {
+    grid-area: booking-basket;
+    display: none;
+}
+
+/* .booking-container {
+    grid-area: booking-container;
+    display: none;
+} */
+
+/* Pages mobile mode */
+.pages-booking-search {
+    position: relative;
+    display: block;
+}
+
+.pages-booking-search::-webkit-scrollbar {
+    display: none!important;
+}
+
+.reset {
+    width: 100%!important;
+    height: 25%!important;
+    border-radius: 0!important;
+    background-color: #FFF!important;
+}
+
+.box-styling,
+.location,
+.out-return,
+.passengers-seats,
+.search {
+    background-color: #FAF9F6;
+    border-radius: 8px;
+    height: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.location-input {
+    display: block;
+    width: 100%;
+    height: calc(50% - 0.5px);
+    background-color: rgb(242,242,242);
+    border: transparent;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    outline: none;
+    padding: 0.5rem;
+
+    position: relative;
+}
+
+.location-divider-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 1px;
+}
+
+.location-divider {
+    display: block;
+    width: 90%;
+    height: 1px;
+    background-color: gray;
+}
+
+.location-input:hover,
+.location-input:active,
+.out:hover,
+.out:active,
+.return:hover,
+.return:active,
+.passengers:hover,
+.passengers:active,
+.seats:hover,
+.seats:active {
+    background-color: #FAF9F6;
+}
+
+.out,
+.return,
+.passengers,
+.seats {
+    width: calc(50% - 0.2rem);
+    height: 100%;
+    background-color: rgb(242,242,242);
+    border-radius: 8px;
+}
+
+.out,
+.passengers {
+    float: left;
+    margin-right: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+[class*="out-bound"],
+[class*="returning-"],
+[class*="passengers-"],
+[class*="seat-class-"] {
+    text-align: center;
+}
+
+.returning-day > i {
+    font-size: 2rem;
+}
+
+.out-bound-head,
+.returning-head,
+.passengers-head,
+.seat-class-head {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.return,
+.seats {
+    float: right;
+    margin-right: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-rounded {
+    border-radius: 8px!important;
+}
+
+@keyframes js-pages-fade-in {
+    0% {
+        display: initial;
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .booking-leaving,
+    .booking-returning,
+    .booking-basket {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 1365px) {
+
+    .container-booking-grid {
+        grid-template-columns: 1fr 1fr; 
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+          "booking-nav booking-nav"
+          "booking-leaving booking-return";
+        /* gap: 0.5rem;
+        width: 100%;
+        height: 100%; */
+        /* max-width: 1366px; */
+    }
+
+    .booking-leaving,
+    .booking-return {
+        display: block;
+    }
+
+    .booking-basket {
+        display: none;
+    }
+
+}
+
+@media screen and (min-width: 1366px) {
+
+    .container-booking-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+          "booking-nav booking-nav booking-nav"
+          "booking-leaving booking-return booking-basket";
+        /* gap: 0.5rem;
+        width: 100%;
+        height: 100%; */
+        /* max-width: 1366px; */
+    }
+    .booking-leaving,
+    .booking-return,
+    .booking-basket {
+        display: block;
+    }
+
+    .pages-booking-search > div:nth-child(2) {
+        width: 50%!important;
+        height: 50%!important;
+        float: left!important;
+    }
+
+    .pages-booking-search > div:nth-child(3) {
+        width: 50%!important;
+        height: 50%!important;
+        float: right!important;
+    }
+
+    .pages-booking-search > div:nth-child(4) {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: inherit;
+    }
+
+}

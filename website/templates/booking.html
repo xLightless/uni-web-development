@@ -5,144 +5,105 @@
 {% endblock %}
 
 {% block main %}
-    <section class="main">
-
-        <div class="container-booking-grid">
+    <section class="hero">
+        <div class="hero-banner">
+            <img src="{{url_for('static', filename='img/index/pexels-aleksandar-pasaric-1119723.jpg')}}">
+        
+            <!-- Booking navigation -->
             <div class="booking-nav">
-                <div class="box" id="booking-nav">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">Search for travel</div>
+                <!-- <div class="nav">
+                    <div class="nav-search-options">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="search-option-oneway">
+                            <label class="form-check-label" for="search-option-oneway">
+                                One Way
+                            </label>
                         </div>
 
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="search-option-return">
+                            <label class="form-check-label" for="search-option-return">
+                                Return
+                            </label>
+                        </div>
+
+                        <div class="search-options-passengers">
+                            <label for="">Passengers:</label>
+                            <button type="button">-</button>
+                            <label class="passengers-value-label">1</label>
+                            <button type="button">+</button>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="search-option-economy">
+                            <label class="form-check-label" for="search-option-economy">
+                                Economy class
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="search-option-business">
+                            <label class="form-check-label" for="search-option-business">
+                                Business class
+                            </label>
                         </div>
                     </div>
-
-                    <!-- Display on mobile first -->
-                    <div class="pages-booking-search p-3">
-
-                        <div class="box reset">
-                            <div class="location">
-                                <input type="search" class="location-input" placeholder="Enter location">
-                                <div class="location-divider-main">
-                                    <div class="location-divider"></div>
-                                </div>
-                                <input type="search" class="location-input" placeholder="Enter destination">
+                    <div class="nav-search-data"></div>
+                </div> -->
+            
+                <div class="booking-nav-container">
+                    <div class="search-options"></div>
+                    <div class="search-options-navigation">
+                      <div class="navigation-date-time">
+                        <div class="date-time-out"></div>
+                        <div class="date-time-return"></div>
+                      </div>
+                      <div class="navigation-locations">
+                        <div class="location-from"></div>
+                        <div class="location-to"></div>
+                      </div>
+                    </div>
+                    <div class="search-options-top-left">
+                        <div class="oneway">
+                          <input type="radio" name="oneway">
+                          <label for="oneway">Oneway</label>
+                        </div>
+                        <div class="return">
+                          <input type="radio" name="oneway">
+                          <label for="oneway">Return trip</label>
+                        </div>
+                        <div class="passengers">
+                            <div class="form-group">
+                                <label for="input-passenger-amount">
+                                    Passengers
+                                </label>
+                                <select id="input-passenger-amount" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
                             </div>
                         </div>
-                        
-                        <div class="box reset">
-                            <div class="out-return">
-                                <div class="out">
-                                    <div class="header">
-                                        <div class="out-bound-head">Outbound</div>
-                                    </div>
-                                    <div class="header">
-                                        <div class="out-bound-day">31st</div>
-                                    </div>
-                                    <div class="header">
-                                        <div class="out-bound-month">December</div>
-                                    </div>
-                                </div>
-                                <div class="return">
-                                    <div class="header">
-                                        <div class="returning-head">Return</div>
-                                    </div>
-                                    <div class="header">
-                                        <div class="returning-day">
-                                            <i class="fa fa-plus" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="header"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="box reset">
-                            <div class="passengers-seats">
-                                <div class="passengers">
-                                    <div class="header">
-                                        <div class="passengers-head">Passengers</div>
-                                    </div>
-                                    <div class="header">
-                                        <div class="passengers-amount">5 Adults</div>
-                                    </div>
-                                </div>
-                                <div class="seats">
-                                    <div class="header">
-                                        <div class="seat-class-head">Seat Class</div>
-                                    </div>
-                                    <div class="header">
-                                        <div class="seat-class-type">Economy</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box reset">
-                            <div class="search d-flex justify-content-center align-items-center flex-column">
-                                <a class="btn btn-danger btn-outline-none btn-lg btn-block">Search for travel <i class="fa fa-search" aria-hidden="true"></i></a>
-                                <p class="text-muted d-block text-center">All travel is subject to availability.</p>
-                            </div>
-                        </div>
-
+                      </div>
+                    <div class="search-options-top-right">
+                      <div class="economy">
+                        <input type="radio" name="economy">
+                        <label for="oneway">Economy</label>
+                      </div>
+                      <div class="business">
+                        <input type="radio" name="business">
+                        <label for="business">Business</label>
+                      </div>
                     </div>
-                </div>
+                  </div>
             </div>
-
-            <div class="booking-leaving">
-                <div class="box">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">OUTBOUND</div>
-                        </div>
-    
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-                    <div class="pages-booking-leaving">123</div>
-                </div>
-            </div>
-
-            <div class="booking-return">
-                <div class="box">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">RETURNING</div>
-                        </div>
-    
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-                    <div class="pages-booking-returning">123</div>
-                </div>
-            </div>
-
-            <div class="booking-basket">
-                <div class="box">
-                    <div class="header">
-                        <div class="title">
-                            <div class="title-text">BASKET</div>
-                        </div>
-    
-                        <div class="dotted-button">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-                    <div class="pages-booking-basket">123</div>
-                </div>
-            </div>
-
         </div>
+    </section>
+
+    <section class="">
+        <!-- Displays booking navigation results -->
     </section>
 
     
