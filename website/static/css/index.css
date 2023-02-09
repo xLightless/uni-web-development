@@ -268,113 +268,55 @@ section.booking {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-bottom: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .booking-content > form {
-    width: inherit;
-    height: 512px;
+    width: 100%;
+    max-width: 1856px;
+    min-height: 288px;
+    max-height: fit-content;
+    /* min-height: 384px; */
+    /* max-height: 768px; */
     background-color: #fff;
+    padding: 1rem;
+    padding-bottom: 0;
 }
 
 .booking-nav-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-auto-columns: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row dense;
-    grid-template-areas:
-      "params-locations params-swing params-traveller";
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1.4fr 0.6fr; 
+    grid-template-areas: 
+      "params-location params-swing params-traveller"
+      "search-options search-options search-options";
+
     width: 100%;
     height: 100%;
 }
-  
-.params-locations {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "locations-depart"
-      "locations-arrive";
-    grid-area: params-locations;
-    width: 100%;
-    height: 100%;
+
+.params-location {
+    grid-area: params-location;
 }
   
-.locations-depart {
-    grid-area: locations-depart;
-}
-  
-.locations-arrive {
-    grid-area: locations-arrive;
-}
-  
-  .params-swing {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "swing-out swing-back";
+.params-swing {
     grid-area: params-swing;
-    width: 100%;
-    height: 100%;
-}
-  
-.swing-out {
-    grid-area: swing-out;
-}
-  
-.swing-back {
-    grid-area: swing-back;
 }
   
 .params-traveller {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "traveller-occupate"
-      "traveller-seat-type";
     grid-area: params-traveller;
-    width: 100%;
-    height: 100%;
 }
   
-.traveller-occupate {
-    grid-area: traveller-occupate;
-}
-  
-.traveller-seat-type {
-    grid-area: traveller-seat-type;
-}
-  
-.depart-container {
-    border: 1px solid black;
-    position: relative;
-    padding: 0 8px;
+.search-options {
+    grid-area: search-options;
 }
 
-.depart-container > input {
-    border: none;
-    font-size: 1rem;
-    outline: 0;
-    margin: 16px 0 13px;
-}
-
-.depart-container > label {
-    font-size: 1rem;
-    position: absolute;
-    transform-origin: top left;
-    transform: translate(0, 16px) scale(1);
-    transition: all .1s ease-in-out;
-}
-
-.depart-container:active > label {
-    transform: translate(0, 4px) scale(.75);
+.search-options > div > button {
+    font-weight: 400;
 }
 
 /* Media queries */
@@ -401,7 +343,45 @@ section.booking {
     .head-text {
         font-size: 1.5rem;
     }
+
+    .booking-content > form {
+        height: 100%;
+        width: 100%;
+    }
+
+    .booking-nav-container {
+        display: grid; 
+        grid-template-columns: 1fr; 
+        grid-template-rows: 1fr 1fr 1fr 1fr; 
+        grid-template-areas: 
+          "params-location"
+          "params-swing"
+          "params-traveller"
+          "search-options";
+    
+        width: 100%;
+        height: fit-content;
+    }
 }
 
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 768px) {
+    .booking-nav-container {
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        grid-template-rows: 1.2fr 1.2fr 0.6fr; 
+        grid-template-areas: 
+          "params-traveller params-swing"
+          "params-location params-location"
+          "search-options search-options";
+    
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media only screen and (min-width: 1366px) {
+    .head-text {
+        text-align: center;
+    }
+
 }
