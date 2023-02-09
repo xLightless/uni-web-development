@@ -21,11 +21,11 @@ database = Database(database="ht_database", user="root", password="Password1")
 def index():
     return render_template('index.html')
 
-@views.route('/booking/', methods=['GET', 'POST'])
-def booking():
-    # if session.get('username') is None:
-    #     return redirect(url_for('views.account_page'))
-    return render_template('booking.html')
+# @views.route('/booking/', methods=['GET', 'POST'])
+# def booking():
+#     # if session.get('username') is None:
+#     #     return redirect(url_for('views.account_page'))
+#     return render_template('booking.html')
 
 @views.route('/about-us/')
 def about():
@@ -94,6 +94,6 @@ def update_account(username, fname, lname, telephone, email):
 @sitemap.register_generator
 def pages():
     yield 'views.index', {}, datetime.now(), 'monthly', 0.7
-    yield 'views.booking', {}, datetime.now(), 'monthly', 0.7
+    # yield 'views.booking', {}, datetime.now(), 'monthly', 0.7
     yield 'views.about', {}, datetime.now(), 'monthly', 0.7
     yield 'views.legal', {}, datetime.now(), 'monthly', 0.7

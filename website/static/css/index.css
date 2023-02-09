@@ -239,6 +239,144 @@ section.travel {
     color: gray;
 }
 
+
+
+
+/* BOOKING SECTION CSS */
+
+section.booking {
+    background-color: #121212;
+    height: fit-content;
+}
+
+.section-head {
+    width: 100%;
+    height: fit-content;
+}
+
+.head-text {
+    width: inherit;
+    height: inherit;
+    color: white;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.booking-content {
+    width: inherit;
+    height: inherit;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.booking-content > form {
+    width: inherit;
+    height: 512px;
+    background-color: #fff;
+}
+
+.booking-nav-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row dense;
+    grid-template-areas:
+      "params-locations params-swing params-traveller";
+    width: 100%;
+    height: 100%;
+}
+  
+.params-locations {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "locations-depart"
+      "locations-arrive";
+    grid-area: params-locations;
+    width: 100%;
+    height: 100%;
+}
+  
+.locations-depart {
+    grid-area: locations-depart;
+}
+  
+.locations-arrive {
+    grid-area: locations-arrive;
+}
+  
+  .params-swing {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "swing-out swing-back";
+    grid-area: params-swing;
+    width: 100%;
+    height: 100%;
+}
+  
+.swing-out {
+    grid-area: swing-out;
+}
+  
+.swing-back {
+    grid-area: swing-back;
+}
+  
+.params-traveller {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "traveller-occupate"
+      "traveller-seat-type";
+    grid-area: params-traveller;
+    width: 100%;
+    height: 100%;
+}
+  
+.traveller-occupate {
+    grid-area: traveller-occupate;
+}
+  
+.traveller-seat-type {
+    grid-area: traveller-seat-type;
+}
+  
+.depart-container {
+    border: 1px solid black;
+    position: relative;
+    padding: 0 8px;
+}
+
+.depart-container > input {
+    border: none;
+    font-size: 1rem;
+    outline: 0;
+    margin: 16px 0 13px;
+}
+
+.depart-container > label {
+    font-size: 1rem;
+    position: absolute;
+    transform-origin: top left;
+    transform: translate(0, 16px) scale(1);
+    transition: all .1s ease-in-out;
+}
+
+.depart-container:active > label {
+    transform: translate(0, 4px) scale(.75);
+}
+
 /* Media queries */
 @media only screen and (max-width: 768px) {
     /* Update sections responsiveness */
@@ -260,8 +398,10 @@ section.travel {
         margin: 0.5rem;
     }
 
+    .head-text {
+        font-size: 1.5rem;
+    }
 }
 
 @media only screen and (min-width: 769px) {
-
 }

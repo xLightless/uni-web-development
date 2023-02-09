@@ -16,11 +16,45 @@
                 </div>
 
                 <div class="col-md-12 landing-col bottom">
-                    <a class="btn btn-inline-block book" href="{{url_for('views.booking')}}">Create a booking now</a>
+                    <a class="btn btn-inline-block book" href="#booking">Create a booking now</a>
                     <a class="btn btn-inline-block trip" href="#travel" style="transition: 1s ease-in-out;">Planning a trip?</a>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Booking section -->
+    <section class="booking" id="booking">
+        <div class="booking-content">
+            <div class="section-head p-3">
+                <div class="head-text">Where would you like to go?</div>
+            </div>
+
+            <form>
+                <div class="booking-nav-container">
+                    <div class="params-locations">
+                      <div class="locations-depart">
+                        <div class="depart-container">
+                            <label for="departure"></label>
+                            <input type="text" id="departure" required>
+                        </div>
+                      </div>
+                      <div class="locations-arrive"></div>
+                    </div>
+
+                    <div class="params-swing">
+                      <div class="swing-out"></div>
+                      <div class="swing-back"></div>
+                    </div>
+
+                    <div class="params-traveller">
+                      <div class="traveller-occupate"></div>
+                      <div class="traveller-seat-type"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </section>
 
     <!-- Travel locations -->

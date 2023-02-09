@@ -224,3 +224,15 @@ function updateSearchValues(e) {
     // Display dropdown box below input element and updates as user types a value
     dropdown_values.textContent = e.target.value;
 }
+
+
+// INDEX PAGE JS
+
+const departure = document.getElementById('departure');
+const departContainer = document.getElementById('depart-container');
+departure.addEventListener('focus', () => {
+    departContainer.classList.add('active');
+});
+departure.addEventListener('blur', () => {
+    departContainer.classList.remove('active');
+});
