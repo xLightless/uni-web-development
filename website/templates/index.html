@@ -30,67 +30,31 @@
                 <div class="head-text">Where would you like to go?</div>
             </div>
 
-            <form>
-                <div class="booking-nav-container">
-                    <div class="params-location">
-                        <div class="row w-100 h-100 m-0">
-                            <!-- Location From and To -->
-                            <div class="col-12 d-block p-0">
-                                <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">
-                                    <div class="form-group w-100">
-                                        <label for="location-from">From e.g. Bristol.</label>
-                                        <input type="text" class="form-control" placeholder="Location" id="location-from">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 d-block p-0">
-                                <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">
-                                    <div class="form-group w-100">
-                                        <label for="location-to">To e.g. Aberdeen.</label>
-                                        <input type="text" class="form-control" placeholder="Location" id="location-to">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="params-swing">
-                        <div class="row w-100 h-100 m-0">
-                            <!-- Outbound and Return -->
-                            <div class="col-6 d-inline-block p-0">
-                                <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">OUTBOUND</div>
-                            </div>
-                            <div class="col-6 d-inline-block p-0">
-                                <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">RETURN</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="params-traveller">
-                        <div class="row w-100 h-100 m-0">
-                            <!-- Passengers Amount and Seat -->
-                            <div class="col-12 d-block p-0">
-                                <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">
-                                    <div class="form-group w-100">
-                                        <label for="passengers">Passengers</label>
-                                        <input type="text" class="form-control" placeholder="" id="passengers">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 d-block p-0">
-                                <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">
-                                    <div class="form-group w-100">
-                                        <label for="seats">Seat Class</label>
-                                        <input type="text" class="form-control" placeholder="" id="seats">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="search-options">
-                        <div class="container-fluid h-100 d-flex justify-content-center align-items-center p-0">
-                            <button type="submit" class="btn btn-danger w-50"><i class="fa fa-search" aria-hidden="true"></i> Search for availability</button>
-                        </div>
+            <form class="p-3">
+                <div class="params radios">
+                    <div class="radios-left">
+                        <input type="radio" id="params-traveller">
+                        <label for="params-traveller">Return Trip</label>
                     </div>
 
+                    <div class="radios-right">
+                        <input type="radio" id="params-traveller">
+                        <label for="params-traveller">Oneway Trip</label>
+                    </div>
+                </div>
+                <div class="divider-parent d-flex justify-content-center align-items-center">
+                    <div class="divider"></div>
+                </div>
+                <div class="params">
+                    <div class="params-box radians"></div>
+                </div>
+                <div class="params">
+                    <div class="params-box radians"></div>
+                </div>
+                <div class="params">
+                    <div class="params-box radians search">
+                        <button type="submit" class="btn search-btn"><i class="fa fa-search" aria-hidden="true"></i> Search availability</button>
+                    </div>
                 </div>
             </form>
         </div>
