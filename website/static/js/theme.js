@@ -5,12 +5,6 @@
 var width;
 var height;
 
-var leaving = document.getElementById('booking-leaving');
-var returning = document.getElementById('booking-return');
-var basket = document.getElementById('booking-basket');
-var grid = document.getElementsByClassName('container-booking-grid');
-
-
 // Resize event to check browser window width and height
 window.addEventListener('resize', () => {
     var w = document.documentElement.clientWidth;
@@ -42,7 +36,7 @@ window.addEventListener('resize', () => {
                 sidebar[i].style.display = "none"
             }
         }
-        basket.style.display = "none";
+        // basket.style.display = "none";
     }
 })
 
@@ -69,20 +63,6 @@ function toggleNavbar() {
             }
 
         } else {
-            // If mouse outside toggle-navbar then it must be on sidebar else none
-            // if (document.getElementById('sidebar').contains(e.target)){
-            //     console.log("inside  sidebar")
-
-            //     } else {
-
-            //     // If mouse outside sidebar when  clicking then sidebar must be closed
-            //     for (i = 0; i < sidebar.length; i++) {
-            //         sidebar[i].style.display = "none"
-            //         document.getElementById('overlay-backdrop').style.display = "none"
-
-            //     }
-            // }
-
             if (!document.getElementById('sidebar').contains(e.target)){
                 console.log("inside sidebar")
                 // If mouse outside sidebar when  clicking then sidebar must be closed
@@ -169,19 +149,14 @@ function toggleBookingContainers() {
 
     if (w > 1366) {
         leaving.style.display = "unset";
-        // leaving.style.animation = "js-page-fade-in 5s";
         returning.style.display = "unset";
-        // returning.style.animation = "js-page-fade-in 2s";
         basket.style.display = "unset";
-        // basket.style.animation = "js-page-fade-in 2s";
     }
 
     // medium screen
     if (w > 576 && w < 1366) {
         leaving.style.display = "unset";
-        // leaving.style.animation = "js-page-fade-in 2s";
         returning.style.display = "unset";
-        // returning.style.animation = "js-page-fade-in 2s";
     }
 }
 
@@ -210,29 +185,62 @@ function buttonClickEvent(buttonID, eventID) {
     })
 }
 
-
-// Location inputs
-
-let location_input = document.querySelector('location');
-let destination_input = document.querySelector('destination');
-
-let dropdown_values = document.getElementById('dropdown-search');
-
-location_input.addEventListener('input', updateSearchValues);
-
-function updateSearchValues(e) {
-    // Display dropdown box below input element and updates as user types a value
-    dropdown_values.textContent = e.target.value;
-}
-
-
 // INDEX PAGE JS
 
-const departure = document.getElementById('departure');
-const departContainer = document.getElementById('depart-container');
-departure.addEventListener('focus', () => {
-    departContainer.classList.add('active');
-});
-departure.addEventListener('blur', () => {
-    departContainer.classList.remove('active');
-});
+var backdrop = document.getElementById('overlay-backdrop');
+
+function pageSelector(pageToDisplay, targetID) {
+    let page = document.getElementById(pageToDisplay);
+    let targets = document.getElementById(targetID);
+    let removeButton = document.getElementById('btn-datetime-remove');
+    let removeButtonLabel = document.getElementById('label-datetime-remove');
+
+    targets.addEventListener("click", function(e) {
+        if (e.target == removeButton || e.target == removeButtonLabel) {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log("Removing return tickets and datetime.");
+        }
+        else {
+            page.style.display = "block";
+            backdrop.style.display = "block";
+        }
+    });
+}
+
+function pageReturn(buttonID, eventID) {
+    // Returns the user to the previous page
+    var btn = document.getElementById(buttonID);
+    var event = document.getElementById(eventID)
+
+    document.addEventListener('click', function(e) {
+        if (e.target == btn) {
+            event.style.display = "none";
+            backdrop.style.display = "none";
+        }
+    })
+}
+
+function swingRadios() {
+    // Used to swap between Radio inputs
+    let swingRadios = document.getElementById('swing-radios');
+    let returnRadio = document.getElementById('params-traveller-return');
+    let onewayRadio = document.getElementById('params-traveller-oneway');
+
+    let swingChildren = swingRadios.childNodes;
+
+
+    for (i = 0; i<swingChildren.length; i++) {
+        swingChildren[i].addEventListener("click", (e) => {
+            if (e.target == onewayRadio) {
+                returnRadio.checked = false;
+            }
+
+            if (e.target == returnRadio) {
+                onewayRadio.checked = false;
+            }
+
+        });
+    }
+
+}

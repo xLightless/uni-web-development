@@ -260,6 +260,7 @@ section.booking {
     color: white;
     font-size: 2rem;
     font-weight: 400;
+    text-align: center;
 }
 
 .booking-content {
@@ -277,9 +278,12 @@ section.booking {
 
 .booking-content > form {
     width: 100%;
-    max-width: 1336px;
+    /* max-width: 1336px; */
+    max-width: 720px;
     min-height: 320px;
     background-color: #fff;
+    position: relative;
+    display: block;
 }
 
 .params {
@@ -343,6 +347,10 @@ section.booking {
     margin-left: 0.5rem;
 }
 
+.radios-left, .radios-right {
+    float: left;
+}
+
 input[type="radio"] {
     /* -webkit-appearance: none; */
     appearance: none;
@@ -361,9 +369,30 @@ input[type='radio']:checked {
 .params-box {
     width: 100%;
     height: 120px;
-    background-color: gainsboro;
+    /* background-color: gainsboro; */
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    border: 1px solid gainsboro;
+}
+
+.params-box:hover {
+    filter: drop-shadow(0 0 0.14rem black);
+    /* border-left: 1px solid black; */
+    background-color: #FAF9F6;
+}
+
+/* .params-box:active {
+    transform: scale(1.025);
+} */
+
+.btn-datetime-remove:active {
+    transform: scale(1.025);
+}
+
+.no-effect {
+    filter: none!important;
+    transform: none!important;
+    border: none!important;
 }
 
 .search {
@@ -386,6 +415,176 @@ input[type='radio']:checked {
     background-color: rgba(0, 0, 0, 0.7);
     border: 2px solid black;
     color: white;
+}
+
+.swing,
+.locations {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.swing > div,
+.locations > div {
+    display: inline-block;
+}
+
+.swing-from,
+.locations-from {
+    float: left;
+    width: calc(50% - 3px);
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.vertical-divider {
+    width: 4px;
+    height: calc(100% - 20px);
+    background-color: gainsboro;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+}
+
+.swing-to,
+.locations-to {
+    float: right;
+    width: calc(50% - 3px);
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.locations-to,
+.locations-from {
+    /* max-width: 360px; */
+}
+
+.container-head {
+    display: block;
+    width: 100%;
+    height: 24px;
+}
+
+.container-body {
+    display: block;
+    width: 100%;
+    height: calc(100% - 48px);
+}
+
+.container-foot {
+    display: block;
+    width: 100%;
+    height: 24px;
+}
+
+.container-title {
+    width: fit-content;
+    height: 24px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-title-text {
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.container-title-icon {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.container-body-text {
+    color: black;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.container-foot-text {
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    /* padding-left: 0.5rem;
+    padding-right: 0.5rem; */
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    width: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.float-right {
+    float: right!important;
+}
+
+.float-left {
+    float: left!important;
+}
+
+.btn-datetime-remove {
+    margin: 0;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-datetime-remove > p {
+    font-size: 12px;
+    margin: 0;
+}
+
+.container-foot-text > i {
+    float: left;
+}
+
+.container-foot-text > p {
+    margin: 0;
+    margin-left: 0.5rem;
+    font-size: 15px;
+    float: right;
+
+}
+
+#page-locations,
+#page-swing {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* background-color: red; */
+    z-index: 15000;
+    display: none;
+}
+
+.container-page-locations {
+    border: 1px solid #121212;
+    background-color: #fff;
+}
+.container-page-swing {
+    border: 1px solid #121212;
+    background-color: #fff;
 }
 
 /* 
@@ -443,7 +642,7 @@ input[type='radio']:checked {
     }
 
     .head-text {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .booking-content > form {
@@ -478,6 +677,19 @@ input[type='radio']:checked {
         font-weight: 400;
         margin-left: 0.5rem;
     }
+
+    .container-foot-text,
+    .container-body-text {
+        font-size: 0.875rem;
+    }
+    
+    .container-foot-text > p {
+        font-size: 0.75rem;
+    }
+
+    .booking-content {
+        padding: 0;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -493,17 +705,8 @@ input[type='radio']:checked {
         width: 100%;
         height: 100%;
     } */
-
-    
-    .radios-left, .radios-right {
-        float: left;
-    }
     
 }
 
 @media only screen and (min-width: 1366px) {
-    .head-text {
-        text-align: center;
-    }
-
 }
