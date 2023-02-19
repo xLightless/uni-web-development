@@ -38,7 +38,7 @@
                 <!-- UI Search Navigation -->
                 <div class="params radios" id="swing-radios" onclick="swingRadios();">
                     <div class="radios-left">
-                        <input type="radio" id="params-traveller-return" checked>
+                        <input type="radio" id="params-traveller-return">
                         <label for="params-traveller-return">Return Trip</label>
                     </div>
 
@@ -82,10 +82,10 @@
                                     </div>
                                 </div>
                                 <div class="container-body d-flex justify-content-center flex-column">
-                                    <label class="container-body-text" id="label-location-from">Manchester,</label>
+                                    <label class="container-body-text" id="label-location-to">Manchester,</label>
                                 </div>
                                 <div class="container-foot d-flex justify-content-center flex-column">
-                                    <label class="container-foot-text" id="label-location-from">United Kingdom</label>
+                                    <label class="container-foot-text" id="label-location-to">United Kingdom</label>
                                 </div>
                             </div>
                         </div>
@@ -108,19 +108,21 @@
                                     <label class="container-body-text" id="label-swing-from">Tue 17th Sep. 10:30</label>
                                 </div>
                                 <div class="container-foot d-flex align-items-center justify-content-start flex-row">
-                                    <label class="container-foot-text" id="label-swing-from">
+                                    <label class="container-foot-text">
                                         <!-- USE FORM TO GET NUMBER OF PASSENGERS -->
                                         <i class="fa-solid fa-user"></i>
-                                        <p>1</p>
+                                        <p id="label-swing-people">1</p>
                                     </label>
                                     <label class="container-foot-text">
                                         <!-- USE FORM TO GET TYPE OF SEAT CLASS -->
                                         <i class="fa-solid fa-plane"></i>
-                                        <p>Economy</p>
+                                        <p id="label-swing-seat-type">Economy</p>
                                     </label>
                                 </div>
                             </div>
+
                             <div class="vertical-divider"></div>
+                            
                             <div class="swing-to" id="swing-to">
                                 <div class="container-head">
                                     <div class="container-title float-left">
@@ -132,10 +134,10 @@
                                     </div>
                                 </div>
                                 <div class="container-body d-flex justify-content-center flex-column">
-                                    <label class="container-body-text" id="label-location-from">Tue 17th Sep. 10:30</label>
+                                    <label class="container-body-text" id="label-swing-to">No return added.</label>
                                 </div>
                                 <div class="container-foot d-flex align-items-center justify-content-end flex-row" id="container-foot-datetime">
-                                    <button type="button" class="btn btn-sm btn-danger btn-datetime-remove" id="btn-datetime-remove"><p id="label-datetime-remove">Remove?</p></button>
+                                    <button type="button" class="btn btn-sm btn-danger btn-datetime-remove" id="btn-datetime-remove" onclick="removeReturnOptions();"><p id="label-datetime-remove">Remove?</p></button>
                                 </div>
                             </div>
                         </div>
@@ -147,9 +149,9 @@
                     </div>
                 </div>
             
-                <!-- UI PARAMS Pages -->
+                <!-- UI LOCATIONS PAGE -->
                 <div class="pages-selector container-page-locations p-3" id="page-locations">
-                    <!-- Location header -->
+                    <!-- Page selector location head -->
                     <div class="container-head">
                         <div class="container-title float-left">
                             <p class="container-title-text">
@@ -158,70 +160,127 @@
                         </div>
                     </div>
 
-                    <!-- Location body -->
-                    <div class="container-body">
-                        <div class="params">
-                            <div class="params-box radians">
-                                123
-                            </div>
+                    <div class="params">
+                        <div class="params-box radians">
+                            <div class="locations">
+                                <div class="locations-from container-w-100">
+                                    <div class="container-head">
+                                        <div class="container-title float-left">
+                                            <p class="container-title-text">FROM</p>
+                                        </div>
+        
+                                        <div class="container-title float-right">
+                                            <p class="container-title-icon"><i class="fa-solid fa-location-pin"></i></p>
+                                        </div>
+                                    </div>
 
-                            <div class="params-box radians">
-                                123
+                                    
+                                    <div class="container-body">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="params-box radians search no-effect  d-flex justify-content-center align-items-center flex-column">
-                                <div class="w-100">
-                                    <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-locations" onclick="pageReturn('btn-confirmation-locations', 'page-locations');">Confirm</button>
+                        </div>
+                    </div>
+
+                    <div class="params">
+                        <div class="params-box radians">
+                            <div class="locations">
+                                <div class="locations-to container-w-100">
+                                    <div class="container-head">
+                                        <div class="container-title float-left">
+                                            <p class="container-title-text">TO</p>
+                                        </div>
+        
+                                        <div class="container-title float-right">
+                                            <p class="container-title-icon"><i class="fa-solid fa-location-pin"></i></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="container-foot-text w-100">
-                                    <p class="small text-muted d-block">It is worth noting that any booking made in advance will be cheaper.</p>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="params">
+                        <div class="params-box radians search no-effect  d-flex justify-content-center align-items-center flex-column">
+                            <div class="w-100">
+                                <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-locations" onclick="pageReturn('btn-confirmation-locations', 'page-locations');">Confirm</button>
+                            </div>
+                            <div class="container-foot-text w-100">
+                                <p class="small text-muted d-block">It is worth noting that any booking made in advance will be cheaper.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- UI SWING PAGE -->
                 <div class="pages-selector container-page-swing p-3" id="page-swing">
-                    <!-- Swing header -->
+                    <!-- Page selector swing head -->
                     <div class="container-head">
                         <div class="container-title float-left">
                             <p class="container-title-text">
                                 Please select your travel options: 
                             </p>
                         </div>
-                        <!-- <div class="container-title float-right">
-                            <label class="container-title-text">
-                                <button type="button" class="btn btn-sm btn-danger" id="btn-confirmation-travel" onclick="pageReturn('btn-confirmation-travel', 'page-swing');">Confirm</button>
-                            </label>
-                        </div> -->
                     </div>
 
-                    <!-- Swing body -->
-                    <div class="container-body">
-                        <div class="params">
-                            <div class="params-box">
-                                123
-                            </div>
+                    <div class="params">
+                        <div class="params-box radians">
+                            <div class="swing">
+                                <div class="swing-from container-w-100">
+                                    <div class="container-head">
+                                        <div class="container-title float-left">
+                                            <p class="container-title-text">DEPART</p>
+                                        </div>
+        
+                                        <div class="container-title float-right">
+                                            <p class="container-title-icon"><i class="fa fa-calendar" aria-hidden="true"></i></p>
+                                        </div>
+                                    </div>
 
-                            <div class="params-box">
-                                123
-                            </div>
-                            <div class="params-box radians search no-effect  d-flex justify-content-center align-items-center flex-column">
-                                <div class="w-100">
-                                    <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-swing" onclick="pageReturn('btn-confirmation-swing', 'page-swing');">Confirm</button>
-                                </div>
-                                <div class="container-foot-text w-100">
-                                    <p class="small text-muted d-block">It is worth noting that any booking made in advance will be cheaper.</p>
+                                    
+                                    
+                                    <div class="container-body mt-2">
+                                        <label for="depart-date">Departure date:</label>
+                                        <input type="date" id="depart-date" class="form-control" name="swing-from-datepicker" onchange="onDatepickerUpdate();">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Swing footer -->
-                    <!-- <div class="container-foot">
-                        <div class="container-foot-text">
-                            <p class="small text-muted">It is worth noting that any booking made in advance will be cheaper.</p>
+                    <div class="params">
+                        <div class="params-box radians">
+                            <div class="swing">
+                                <div class="swing-to container-w-100">
+                                    <div class="container-head">
+                                        <div class="container-title float-left">
+                                            <p class="container-title-text">RETURN</p>
+                                        </div>
+        
+                                        <div class="container-title float-right">
+                                            <p class="container-title-icon"><i class="fa fa-calendar" aria-hidden="true"></i></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="container-body mt-2">
+                                        <label for="return-date">Return date:</label>
+                                        <input type="date" id="return-date" class="form-control" name="swing-to-datepicker">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
+
+                    <div class="params">
+                        <div class="params-box radians search no-effect d-flex justify-content-center align-items-center flex-column">
+                            <div class="w-100">
+                                <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-swing" onclick="pageReturn('btn-confirmation-swing', 'page-swing');">Confirm</button>
+                            </div>
+                            <div class="container-foot-text w-100">
+                                <p class="small text-muted d-block">It is worth noting that any booking made in advance will be cheaper.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             
             </form>

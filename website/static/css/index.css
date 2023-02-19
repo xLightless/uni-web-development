@@ -437,6 +437,10 @@ input[type='radio']:checked {
     padding: 0.5rem;
 }
 
+.container-w-100 {
+    width: 100%!important;
+}
+
 .vertical-divider {
     width: 4px;
     height: calc(100% - 20px);
@@ -586,6 +590,10 @@ input[type='radio']:checked {
     border: 1px solid #121212;
     background-color: #fff;
 }
+
+/* input[type="date"] {
+    background-color: red;
+} */
 
 /* 
 .booking-nav-container {

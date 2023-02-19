@@ -1,6 +1,5 @@
 
-
-// BASE CLASS JAVASCRIPT FILE
+// BASE CLASS JS FILE
 
 var width;
 var height;
@@ -31,7 +30,7 @@ window.addEventListener('resize', () => {
     if (width <= 1365) {
         if (document.getElementById('overlay-backdrop').style.display == "none") {
             var sidebar = document.getElementsByClassName("grid-sidebar")
-            console.log("backdrop is none")
+            // console.log("backdrop is none")
             for (i = 0; i < sidebar.length; i++) {
                 sidebar[i].style.display = "none"
             }
@@ -64,7 +63,7 @@ function toggleNavbar() {
 
         } else {
             if (!document.getElementById('sidebar').contains(e.target)){
-                console.log("inside sidebar")
+                // console.log("inside sidebar")
                 // If mouse outside sidebar when  clicking then sidebar must be closed
                 for (i = 0; i < sidebar.length; i++) {
                     sidebar[i].style.display = "none"
@@ -144,7 +143,7 @@ function swapPages() {
 function toggleBookingContainers() {
 
     let w = window.innerWidth;
-    console.log(w)
+    // console.log(w)
     
 
     if (w > 1366) {
@@ -208,6 +207,30 @@ function pageSelector(pageToDisplay, targetID) {
     });
 }
 
+var removeButton = document.getElementById('btn-datetime-remove');
+removeButton.addEventListener('click', removeReturnDate);
+
+function removeReturnDate() {
+    // Return remove button functionality
+    // let removeButton = document.getElementById('btn-datetime-remove');
+
+    // removeButton.addEventListener('click', (e) => {
+        
+    // })
+
+    let returnLabel = document.getElementById('label-swing-to');
+    if (returnLabel.innerText != "No return added") {
+        returnLabel.innerText = "No return added."
+        returnDate.value = "";
+    }
+
+    // if (returnDate.value = "") {
+    //     returnDate.value = "";
+
+    // }
+
+}
+
 function pageReturn(buttonID, eventID) {
     // Returns the user to the previous page
     var btn = document.getElementById(buttonID);
@@ -218,6 +241,17 @@ function pageReturn(buttonID, eventID) {
             event.style.display = "none";
             backdrop.style.display = "none";
         }
+
+        // Only return if data is entered
+        // if (e.target == document.getElementById("btn-confirmation-swing")) {
+        //     console.log("btn swing clicked.")
+
+        //     if (!departDate.value) {
+        //         departDate.style.borderColor = "3px solid red";
+        //     } else {
+        //         departDate.style.border = "initial";
+        //     }
+        // }
     })
 }
 
@@ -230,7 +264,7 @@ function swingRadios() {
     let swingChildren = swingRadios.childNodes;
 
 
-    for (i = 0; i<swingChildren.length; i++) {
+    for (i = 0; i < swingChildren.length; i++) {
         swingChildren[i].addEventListener("click", (e) => {
             if (e.target == onewayRadio) {
                 returnRadio.checked = false;
@@ -244,3 +278,85 @@ function swingRadios() {
     }
 
 }
+
+function removeReturnOptions() {
+    const btnReturnRemove = document.getElementById('btn-datetime-remove');
+    const lblReturnValue = document.getElementById('label-swing-to');
+    btnReturnRemove.addEventListener('click', () => {
+        lblReturnValue.innerText = "No return added.";
+    });
+}
+
+// Sets datepicker min date to todays date
+date = new Date();
+var minDate = date.toISOString().split('T')[0];
+document.getElementsByName("swing-from-datepicker")[0].setAttribute('min', minDate);
+returnInput = document.getElementsByName("swing-to-datepicker")[0].setAttribute('min', minDate);
+
+// Get input fields by ID
+var departDate = document.getElementById('depart-date');
+var returnDate = document.getElementById('return-date');
+
+// Add a updating listener to datepicker
+departDate.addEventListener('change', updateValue);
+returnDate.addEventListener('change', updateMaxValue);
+
+function updateValue() {
+    // Event listener function to handle updating input values
+
+    // If return date is empty OR not return date not equal to depart date update values
+    if ((!returnDate.value) || (returnDate.value != departDate.value)) {
+        console.log("Updating Swing Parameters.")
+        newReturnVal = departDate.value;
+        returnDate.value = newReturnVal;
+    }
+
+
+    
+
+    let returnLabel = document.getElementById('label-swing-to');
+    let departLabel = document.getElementById('label-swing-from');
+    // let newReturnLabel = returnDate.value;
+    // returnLabel.innerText = newReturnLabel;
+    let updateReturnDate = new Date(returnDate.value);
+    returnLabel.innerText = updateReturnDate.toDateString();
+
+    let updateDepartDate = new Date(departDate.value);
+    departLabel.innerText = updateDepartDate.toDateString();
+}
+
+function updateMaxValue() {
+    /*
+        Updates the maximum length of days based on the user departure selection.    
+    */
+
+    let date = new Date(departDate.value);
+    let minDate = new Date(date.setDate(date.getDay() + 19)).toISOString().split('T')[0]; // Prevents user clicking a day before their selected day
+    let maxDate = new Date(date.setDate(date.getDay() + 109)).toISOString().split('T')[0]; // Prevents user clicking past the selection days
+    // console.log(minDate);
+    // console.log(maxDate);
+    document.getElementsByName("swing-to-datepicker")[0].setAttribute('min', minDate);
+    document.getElementsByName("swing-to-datepicker")[0].setAttribute('max', maxDate);
+
+    let returnLabel = document.getElementById('label-swing-to');
+    let newReturnLabel = returnDate.value;
+    returnLabel.innerText = newReturnLabel;
+}
+
+// Set max date value to stop exploitation of return tickets
+// exploitedDateReset = new Date();
+// maxDate = new Date(exploitedDateReset.setDate(exploitedDateReset.getDay() + 89)).toISOString().split('T')[0];
+// returnInput = document.getElementsByName("swing-from-datepicker")[0].setAttribute('max', maxDate);
+
+
+// var confirmButton = document.getElementById('depart-date');
+// confirmButton.addEventListener('click', navParamsConfirm);
+// function navParamsConfirm() {
+//     // Confirmation of parameters for travel navigation
+//     d = new Date().toDateString();
+//     console.log(d);
+//     let returnLabel = document.getElementById('label-swing-to');
+//     let newReturnLabel = returnDate.value;
+//     returnLabel.innerText = newReturnLabel;
+//     // console.log(returnDate.value.toString());
+// }
