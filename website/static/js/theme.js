@@ -342,21 +342,3 @@ function updateMaxValue() {
     let newReturnLabel = returnDate.value;
     returnLabel.innerText = newReturnLabel;
 }
-
-// Set max date value to stop exploitation of return tickets
-// exploitedDateReset = new Date();
-// maxDate = new Date(exploitedDateReset.setDate(exploitedDateReset.getDay() + 89)).toISOString().split('T')[0];
-// returnInput = document.getElementsByName("swing-from-datepicker")[0].setAttribute('max', maxDate);
-
-
-// var confirmButton = document.getElementById('depart-date');
-// confirmButton.addEventListener('click', navParamsConfirm);
-// function navParamsConfirm() {
-//     // Confirmation of parameters for travel navigation
-//     d = new Date().toDateString();
-//     console.log(d);
-//     let returnLabel = document.getElementById('label-swing-to');
-//     let newReturnLabel = returnDate.value;
-//     returnLabel.innerText = newReturnLabel;
-//     // console.log(returnDate.value.toString());
-// }
