@@ -36,5 +36,21 @@ https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
 - font awesome:
 <i class="fa-solid fa-location-pin"></i>
 
-TO DO LIST:
-- add location icon and the picture location to card head description
+- FA dashboard:
+<i class="fa fa-history" aria-hidden="true"></i>
+<i class="fa fa-percent" aria-hidden="true"></i>
+<i class="fa-solid fa-book"></i>
+<i class="fa-solid fa-ban"></i>
+<i class="fa-solid fa-file-invoice"></i>
+
+<i class="fa-solid fa-plane"></i>
+<i class="fa-sharp fa-solid fa-globe"></i>
+<i class="fa-sharp fa-regular fa-plane-arrival"></i>
+
+<i class="fa-solid fa-money-bill-1-wave"></i>
+<i class="fas fa-coins"></i>
+<i class="fa-sharp fa-solid fa-money-check"></i>
+
+<i class="fas fa-user"></i>
+<i class="fas fa-users"></i>
+<i class="fas fa-users-slash"></i>

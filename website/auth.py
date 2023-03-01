@@ -56,6 +56,7 @@ class Authenticated(Session):
             account_record = database.get_table_value_record('accounts', 'contact_id', str(contact_record[0]))
             password_in_account = str(account_record[3])
             username_in_account = str(account_record[2])
+            user_type = str(account_record[4])
             
             email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))
             if email_in_table == True:
@@ -63,6 +64,14 @@ class Authenticated(Session):
                     self.set_key('username', username_in_account)
                     self.set_key('logged_in', True)
                     self.set_key('email', email)
+                    
+                    # Identify the type of user
+                    if user_type == 'Admin':
+                        self.set_key('Admin', True)
+                    if user_type == 'Standard':
+                        self.set_key('Standard', True)
+                    
+                    print(session.keys())
                     
                     return redirect(url_for('views.index'))
         except IndexError:

@@ -104,7 +104,7 @@
               {% if session['logged_in'] %}Logged in as: {% else %}<strong>Login to make bookings.</strong>{% endif %}
             </div>
             <div class="small-text username">
-              {% if session['logged_in'] %}<strong>{{current_fname + " " + current_lname | capitalize}}</strong>{% endif %}
+              {% if session['logged_in'] %}<strong>{{session["username"] | capitalize}}</strong>{% endif %}
             </div>
           </div>
           <div class="grid-sidebar-footer-right">

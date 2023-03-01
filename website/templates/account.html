@@ -48,10 +48,106 @@
         </div>
 
         <!-- Dashboard -->
-        <div class="container-fluid account-dashboard-services mt-3">
-            <div class="section-head">
+        <div class="container-fluid account-dashboard-services p-0 mt-3">
+            <div class="section-head mb-3">
                 <div class="head-text head-text-dashboard">Dashboard</div>
             </div>
+
+            <div class="section-head">
+                <div class="head-text head-text-subheading fst-italic">Booking Details</div>
+            </div>
+            <div class="dashboard-tools">
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa fa-history" aria-hidden="true"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Booking History</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-book"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Update Booking</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-ban"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Cancel Booking</div></div>
+                </div>
+            </div>
+
+            <div class="section-head">
+                <div class="head-text head-text-subheading fst-italic">Payments and Discounts</div>
+            </div>
+            <div class="dashboard-tools">
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa fa-percent" aria-hidden="true"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Applied Discounts</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-file-invoice"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Generate Report</div></div>
+                </div>
+            </div>
         </div>
+
+        <!-- Admin Dashboard Extensions -->
+
+        {% if session['Admin'] %}
+        <div class="container-fluid account-dashboard-services p-0 mt-3">
+            <div class="section-head mb-3">
+                <div class="head-text head-text-dashboard">Admin Extensions</div>
+            </div>
+
+            <div class="section-head">
+                <div class="head-text head-text-subheading fst-italic">Journey Settings</div>
+            </div>
+            <div class="dashboard-tools">
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-plane"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Add Journeys</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-sharp fa-solid fa-globe"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Update Journeys</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-plane-lock"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Remove Journeys</div></div>
+                </div>
+            </div>
+
+            <div class="section-head">
+                <div class="head-text head-text-subheading fst-italic">Price Settings</div>
+            </div>
+            <div class="dashboard-tools">
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-money-bill-1-wave"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Add Prices</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fas fa-coins"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Update Prices</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-sharp fa-solid fa-money-check"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Remove Prices</div></div>
+                </div>
+            </div>
+
+            <div class="section-head">
+                <div class="head-text head-text-subheading fst-italic">Users Settings</div>
+            </div>
+            <div class="dashboard-tools">
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fas fa-user"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Add User</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fas fa-users"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Update User(s)</div></div>
+                </div>
+                <div class="dashboard-extension">
+                    <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fas fa-users-slash"></i></button></div>
+                    <div class="d-ex-lbl"><div class="dashboard-extension-label">Remove User(s)</div></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </section>
 {% endblock %}
