@@ -1,0 +1,20 @@
+ACCOUNT:
+
+- Update name or password etc...
+- Update billing address
+- Logout
+
+DASHBOARD:
+
+- Booking history (View booking)
+- Discounts
+- Generate latest booking reports
+- Update booking
+- Cancel booking
+
+ADMIN EXTENSIONS:
+
+- Add, update, delete journeys
+- Add, update, delete price constraints
+- Add, update, delete end user details
+- Generate ADMIN reports (monthly sales, sales of each journey, top customers).

@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                                 <div class="container-body d-flex justify-content-center flex-column">
-                                    <label class="container-body-text" id="label-swing-from">Tue 17th Sep. 10:30</label>
+                                    <label class="container-body-text" id="label-swing-from">Add departure date.</label>
                                 </div>
                                 <div class="container-foot d-flex align-items-center justify-content-start flex-row">
                                     <label class="container-foot-text">
@@ -175,7 +175,17 @@
                                     </div>
 
                                     
-                                    <div class="container-body">
+                                    <div class="container-body d-flex justify-content-center align-items-center" style="height: calc(100% - 24px);">
+                                        <div class="input-group ml-2 mr-2">
+                                            <input type="text" class="form-control" title="Enter a location" list="search-filter" placeholder="Enter a location" id="input-box-from">
+                                            <!-- DROP DOWN SEARCH FILTER -->
+                                            <datalist id="search-filter">
+                                            {% for item in search_items %}
+                                                <option> {{ item }}</option>
+                                            {% endfor %}
+                                            </datalist>
+                                            <!-- DROP DOWN SEARCH FILTER -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -195,6 +205,20 @@
                                             <p class="container-title-icon"><i class="fa-solid fa-location-pin"></i></p>
                                         </div>
                                     </div>
+
+                                    <div class="container-body d-flex justify-content-center align-items-center" style="height: calc(100% - 24px);">
+                                        <div class="input-group ml-2 mr-2">
+                                            <input type="text" class="form-control" title="Enter a location" list="search-filter" placeholder="Enter a location" id="input-box-to">
+                                            <!-- DROP DOWN SEARCH FILTER -->
+                                            <datalist id="search-filter">
+                                            {% for item in search_items %}
+                                                <option> {{ item }}</option>
+                                            {% endfor %}
+                                            </datalist>
+                                            <!-- DROP DOWN SEARCH FILTER -->
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -203,7 +227,7 @@
                     <div class="params">
                         <div class="params-box radians search no-effect  d-flex justify-content-center align-items-center flex-column">
                             <div class="w-100">
-                                <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-locations" onclick="pageReturn('btn-confirmation-locations', 'page-locations');">Confirm</button>
+                                <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-locations" onclick="locationsConfirmButtonEvent();">Confirm</button>
                             </div>
                             <div class="container-foot-text w-100">
                                 <p class="small text-muted d-block">It is worth noting that any booking made in advance will be cheaper.</p>
@@ -220,6 +244,27 @@
                             <p class="container-title-text">
                                 Please select your travel options: 
                             </p>
+                        </div>
+                    </div>
+
+                    <div class="container-head d-flex justify-content-center align-items-center flex-row">
+                        <div class="ml-1 mr-1">
+                            <label for="passengers-label"><p class="container-title-text ml-1 mr-1">Passengers: </p></label>
+                            <select id="passengers-amount">
+                                <option selected>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+
+                        <div class="ml-1 mr-1">
+                            <label for="seat-class-label"><p class="container-title-text ml-1 mr-1">Seat: </p></label>
+                            <select id="seat-class-type">
+                                <option selected>Economy</option>
+                                <option>Business</option>
+                            </select>
                         </div>
                     </div>
 
@@ -241,7 +286,7 @@
                                     
                                     <div class="container-body mt-2">
                                         <label for="depart-date">Departure date:</label>
-                                        <input type="date" id="depart-date" class="form-control" name="swing-from-datepicker" onchange="onDatepickerUpdate();">
+                                        <input type="date" id="depart-date" class="form-control" name="swing-from-datepicker">
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +319,7 @@
                     <div class="params">
                         <div class="params-box radians search no-effect d-flex justify-content-center align-items-center flex-column">
                             <div class="w-100">
-                                <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-swing" onclick="pageReturn('btn-confirmation-swing', 'page-swing');">Confirm</button>
+                                <button type="button" class="btn btn-sm btn-danger w-100 m-0 d-block" id="btn-confirmation-swing" onclick="swingConfirmButtonEvent();">Confirm</button>
                             </div>
                             <div class="container-foot-text w-100">
                                 <p class="small text-muted d-block">It is worth noting that any booking made in advance will be cheaper.</p>

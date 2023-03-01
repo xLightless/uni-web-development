@@ -17,9 +17,16 @@ database = Database(database="ht_database", user="root", password="Password1")
 #     booking_return_date = database.get_table_column('bookings', 'booking_return_date')[1]
     
 
-@views.route('/')
+@views.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    """ Renders the index template and its search filter options """
+    
+    search_items = database.get_table_column('locations', 'location')[1]
+    search_filter_items = []
+    for item in search_items:
+        search_item = str(item).replace('(', '').replace(')', '').replace(',','').replace("'", '')
+        search_filter_items.append(search_item)
+    return render_template('index.html', search_items=search_filter_items)
 
 # @views.route('/booking/', methods=['GET', 'POST'])
 # def booking():

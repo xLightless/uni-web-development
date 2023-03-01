@@ -298,10 +298,10 @@ var departDate = document.getElementById('depart-date');
 var returnDate = document.getElementById('return-date');
 
 // Add a updating listener to datepicker
-departDate.addEventListener('change', updateValue);
-returnDate.addEventListener('change', updateMaxValue);
+departDate.addEventListener('change', updateDepartValue);
+returnDate.addEventListener('change', updateReturnValue);
 
-function updateValue() {
+function updateDepartValue() {
     // Event listener function to handle updating input values
 
     // If return date is empty OR not return date not equal to depart date update values
@@ -310,22 +310,17 @@ function updateValue() {
         newReturnVal = departDate.value;
         returnDate.value = newReturnVal;
     }
-
-
     
-
     let returnLabel = document.getElementById('label-swing-to');
     let departLabel = document.getElementById('label-swing-from');
-    // let newReturnLabel = returnDate.value;
-    // returnLabel.innerText = newReturnLabel;
     let updateReturnDate = new Date(returnDate.value);
     returnLabel.innerText = updateReturnDate.toDateString();
 
-    let updateDepartDate = new Date(departDate.value);
-    departLabel.innerText = updateDepartDate.toDateString();
+    let departDepartDate = new Date(departDate.value);
+    departLabel.innerText = departDepartDate.toDateString();
 }
 
-function updateMaxValue() {
+function updateReturnValue() {
     /*
         Updates the maximum length of days based on the user departure selection.    
     */
@@ -333,12 +328,61 @@ function updateMaxValue() {
     let date = new Date(departDate.value);
     let minDate = new Date(date.setDate(date.getDay() + 19)).toISOString().split('T')[0]; // Prevents user clicking a day before their selected day
     let maxDate = new Date(date.setDate(date.getDay() + 109)).toISOString().split('T')[0]; // Prevents user clicking past the selection days
-    // console.log(minDate);
-    // console.log(maxDate);
     document.getElementsByName("swing-to-datepicker")[0].setAttribute('min', minDate);
     document.getElementsByName("swing-to-datepicker")[0].setAttribute('max', maxDate);
 
     let returnLabel = document.getElementById('label-swing-to');
+    let departLabel = document.getElementById('label-swing-from');
+    let updateReturnDate = new Date(returnDate.value);
+    returnLabel.innerText = updateReturnDate.toDateString();
+
+    let departDepartDate = new Date(departDate.value);
+    departLabel.innerText = departDepartDate.toDateString();
     let newReturnLabel = returnDate.value;
-    returnLabel.innerText = newReturnLabel;
+    returnLabel.innerText = newReturnLabel.toDateString();
+}
+
+
+
+function locationsConfirmButtonEvent() {
+    let inputFrom = document.getElementById('input-box-from');
+    let inputTo = document.getElementById('input-box-to');
+    if ((inputFrom.value != "" && inputTo.value != "") && (inputFrom.value != inputTo.value)) {
+        pageReturn('btn-confirmation-locations', 'page-locations');
+
+        let locationFrom = document.getElementById('label-location-from');
+        let locationTo = document.getElementById('label-location-to');
+
+        locationFrom.innerText = inputFrom.value;
+        locationTo.innerText = inputTo.value;
+    }
+}
+
+function swingConfirmButtonEvent() {
+    let inputDepart = document.getElementById('depart-date');
+    let inputReturn = document.getElementById('return-date');
+    let selectPassengers = document.getElementById('passengers-amount');
+    let selectSeatClass = document.getElementById('seat-class-type');
+
+    // if (inputDepart.value != "" && selectPassengers.value != "" && selectSeatClass != "") {
+    //     pageReturn('btn-confirmation-swing', 'page-swing');
+    // }
+
+    // pageReturn('btn-confirmation-swing', 'page-swing');
+    if (departDate.value != "" && selectPassengers.value != "" && selectSeatClass != "") {
+        pageReturn('btn-confirmation-swing', 'page-swing');
+
+        let passengers = document.getElementById('label-swing-people');
+        let seatType = document.getElementById('label-swing-seat-type');
+
+        passengers.innerText = selectPassengers.value;
+        seatType.innerText = selectSeatClass.value;
+
+
+
+        
+
+    }
+
+
 }

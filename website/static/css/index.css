@@ -247,6 +247,7 @@ section.travel {
 section.booking {
     background-color: #121212;
     height: fit-content;
+    /* height: 1000px; */
 }
 
 .section-head {
@@ -278,7 +279,6 @@ section.booking {
 
 .booking-content > form {
     width: 100%;
-    /* max-width: 1336px; */
     max-width: 720px;
     min-height: 320px;
     background-color: #fff;
@@ -393,6 +393,10 @@ input[type='radio']:checked {
     filter: none!important;
     transform: none!important;
     border: none!important;
+}
+
+.fit-items {
+    height: fit-content!important;
 }
 
 .search {
@@ -591,6 +595,26 @@ input[type='radio']:checked {
     background-color: #fff;
 }
 
+.input-text-group {
+    display: block;
+    position: relative;
+}
+
+/* #search-filter {
+    width: fit-content;
+    height: fit-content;
+    background-color: red;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+} */
+
+.menu-scrollable {
+    height: auto;
+    max-height: 120px;
+    overflow-x: hidden;
+}
+
 /* input[type="date"] {
     background-color: red;
 } */
@@ -713,7 +737,6 @@ input[type='radio']:checked {
         width: 100%;
         height: 100%;
     } */
-    
 }
 
 @media only screen and (min-width: 1366px) {

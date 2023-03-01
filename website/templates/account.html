@@ -1,110 +1,57 @@
-{% extends "base.html" %}
-{% block title %}{{session['username'] | capitalize}} Profile{% endblock %}
+{% extends 'base.html' %}
 {% block head %}
-    <link href="{{url_for('static', filename='css/account.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/account.css')}}" rel="stylesheet">
+    <!-- imports elements that will later be moved to a single css file -->
+    <link href="{{url_for('static',filename='css/index.css')}}" rel="stylesheet">
 {% endblock %}
 
-
-<!-- <div>
-    {% if session["logged_in"] %}
-
-
-    <div class="container bg-dark">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
-{% else %}
-    <span style="font-size: 2rem">It appears you are not logged in. Please create an <a href="{{url_for('auth.register')}}">account</a> or <a href="{{url_for('auth.login')}}">login</a> to view this page.</span>
-{% endif %}
-</div> -->
-
 {% block main %}
-    <section class="main">
-
-        <div class="account">
-            <div class="header">
-
-                <!-- Nav button dropdown -->
-                <div class="dropdown">
-                    <!-- Nav button -->
-                    <div class="dotted-button">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                    <div class="dropdown-content">
-                        <ul class="list-group" id="dropdown-list">
-                            <li class="list-group-item hover" id="li-g-account" onclick="swapPages();">Account</li>
-                            <li class="list-group-item hover" id="li-g-booking" onclick="swapPages();">Booking</li>
-                            <li class="list-group-item hover">
-                                <a href="{{url_for('auth.logout')}}" class="text-decoration-none text-danger">Sign Out</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="title">
-                    <p class="page-title" id="page-title">ACCOUNT</p>
-                </div>
+    <!-- Dashboard Page -->
+    <section class="account-dashboard pl-3 pr-3">
+        <!-- Account buttons and profile -->
+        <div class="container-fluid account-manage p-0">
+            <div class="section-head">
+                <div class="head-text head-text-account mt-3">Account</div>
             </div>
+            <div class="row w-100 h-100 m-0 g-3">
+                <div class="col-sm-12 col-lg-4 p-0">
 
-            <div class="pages-account" id="page-account">
-                <!-- Display information about the user  -->
-                <div class="account-profile-user">
-                    <div class="account-profile-user-picture">
-                        <div class="frame">                        
-                            <div class="upload">
-                                <i class="fas fa-file-upload"></i>
-                                <img src="{{url_for('static', filename='img/profileimg.png')}}">
-                            </div>
-                        </div>
-                    </div>
+                    <div class="container h-100 p-0 text-light d-flex justify-content-center align-items-center flex-column">
 
-                    <div class="account-profile-user-info">
-                        <p class="name">{{ current_fname }} {{ current_lname }}</p>
-                        <p class="email">{{ current_email }}</p>
-                    </div>
-                </div>
-                
-                <div class="account-profile-manager">
-                    <form action="{{ url_for('auth.account') }}" method="post">
-                        <div class="form-group mb-2">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" aria-describedby="Update User Name" value="{{ current_username }}">
+                        <div class="profile-image h-100 radians m-3">
+                            <div class="upload-icon"><i class="fas fa-file-upload"></i></div>
+                            <img src="{{url_for('static', filename='img/profileimg.png')}}" class="radians">
                         </div>
 
-                        <div class="form-group mb-2">
-                            <label for="fname">First Name</label>
-                            <input type="text" class="form-control" id="fname" name="fname" aria-describedby="Update First Name" value="{{ current_fname }}">
+                        <div class="user-fullname w-100 m-1">
+                            <p class="name text-center m-0">{{ current_fname }} {{ current_lname }}</p>
                         </div>
 
-                        <div class="form-group mb-2">
-                            <label for="lname">Last Name</label>
-                            <input type="text" class="form-control" id="lname" name="lname" aria-describedby="Update Last Name"  value="{{ current_lname }}">
+                        <div class="user-email w-100 m-1">
+                            <p class="email fst-italic text-center m-0">{{ current_email }}</p>
+                        </div>
+
+                        <div class="btn-signout w-100 d-flex justify-content-center align-items-center flex-column  m-3">
+                            <a href="{{url_for('auth.logout')}}" class="btn btn-danger border-outline-none m-0 d-block w-75">Sign out</a>
                         </div>
                         
-                        <div class="form-group mb-2">
-                            <label for="telephone">Telephone</label>
-                            <input type="text" class="form-control" id="telephone" name="telephone" aria-describedby="Update Telephone" value="{{ current_telephone }}">
-                        </div>
-
-                        <div class="form-group mb-2">
-                            <label for="email">Email Address</label>
-                            <input type="text" class="form-control" id="email" name="email" aria-describedby="Update Email" value="{{ current_email }}">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary m-0">Update Account</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
+
+                <div class="col-sm-12 col-lg-4 text-light p-0 bg-light">123</div>
+                <div class="col-sm-12 col-lg-4 text-light p-0 bg-light">123</div>
             </div>
+        </div>
 
-            <div class="pages-booking" id="page-booking">
-                <!-- Display active and previous bookings on the account -->
+        <div class="container-fluid p-0">
+            <div class="divider w-100 m-0 mt-3 d-block"></div>
+        </div>
 
+        <!-- Dashboard -->
+        <div class="container-fluid account-dashboard-services mt-3">
+            <div class="section-head">
+                <div class="head-text head-text-dashboard">Dashboard</div>
             </div>
         </div>
     </section>
-
-    <script src="{{url_for('static', filename='js/theme.js')}}"></script>
 {% endblock %}

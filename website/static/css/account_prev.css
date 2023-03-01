@@ -1,0 +1,305 @@
+.main {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account {
+    position: relative;
+    background-color: gainsboro;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+}
+
+.header {
+    width: 100%;
+    height: 32px;
+    /* border: 1px solid black; */
+    border-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    /* text-align: center; */
+}
+
+.title {
+    float: left;
+    width: fit-content;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header > div > p {
+    width: fit-content;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown {
+    float: right;
+    position: relative;  
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /* background: purple; */
+    min-width: 180px;
+    height: fit-content;
+    /* height: 160px; */
+    /* border: 1px solid blue; */
+    z-index: 1;
+    top: calc(32px);
+    left: calc(-180px + 32px + 8px);
+    /* border-radius: 16px; */
+}
+
+.dropdown-content > div > div:hover {
+    background-color: red;
+}
+
+.dotted-button {
+    float: right;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: row;
+}
+
+.dot {
+    /* display: inline-block; */
+    background-color: black;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: relative;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.dotted-button:hover {
+    transform: scale(1.03);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: open 0.5s;
+}
+
+.hover:hover {
+    background-color: rgba(242, 242, 242, 1);
+
+}
+
+[class*="pages-"] {
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 32px);
+    background-color: white;
+    border-radius: inherit;
+    /* padding: 1rem; */
+    overflow: hidden;
+    padding: 0.5rem;
+}
+
+.pages-account:active {
+    /* First page to be seen */
+}
+
+
+
+
+.account-profile-user {
+    width: 100%;
+    /* height: calc(30% + 128px); */
+    height: fit-content;
+    /* min-height: 256px; */
+    min-height: 208px;
+    /* background-color: gray; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.account-profile-user-picture {
+    width: 100%;
+    height: 128px;
+    /* background-color: red; */
+    /* border: 1px solid black; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.frame {
+    width: 25vw;
+    height: 25vw;
+    min-width: 96px;
+    min-height: 96px;
+    max-width: 128px;
+    max-height: 128px;
+    background-color: gray;
+    border-radius: 30%;
+
+    position: relative;
+}
+
+.frame:hover {
+    cursor: pointer;
+}
+
+.frame .upload > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+    display: none;
+}
+
+.upload {
+    min-width: 100%;
+    min-height: 100%;
+    border-radius: inherit;
+    /* display: none; */
+    /* background-color: red; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+
+}
+
+.upload > i {
+    font-size: 2rem;
+}
+
+.upload:hover {
+    background-color: gainsboro;
+    transform: scale(1.03); 
+}
+
+.upload:not(:hover) > i {
+    display: none;
+}
+
+.upload:not(:hover) > img {
+    display: unset;
+}
+
+
+.account-profile-user-info {
+    width: 100%;
+    /* height: 96px; */
+    height: 48px;
+    /* border: 1px solid black; */
+    margin-top: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.account-profile-user-info > p {
+    text-align: center;
+    margin: 0;
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.email {
+    color: gray;
+
+}
+
+
+
+
+
+.account-profile-manager {
+    width: 100%;
+    height: calc(100% - 208px);
+    /* background-color: black; */
+    /* border: 1px solid black; */
+    padding: 0.5rem;
+    overflow-y: auto;
+}
+
+.account-profile-manager > form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.account-profile-manager > form > div {
+    width: 80%;
+}
+
+
+.pages-booking {
+    display: none;
+    /* background-color: red; */
+}
+
+@media screen and (min-width: 1366px) {
+    .account {
+        width: 50%;
+        height: 70%;
+    }
+}
+
+@keyframes slidein {
+    0% {
+        bottom: 0;
+        height: 0;
+    }
+
+    50% {
+        height: 50%;
+    }
+
+    100% {
+        top: 0;
+        height: 100%;
+    }
+}
+
+@keyframes open {
+    0%  {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
