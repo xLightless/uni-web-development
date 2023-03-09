@@ -71,7 +71,7 @@ class Authenticated(Session):
                     if user_type == 'Standard':
                         self.set_key('Standard', True)
                     
-                    print(session.keys())
+                    # print(session.keys())
                     
                     return redirect(url_for('views.index'))
         except IndexError:
@@ -86,7 +86,7 @@ def login():
     """ Renders the login page """
     
     error = ""
-    print(session.keys())
+    # print(session.keys())
     
     # If new session then create a login boolean
     if user_session.has_key('logged_in') == False:

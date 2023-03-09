@@ -327,4 +327,4 @@ class Database(object):
         
         
 database = Database()
-print(database.get_table('customers', False))
+# print(database.get_table('customers', False))

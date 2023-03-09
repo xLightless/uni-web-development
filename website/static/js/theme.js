@@ -386,3 +386,18 @@ function swingConfirmButtonEvent() {
 
 
 }
+
+function checkForReturns() {
+    // Checks if the user attempts to search while radio and return are opposite states.
+    
+    let swingRadioReturn = document.getElementById('params-traveller-return');
+    let swingRadioOneway = document.getElementById('params-traveller-oneway');
+    let checkAvailabilityBtn = document.getElementById('search-availability-btn');
+    let returnLbl = document.getElementById('label-swing-to');
+    checkAvailabilityBtn.addEventListener('click', (e) => {
+        if (returnLbl.innerText == "No return added.") {
+            swingRadioReturn.checked = false;
+            swingRadioOneway.checked = true;
+        }
+    })
+}

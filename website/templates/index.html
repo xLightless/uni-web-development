@@ -33,17 +33,17 @@
                 <div class="head-text">Where would you like to go?</div>
             </div>
 
-            <form class="p-3" action="#">
+            <form class="p-3" action="#" method="post">
 
                 <!-- UI Search Navigation -->
                 <div class="params radios" id="swing-radios" onclick="swingRadios();">
                     <div class="radios-left">
-                        <input type="radio" id="params-traveller-return">
+                        <input type="radio" id="params-traveller-return" name="params-traveller-return">
                         <label for="params-traveller-return">Return Trip</label>
                     </div>
 
                     <div class="radios-right">
-                        <input type="radio" id="params-traveller-oneway">
+                        <input type="radio" id="params-traveller-oneway" name="params-traveller-oneway">
                         <label for="params-traveller-oneway">Oneway Trip</label>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="container-body d-flex justify-content-center flex-column">
-                                    <label class="container-body-text" id="label-location-from">Bristol,</label>
+                                    <label class="container-body-text" id="label-location-from">Origin location in,</label>
                                 </div>
                                 <div class="container-foot d-flex justify-content-center flex-column">
                                     <label class="container-foot-text" id="label-location-from">United Kingdom</label>
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="container-body d-flex justify-content-center flex-column">
-                                    <label class="container-body-text" id="label-location-to">Manchester,</label>
+                                    <label class="container-body-text" id="label-location-to">Destination in,</label>
                                 </div>
                                 <div class="container-foot d-flex justify-content-center flex-column">
                                     <label class="container-foot-text" id="label-location-to">United Kingdom</label>
@@ -145,7 +145,7 @@
                 </div>
                 <div class="params">
                     <div class="params-box radians search no-effect">
-                        <button type="submit" class="btn search-btn"><i class="fa fa-search" aria-hidden="true"></i> Search availability</button>
+                        <button type="submit" class="btn search-btn" id="search-availability-btn" onclick="checkForReturns();"><i class="fa fa-search" aria-hidden="true"></i> Search availability</button>
                     </div>
                 </div>
             
@@ -177,7 +177,7 @@
                                     
                                     <div class="container-body d-flex justify-content-center align-items-center" style="height: calc(100% - 24px);">
                                         <div class="input-group ml-2 mr-2">
-                                            <input type="text" class="form-control" title="Enter a location" list="search-filter" placeholder="Enter a location" id="input-box-from">
+                                            <input type="text" class="form-control" title="Enter a location" list="search-filter" placeholder="Enter a location" id="input-box-from" name="input-box-from">
                                             <!-- DROP DOWN SEARCH FILTER -->
                                             <datalist id="search-filter">
                                             {% for item in search_items %}
@@ -208,7 +208,7 @@
 
                                     <div class="container-body d-flex justify-content-center align-items-center" style="height: calc(100% - 24px);">
                                         <div class="input-group ml-2 mr-2">
-                                            <input type="text" class="form-control" title="Enter a location" list="search-filter" placeholder="Enter a location" id="input-box-to">
+                                            <input type="text" class="form-control" title="Enter a location" list="search-filter" placeholder="Enter a location" id="input-box-to" name="input-box-to">
                                             <!-- DROP DOWN SEARCH FILTER -->
                                             <datalist id="search-filter">
                                             {% for item in search_items %}
@@ -250,7 +250,7 @@
                     <div class="container-head d-flex justify-content-center align-items-center flex-row">
                         <div class="ml-1 mr-1">
                             <label for="passengers-label"><p class="container-title-text ml-1 mr-1">Passengers: </p></label>
-                            <select id="passengers-amount">
+                            <select id="passengers-amount" name="passengers-amount">
                                 <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -261,7 +261,7 @@
 
                         <div class="ml-1 mr-1">
                             <label for="seat-class-label"><p class="container-title-text ml-1 mr-1">Seat: </p></label>
-                            <select id="seat-class-type">
+                            <select id="seat-class-type" name="seat-class-type">
                                 <option selected>Economy</option>
                                 <option>Business</option>
                             </select>

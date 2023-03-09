@@ -17,7 +17,7 @@ database = Database(database="ht_database", user="root", password="Password1")
 #     booking_return_date = database.get_table_column('bookings', 'booking_return_date')[1]
     
 
-@views.route('/', methods=['POST', 'GET'])
+@views.route('/')
 def index():
     """ Renders the index template and its search filter options """
     
@@ -25,14 +25,34 @@ def index():
     search_filter_items = []
     for item in search_items:
         search_item = str(item).replace('(', '').replace(')', '').replace(',','').replace("'", '')
-        search_filter_items.append(search_item)
-    return render_template('index.html', search_items=search_filter_items)
+        search_filter_items.append(search_item)    
+    
+    return render_template(
+        'index.html',
+        search_items = search_filter_items
+    )
 
-# @views.route('/booking/', methods=['GET', 'POST'])
-# def booking():
-#     # if session.get('username') is None:
-#     #     return redirect(url_for('views.account_page'))
-#     return render_template('booking.html')
+@views.route('/', methods=['POST', 'GET'])
+def form_index_search():
+    """ Gets input queries from index booking form to use for other functionality """
+    
+    # print(request.form.get('passengers-amount'))
+    
+    if request.method == 'POST':
+        if session['logged_in'] == True:
+            return render_template(
+                'search.html',
+                # radio_return        = request.form.get('params-traveller-return'),
+                # radio_oneway        = request.form.get('params-traveller-oneway'),
+                location_from       = request.form.get('input-box-from'),
+                location_to         = request.form.get('input-box-to'),
+                passengers_amount   = request.form.get('passengers-amount'),
+                seat_class_type     = request.form.get('seat-class-type'),
+                date_from           = request.form.get('swing-from-datepicker'),
+                date_to             = request.form.get('swing-from-datepicker')
+            )
+            
+        return redirect(url_for('auth.login'))
 
 @views.route('/about-us/')
 def about():
@@ -75,7 +95,7 @@ def account_page():
 @views.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')
 def update_account(username, fname, lname, telephone, email):
     
-    print(username, fname, lname, telephone, email)
+    # print(username, fname, lname, telephone, email)
     
     return redirect(url_for('auth.account'))
 
