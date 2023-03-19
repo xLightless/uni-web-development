@@ -36,23 +36,64 @@ def index():
 def form_index_search():
     """ Gets input queries from index booking form to use for other functionality """
     
-    # print(request.form.get('passengers-amount'))
-    
     if request.method == 'POST':
-        if session['logged_in'] == True:
-            return render_template(
-                'search.html',
-                # radio_return        = request.form.get('params-traveller-return'),
-                # radio_oneway        = request.form.get('params-traveller-oneway'),
-                location_from       = request.form.get('input-box-from'),
-                location_to         = request.form.get('input-box-to'),
-                passengers_amount   = request.form.get('passengers-amount'),
-                seat_class_type     = request.form.get('seat-class-type'),
-                date_from           = request.form.get('swing-from-datepicker'),
-                date_to             = request.form.get('swing-from-datepicker')
-            )
+    
+        # radio_return        = request.form.get('params-traveller-return'),
+        # radio_oneway        = request.form.get('params-traveller-oneway'),
+        location_from       = request.form.get('input-box-from'),
+        location_to         = request.form.get('input-box-to'),
+        passengers_amount   = request.form.get('passengers-amount'),
+        seat_class_type     = request.form.get('seat-class-type'),
+        date_from           = request.form.get('swing-from-datepicker'),
+        date_to             = request.form.get('swing-from-datepicker')
+        
+        search_results = {}
+        if location_from is not None: search_results['location_from'] = location_from
+        if location_to is not None: search_results['location_to'] = location_to
+        if passengers_amount is not None: search_results['passengers_amount'] = passengers_amount
+        if seat_class_type is not None: search_results['seat_class_type'] = seat_class_type
+        if date_from is not None: search_results['date_from'] = date_from
+        if date_to is not None: search_results['date_to'] = date_to
+        
+        # Format search results to match comparisons
+        for k,v in search_results.items():
+            val = str(v).replace('(', '').replace(')', '').replace(',','').replace("'", '')
+            search_results[k] = val
             
-        return redirect(url_for('auth.login'))
+            # If any value from search results is invalid or empty then cancel booking confirmation
+            if (search_results.get(k) == ""):
+                return redirect(url_for('views.index'))
+        # print(database.get_table_value_record('journey', 'departure', value='Bristol'))
+        
+        
+        
+        journey_rows = database.count_table_rows('journey')
+         
+        
+        # Remove
+        return redirect(url_for('views.index'))
+            
+        
+        # Checks if the params from the search submit is valid in the database
+        
+    
+    # if (session.get("logged_in") is not None) and (session['logged_in'] == True):
+    #     return render_template(
+    #         'search.html',
+    #         # radio_return        = request.form.get('params-traveller-return'),
+    #         # radio_oneway        = request.form.get('params-traveller-oneway'),
+    #         # location_from       = request.form.get('input-box-from'),
+    #         # location_to         = request.form.get('input-box-to'),
+    #         # passengers_amount   = request.form.get('passengers-amount'),
+    #         # seat_class_type     = request.form.get('seat-class-type'),
+    #         # date_from           = request.form.get('swing-from-datepicker'),
+    #         # date_to             = request.form.get('swing-from-datepicker')
+    #     )
+
+    # return redirect(url_for('auth.login'))
+
+
+def handle_search_results(*key, **val): pass
 
 @views.route('/about-us/')
 def about():

@@ -121,6 +121,8 @@ class Database(object):
             return self.cursor.fetchall()[0]
         except IndexError:
             return f"Invalid row/record in {table}."
+        
+    # def get_table_values_record()
     
     def get_table_column(self, table:str, column_name:str) -> tuple:
         """ Gets the column header and values from a table
