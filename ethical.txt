@@ -40,6 +40,7 @@ https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
 <i class="fa fa-history" aria-hidden="true"></i>
 <i class="fa fa-percent" aria-hidden="true"></i>
 <i class="fa-solid fa-book"></i>
+<i class="fa-solid fa-passport"></i>
 <i class="fa-solid fa-ban"></i>
 <i class="fa-solid fa-file-invoice"></i>
 

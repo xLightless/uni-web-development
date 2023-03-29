@@ -3,6 +3,7 @@
     <link href="{{url_for('static',filename='css/account.css')}}" rel="stylesheet">
     <!-- imports elements that will later be moved to a single css file -->
     <link href="{{url_for('static',filename='css/index.css')}}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7a98244e75.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block main %}
@@ -13,6 +14,7 @@
             <div class="section-head">
                 <div class="head-text head-text-account mt-3">Account</div>
             </div>
+
             <div class="row w-100 h-100 m-0 g-3">
                 <div class="col-sm-12 col-lg-4 p-0">
 
@@ -38,17 +40,59 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-lg-4 text-light p-0 bg-light">123</div>
-                <div class="col-sm-12 col-lg-4 text-light p-0 bg-light">123</div>
+                <div class="col-sm-12 col-lg-8 text-light p-3 d-flex justify-content-center align-items-center">
+                    <div class="dashboard-tools">
+                        <div class="dashboard-extension">
+                            <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-passport"></i></button></div>
+                            <div class="d-ex-lbl"><div class="dashboard-extension-label">Booking Details</div></div>
+                        </div>
+                        <div class="dashboard-extension">
+                            <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-user"></i></button></div>
+                            <div class="d-ex-lbl"><div class="dashboard-extension-label">Account Details</div></div>
+                        </div>
+
+                        {% if session['Admin'] %}
+                        <div class="dashboard-extension">
+                            <div class="d-ex-btn"><button type="button" for="d-ex-label" class="dashboard-extension-btn"><i class="fa-solid fa-file-invoice"></i></button></div>
+                            <div class="d-ex-lbl"><div class="dashboard-extension-label">Generate Report</div></div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <!-- <div class="col-sm-12 col-lg-4 text-light p-0 bg-light">123</div> -->
             </div>
         </div>
 
         <div class="container-fluid p-0">
-            <div class="divider w-100 m-0 mt-3 d-block"></div>
+            <div class="divider w-100 m-0 mt-3"></div>
         </div>
 
+
+        <!-- Dashboard Items -->
+        <div class="container-fluid p-0 mt-3">
+            <div class="section-head mb-3">
+                <div class="head-text head-text-dashboard">Dashboard</div>
+            </div>
+        </div>
+
+        <!-- Update dashboard contents with the clicked button -->
+        <div class="container-fluid p-0 bg-light dashboard-contents mb-3">
+            
+            <!-- Booking -->
+            <table>
+                <!-- make a table with radio buttons to edit table data -->
+            </table>
+
+            <!-- Account -->
+
+            <!-- Generate Report ADMIN -->
+        </div>
+
+
+
         <!-- Dashboard -->
-        <div class="container-fluid account-dashboard-services p-0 mt-3">
+        <!-- <div class="container-fluid account-dashboard-services p-0 mt-3">
             <div class="section-head mb-3">
                 <div class="head-text head-text-dashboard">Dashboard</div>
             </div>
@@ -84,11 +128,11 @@
                     <div class="d-ex-lbl"><div class="dashboard-extension-label">Generate Report</div></div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Admin Dashboard Extensions -->
 
-        {% if session['Admin'] %}
+        <!-- {% if session['Admin'] %}
         <div class="container-fluid account-dashboard-services p-0 mt-3">
             <div class="section-head mb-3">
                 <div class="head-text head-text-dashboard">Admin Extensions</div>
@@ -147,7 +191,8 @@
                     <div class="d-ex-lbl"><div class="dashboard-extension-label">Remove User(s)</div></div>
                 </div>
             </div>
-        </div>
-        {% endif %}
+        </div> -->
+        <!-- {% endif %} -->
     </section>
+    
 {% endblock %}

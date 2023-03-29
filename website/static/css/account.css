@@ -170,6 +170,12 @@
     color: white;
 }
 
+.dashboard-contents {
+    width: 100%;
+    min-height: 722px;
+    overflow-y: auto;
+}
+
 @media only screen and (max-width: 576px) {
     /* .head-text-account {
         font-weight: 600!important;

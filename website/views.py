@@ -71,26 +71,26 @@ def form_index_search():
          
         
         # Remove
-        return redirect(url_for('views.index'))
+        # return redirect(url_for('views.index'))
             
         
         # Checks if the params from the search submit is valid in the database
         
     
-    # if (session.get("logged_in") is not None) and (session['logged_in'] == True):
-    #     return render_template(
-    #         'search.html',
-    #         # radio_return        = request.form.get('params-traveller-return'),
-    #         # radio_oneway        = request.form.get('params-traveller-oneway'),
-    #         # location_from       = request.form.get('input-box-from'),
-    #         # location_to         = request.form.get('input-box-to'),
-    #         # passengers_amount   = request.form.get('passengers-amount'),
-    #         # seat_class_type     = request.form.get('seat-class-type'),
-    #         # date_from           = request.form.get('swing-from-datepicker'),
-    #         # date_to             = request.form.get('swing-from-datepicker')
-    #     )
+    if (session.get("logged_in") is not None) and (session['logged_in'] == True):
+        return render_template(
+            'search.html',
+            # radio_return        = request.form.get('params-traveller-return'),
+            # radio_oneway        = request.form.get('params-traveller-oneway'),
+            # location_from       = request.form.get('input-box-from'),
+            # location_to         = request.form.get('input-box-to'),
+            # passengers_amount   = request.form.get('passengers-amount'),
+            # seat_class_type     = request.form.get('seat-class-type'),
+            # date_from           = request.form.get('swing-from-datepicker'),
+            # date_to             = request.form.get('swing-from-datepicker')
+        )
 
-    # return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login'))
 
 
 def handle_search_results(*key, **val): pass
