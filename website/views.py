@@ -3,19 +3,10 @@ from datetime import datetime
 
 from website import sitemap
 from website.database import Database
+from website.booking_logic import Booking
 
 views = Blueprint('views', __name__)
 database = Database(database="ht_database", user="root", password="Password1")
-
-# class Bookings(object):
-#     """ Manages table UI for the booking web page """
-    
-#     booking_id = database.get_table_column('bookings', 'booking_id')[1]
-#     booking_date = database.get_table_column('bookings', 'booking_date')[1]
-#     journey_seat_types = database.get_table_column('bookings', 'journey_seat_types')[1]
-#     advance_booking_days = database.get_table_column('bookings', 'advance_booking_days')[1]
-#     booking_return_date = database.get_table_column('bookings', 'booking_return_date')[1]
-    
 
 @views.route('/')
 def index():
@@ -38,14 +29,17 @@ def form_index_search():
     
     if request.method == 'POST':
     
-        # radio_return        = request.form.get('params-traveller-return'),
-        # radio_oneway        = request.form.get('params-traveller-oneway'),
+        radio_return        = request.form.get('params-traveller-return'),
+        radio_oneway        = request.form.get('params-traveller-oneway'),
         location_from       = request.form.get('input-box-from'),
         location_to         = request.form.get('input-box-to'),
         passengers_amount   = request.form.get('passengers-amount'),
         seat_class_type     = request.form.get('seat-class-type'),
         date_from           = request.form.get('swing-from-datepicker'),
-        date_to             = request.form.get('swing-from-datepicker')
+        date_to             = request.form.get('swing-to-datepicker')
+        
+        return_trip = str(radio_return).replace(',','').replace('(','').replace(')','').replace("'", '')
+        oneway_trip = str(radio_oneway).replace(',','').replace('(','').replace(')','').replace("'", '')            
         
         search_results = {}
         if location_from is not None: search_results['location_from'] = location_from
@@ -53,7 +47,8 @@ def form_index_search():
         if passengers_amount is not None: search_results['passengers_amount'] = passengers_amount
         if seat_class_type is not None: search_results['seat_class_type'] = seat_class_type
         if date_from is not None: search_results['date_from'] = date_from
-        if date_to is not None: search_results['date_to'] = date_to
+        # if date_to is not None: search_results['date_to'] = date_to
+        search_results['date_to'] = date_to
         
         # Format search results to match comparisons
         for k,v in search_results.items():
@@ -61,39 +56,52 @@ def form_index_search():
             search_results[k] = val
             
             # If any value from search results is invalid or empty then cancel booking confirmation
-            if (search_results.get(k) == ""):
+            if (k != 'date_to') and (search_results.get(k) == ""):
                 return redirect(url_for('views.index'))
-        # print(database.get_table_value_record('journey', 'departure', value='Bristol'))
-        
-        
-        
-        journey_rows = database.count_table_rows('journey')
-         
-        
-        # Remove
-        # return redirect(url_for('views.index'))
-            
-        
-        # Checks if the params from the search submit is valid in the database
-        
-    
-    if (session.get("logged_in") is not None) and (session['logged_in'] == True):
-        return render_template(
-            'search.html',
-            # radio_return        = request.form.get('params-traveller-return'),
-            # radio_oneway        = request.form.get('params-traveller-oneway'),
-            # location_from       = request.form.get('input-box-from'),
-            # location_to         = request.form.get('input-box-to'),
-            # passengers_amount   = request.form.get('passengers-amount'),
-            # seat_class_type     = request.form.get('seat-class-type'),
-            # date_from           = request.form.get('swing-from-datepicker'),
-            # date_to             = request.form.get('swing-from-datepicker')
-        )
 
-    return redirect(url_for('auth.login'))
+        # If not logged in then login before creating a search
+        if (session.get("logged_in") is None) or (session['logged_in'] == False):
+            return redirect(url_for('auth.login'))
 
-
-def handle_search_results(*key, **val): pass
+        if (session.get("logged_in") is not None) and (session['logged_in'] == True):
+            for i in range(database.count_table_rows('journey')):
+                table_record = database.get_table_record('journey', i)
+                
+                if (search_results['location_from'] == table_record[1]) and (search_results['location_to'] == table_record[3]):
+                    print(f"Route found for: {table_record[1]} to {table_record[3]}")
+                    booking = Booking(search_results)
+                    
+                    # If return date is none then it must be a one way ticket or same day return
+                    if search_results.get('date_to') == '':
+                        search_results['date_to'] = search_results.get('date_from')
+                        
+                    
+                    search_results['departure_time'] = table_record[2]
+                    search_results['return_time'] = table_record[4]
+                    booking = Booking(search_results)
+                    
+                    if (return_trip == 'on') and (oneway_trip == 'None'):
+                        search_results['trip_type'] = 'Return Trip'
+                        booking.return_trip = True
+                    elif (return_trip == 'None') and (oneway_trip == 'on'):
+                        search_results['trip_type'] = 'Oneway Trip'
+                        booking.return_trip = False
+                        
+                    # # If conditions are met then add data into the booking object
+                    # booking = Booking(search_results)
+                    
+                    # Apply discount and price to the UI
+                    search_results['discount'] = booking.get_booking_discount()
+                    search_results['total_cost'] = booking.get_price()
+                    
+                    
+                    return render_template('search.html', search_items = search_results)
+                
+                # If search does not match then cancel search
+                if (i == database.count_table_rows('journey')) and (search_results['location_from'] != table_record[1]) and (search_results['location_to'] != table_record[3]):
+                    return redirect(url_for('views.index'))
+                
+        return redirect(url_for('views.index'))
 
 @views.route('/about-us/')
 def about():
@@ -135,29 +143,7 @@ def account_page():
 
 @views.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')
 def update_account(username, fname, lname, telephone, email):
-    
-    # print(username, fname, lname, telephone, email)
-    
     return redirect(url_for('auth.account'))
-
-
-
-# Testing material for modernisation of website
-
-# Temp routing for modifications to base
-# @views.route('/newbase/')
-# def newbase():
-    
-#     if session['logged_in'] == False:
-#         return redirect(url_for('auth.login'))
-#     return render_template('component_base.html')
-
-
-
-
-
-
-
 
 @sitemap.register_generator
 def pages():

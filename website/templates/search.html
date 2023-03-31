@@ -7,47 +7,30 @@
 {% block main %}
     <section class="payment-wall">
         <div class="container-fluid table-responsive payment-wall-table">
-            <div class="w-100 h-25">
+            <div class="w-100">
                 <p class="confirm-text">Booking Confirmation:</p>
                 <p class="text-muted"></p>
             </div>
 
-            <div class="w-100 h-25">
-                <table class="table table-bordered text-light">
-                    <tr>
-                        <th class="w-25">Depart From</th>
-                        <td>{{ location_from }}</td>
+            <div class="w-100">
+                <table class="table table-bordered text-light overflow-auto">
+
+                    {% for key, value in search_items.items() %}
+                    <tr class="w-25">
+                        <th>{{ key | capitalize}}</th>
+                        <td>{{ value | capitalize}}</td>
                     </tr>
-                    <tr>
-                        <th class="w-25">Depart Time</th>
-                        <td>{{ date_from }}</td>
-                    </tr>
-    
-                    <tr>
-                        <th class="w-25">Arrive At</th>
-                        <td>{{ location_to }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-25">Arrive Time</th>
-                        <td>{{ date_to }}</td>
-                    </tr>
-    
-                    <tr>          
-                        <th class="w-25">No. of Passengers</th>
-                        <td>{{ passengers_amount }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-25">Seat Class</th>
-                        <td>{{ seat_class_type }}</td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
 
-            <div class="w-100 h-25 d-flex justify-content-center align-items-center flex-column">
+            <div class="w-100 d-flex justify-content-center align-items-center flex-column">
                 <p class="text-light">By clicking the button below you are automatically agreeing to our <a href="{{url_for('views.legal')}}">terms and conditions.</a></p>
-                <button class="btn btn-lg btn-outline-none btn-light m-0 w-25 payment-button" type="submit">
-                    <p class="m-0"><i class="fa-brands fa-paypal"></i> Pay with PayPal</p>
-                </button>
+                <form class="w-100 d-flex justify-content-center align-items-center flex-column" method="post">
+                    <button class="btn btn-lg btn-outline-none btn-light m-0 w-25 payment-button" type="submit">
+                        <p class="m-0"><i class="fa-brands fa-paypal"></i> Pay with PayPal</p>
+                    </button>
+                </form>
             </div>
         </div>
     </section>

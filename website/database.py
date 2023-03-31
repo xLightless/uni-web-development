@@ -330,3 +330,32 @@ class Database(object):
         
 database = Database()
 # print(database.get_table('customers', False))
+
+# journeys = 'journey'
+
+# location_from = 'Newcastle' # User search results
+# location_to = 'Bristoasd'
+
+# # Check if user search matches journey table data
+# journey_table = database.get_table(journeys, False)
+# for i in range(database.count_table_rows(journeys)):
+#     table_item = database.get_table_record(journeys, i)
+#     journey_id = i
+    
+#     for item in table_item:
+#         departure = table_item[1]
+#         returning = table_item[3]
+#         if (location_from == departure) and (location_to == returning):
+#             print(departure, returning, "200 OK")
+#             break
+        
+#         # else: 
+        
+
+
+# print(database.get_table_record('journey', row=2)[1])
+# print(database.get_table_record('journey', row=2)[3])
+# print(database.count_table_rows('journey'))
+
+# for i in range(1, database.count_table_rows('journey')+1):
+#     print(i)
