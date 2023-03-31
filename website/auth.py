@@ -267,7 +267,7 @@ def logout():
     user_session.set_key('logged_in', False)
     return redirect(url_for('views.index'))
     
-@auth.route('/booking/payment-wall/')
-def payment_wall():
+@auth.route('/booking/payment/', methods=['GET', 'POST'])
+def payment():
     """ Handles payments from booking page """
     return render_template('payment_wall.html')

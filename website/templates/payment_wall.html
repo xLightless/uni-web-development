@@ -1,8 +1,33 @@
 {% extends 'base.html' %}
-{% block header %}{% endblock %}
+{% block head %}
+<link href="{{url_for('static', filename='css/payment_wall.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
 
-    some payment wall thing
+    <section class="payment-wall p-3">
+
+        <div class="payment-box p-3">
+            <p class="text-dark text-center">
+                Payment successfull!
+            </p>
+            <p class="text-dark">
+                Click HERE to generate a report of the payment.
+            </p>
+            <p class="text-dark">
+                Click HERE to view your bookings in account.
+            </p>
+
+            <p>Payment type: paypal</p>
+            <p>Mobile: 0999999</p>
+            <p>Email: 123@123.com</p>
+
+            <p>Amount Paid: 150.00</p>
+
+            <button>Download</button>
+            <button>Close</button>
+        </div>
+    </section>
 
 {% endblock %}
 {% block booking %} {% endblock %}
