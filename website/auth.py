@@ -61,9 +61,9 @@ class Authenticated(Session):
             email_in_table = database.is_value_in_table(table='contacts', column_name='email_address', value=str(email))
             if email_in_table == True:
                 if self.generate_password_hash(password) == password_in_account:
-                    self.set_key('username', username_in_account)
                     self.set_key('logged_in', True)
                     self.set_key('email', email)
+                    self.set_key('username', username_in_account)
                     
                     # Identify the type of user
                     if user_type == 'Admin':

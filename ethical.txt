@@ -55,3 +55,8 @@ https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
 <i class="fas fa-user"></i>
 <i class="fas fa-users"></i>
 <i class="fas fa-users-slash"></i>
+
+
+replaced travel to booking payment and reformatted booking. also deleted users as it does nothing.
+
+working on dashboard now to implement profile updating and travel/payment history + report generation.
