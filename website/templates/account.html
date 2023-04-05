@@ -43,21 +43,21 @@
                 <div class="container-fluid">
                     <div class="row">
                         <!-- User image -->
-                        <div class="col-12 col-lg-3 p-3 d-flex justify-content-center">
+                        <div class="col-12 col-xl-3 p-3 d-flex justify-content-center">
                             <div class="image-uploader"></div>
                         </div>
 
-                        <div class="col-12 col-lg-3 p-1 d-flex justify-content-center flex-column">
+                        <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
                             <p class="account-info m-0"><span class="font-weight-bold">Name: </span>{{current_fname | capitalize}} {{current_lname | capitalize}}</p>
                             <p class="account-info m-0"><span class="font-weight-bold">Date of Birth: </span>2000-03-08</p>
                         </div>
 
-                        <div class="col-12 col-lg-3 p-1 d-flex justify-content-center flex-column">
+                        <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
                             <p class="account-info m-0"><span class="font-weight-bold">Email: </span>{{current_email}}</p>
                             <p class="account-info m-0"><span class="font-weight-bold">Phone Number: </span>{{current_telephone}}</p>
                         </div>
                         
-                        <div class="col-12 col-lg-3 p-1 d-flex justify-content-center flex-column">
+                        <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
                             <p class="account-info m-0"><span class="font-weight-bold">Payment Method: </span>PayPal</p>
                             <p class="account-info m-0"><span class="font-weight-bold">Currency: </span>GBP</p>
                         </div>
@@ -66,34 +66,59 @@
             </div>
         </div>
 
-        <div class="dashboard-container p-3 mt-3 mb-3">
-            <div class="head">
-                <div class="title w-100">MY BOOKINGS</div>
-                <!-- <div class="edit-profile text-small text-muted w-75">Travel payments are determined by the date of travel. Therefore, paid travel will be ‘Pending’ until the date else ‘Approved’.</div> -->
-            </div>
-            <div class="head-divider"><div class="divider-item"></div></div>
-            
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <caption>List of historical bookings. Newest first by default.</caption>
-                        <tr>
-                            <th>Route (FROM-TO)</th>
-                            <th>Travel Date</th>
-                            <th>Total Cost</th>
-                            <th>Payment Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>some data</td>
-                            <td>some data</td>
-                            <td>some data</td>
-                            <td>some data</td>
-                        </tr>
-                    </tbody>
-                  </table>
-            </div>
+        <div class="dashboard-container p-3 mt-3 mb-3 bookings">
+          <div class="head">
+              <div class="title w-100">MY BOOKINGS</div>
+              <!-- <div class="edit-profile text-small text-muted w-75">Travel payments are determined by the date of travel. Therefore, paid travel will be ‘Pending’ until the date else ‘Approved’.</div> -->
+          </div>
+          <div class="head-divider"><div class="divider-item"></div></div>
+
+          <div class="mybookings">
+            <form method="post" action="{{url_for('auth.cancel_booking')}}" class="w-100">
+              <div class="table-responsive" style="overflow: auto;">
+                <table class="table table-light table-hover mybookings-table">
+                  <!-- <caption>List of users</caption> -->
+                  <thead class="mybookings-thead">
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Travel Route</th>
+                      <th scope="col">Travel Date</th>
+                      <th scope="col">Total Cost</th>
+                      <th scope="col">Payment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        <input type="submit" class="cancel-booking-btn" value="X">
+                      </th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                      <td>Approved</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><input type="submit" class="cancel-booking-btn" value="X"></th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                      <td>Approved</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><input type="submit" class="cancel-booking-btn" value="X"></th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                      <td>Approved</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+
     </section>
+
 
 {% endblock %}

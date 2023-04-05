@@ -1,7 +1,7 @@
 
 section.dashboard {
     width: 100%;
-    height: 100%;
+    height: 2000px;
     /* display: flex;
     justify-content: center;
     align-items: center;
@@ -10,13 +10,14 @@ section.dashboard {
     justify-content: start;
     align-items: center;
     flex-direction: column;
+    /* overflow-y: auto; */
 }
 
 .dashboard-container {
     width: 100%;
     max-width: 1600px;
-    /* min-height: 320px; */
-    height: fit-content;
+    min-height: 320px;
+    height: fit-content!important;
     background-color: white;
     display: block;
     /* position: relative; */
@@ -75,4 +76,49 @@ section.dashboard {
 
 .account-info {
     font-size: 20px;
+}
+
+.mybookings-container {
+    width: 100%;
+    height: 100%;
+}
+
+.mybookings {
+    margin-top: 16px;
+    width: 100%;
+    height: calc(100% - 20px - 16px - 12px);
+    /* background-color: red; */
+    overflow: auto;
+}
+
+.mybookings-thead {
+    width: 1000px;
+}
+
+.cancel-booking-btn {
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.cancel-booking-btn:hover {
+    transform: scale(1.03);
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* stop bootstrap hiding table on low resolutions */
+    [class*="tab"] {
+        display: block!important;
+    }
+
+    .mybookings {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        /* flex-direction: column; */
+    }
 }

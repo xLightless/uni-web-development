@@ -143,6 +143,10 @@ def account():
                 telephone = telephone_,
                 email = email_
             ))
+        
+        # if request.method == 'POST':
+        #     pass
+        
         return redirect(url_for('views.account_page'))
     return redirect(url_for('auth.login'))
 
@@ -271,3 +275,12 @@ def logout():
 def payment():
     """ Handles payments from booking page """
     return render_template('payment_wall.html')
+
+@auth.route('/cancel-booking/', methods=['POST', 'GET'])
+def cancel_booking():
+    """ My bookings dashboard cancellation buttons """
+    
+    if request.method == 'POST':
+        print("booking cancelled, signing out")
+        
+    return redirect(url_for('auth.logout'))
