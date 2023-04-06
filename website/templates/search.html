@@ -13,23 +13,30 @@
             </div>
 
             <div class="w-100">
-                <table class="table table-bordered text-light overflow-auto">
-
-                    {% for key, value in search_items.items() %}
-                    <tr class="w-25">
-                        <th>{{ key | capitalize}}</th>
-                        <td>{{ value | capitalize}}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-
-            <div class="w-100 d-flex justify-content-center align-items-center flex-column">
-                <p class="text-light">By clicking the button below you are automatically agreeing to our <a href="{{url_for('views.legal')}}">terms and conditions.</a></p>
-                <form class="w-100 d-flex justify-content-center align-items-center flex-column" method="post" action="{{url_for('auth.payment')}}">
-                    <button class="btn btn-lg btn-outline-none btn-light m-0 w-25 payment-button" type="submit">
-                        <p class="m-0"><i class="fa-brands fa-paypal"></i> Pay with PayPal</p>
-                    </button>
+                <form class="w-100" method="post" action="{{url_for('auth.payment')}}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-light overflow-auto">
+        
+                            {% for key, value in search_items.items() %}
+                            <tr class="w-25">
+                                <th>{{ key | capitalize}}</th>
+                                <td>
+                                    <!-- Little hack for getting key and values from input box to use in post -->
+                                    <input type="text" class="search-items" name='{{key}}' value='{{value}}' disabled>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+    
+                    <div class="w-100 d-flex justify-content-center align-items-center flex-column">
+                        <p class="text-light">By clicking the button below you are automatically agreeing to our <a href="{{url_for('views.legal')}}">terms and conditions.</a></p>
+                        <div class="w-100 d-flex justify-content-center align-items-center flex-column">
+                            <button class="btn btn-lg btn-outline-none btn-light m-0 w-50 payment-button" type="submit" name="payment_form">
+                                <p class="m-0"><i class="fa-brands fa-paypal"></i> Pay with PayPal</p>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

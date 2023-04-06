@@ -27,3 +27,18 @@
     filter: drop-shadow(0 0 0.55rem black);
     transform: scale(1.03);
 }
+
+.search-items {
+    border: none;
+    fill: none;
+    background-color: inherit;
+    color: white;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* stop bootstrap hiding table on low resolutions */
+    [class*="tab"] {
+        display: block!important;
+    }
+}

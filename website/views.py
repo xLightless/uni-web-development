@@ -3,10 +3,12 @@ from datetime import datetime
 
 from website import sitemap
 from website.database import Database
-from website.booking_logic import Booking
+from website.booking_logic import Booking, preprocessor
 
 views = Blueprint('views', __name__)
 database = Database(database="ht_database", user="root", password="Password1")
+
+# booking_data = {} # used to store search_results data from a route
 
 @views.route('/')
 def index():
@@ -16,7 +18,7 @@ def index():
     search_filter_items = []
     for item in search_items:
         search_item = str(item).replace('(', '').replace(')', '').replace(',','').replace("'", '')
-        search_filter_items.append(search_item)    
+        search_filter_items.append(search_item)
     
     return render_template(
         'index.html',
@@ -37,10 +39,12 @@ def form_index_search():
         seat_class_type     = request.form.get('seat-class-type'),
         date_from           = request.form.get('swing-from-datepicker'),
         date_to             = request.form.get('swing-to-datepicker')
+        print("SEARCH POST TEST")
         
         return_trip = str(radio_return).replace(',','').replace('(','').replace(')','').replace("'", '')
         oneway_trip = str(radio_oneway).replace(',','').replace('(','').replace(')','').replace("'", '')            
         
+        global search_results
         search_results = {}
         if location_from is not None: search_results['location_from'] = location_from
         if location_to is not None: search_results['location_to'] = location_to
@@ -94,6 +98,11 @@ def form_index_search():
                     search_results['discount'] = booking.get_booking_discount()
                     search_results['total_cost'] = booking.get_price()
                     
+                    discount = search_results['discount']
+                    total_cost = search_results['total_cost']
+                    
+                    preprocessor.set_dict(search_results)
+                    print(search_results)
                     
                     return render_template('search.html', search_items = search_results)
                 
@@ -105,6 +114,7 @@ def form_index_search():
 
 @views.route('/about-us/')
 def about():
+    print()
     return render_template('about.html')
 
 @views.route('/terms-and-conditions/')
@@ -130,7 +140,14 @@ def account_page():
     accounts = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
     username = accounts[2]
     
+    account_id = int(accounts[0])
+    
+    
+    
+    
     # database.update_table_record('accounts', 'username', 'reeceturner', 'account_id', 25000)
+    
+    
     
     return render_template(
         'account.html',

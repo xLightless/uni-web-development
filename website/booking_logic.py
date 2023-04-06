@@ -53,9 +53,13 @@ class Booking(object):
         travel_day = str(self.booking_data['date_from']).replace('-', '/')
         todays_date = datetime.strptime(today, "%Y/%m/%d")
         travel_date = datetime.strptime(travel_day, "%Y/%m/%d")
+        self.__todays_date = today
         
         # Discounted time difference. discounted_days = date_of_travel - day_of_purchase
         self.timedelta = travel_date - todays_date
+        
+    def get_todays_date(self):
+        return self.__todays_date
     
     def get_booking_discount(self):
         """ Number of days in advance booking Discount % on total booking price:
@@ -128,6 +132,22 @@ class Booking(object):
         
     
     def get_time_difference(self): pass
+    
+    
+class Preprocessor(object):
+    """ Places scoped data, specifically booking data, into a preprocessor to use elsewhere """
+    
+    def __init__(self):
+        self.__data = {}
+        
+    def set_dict(self, data:dict):
+        self.__data = data
+       
+    def get_dict(self):
+        return self.__data
+    
+    
+preprocessor = Preprocessor() # Stores dictionary data seperate from session to use as input for another program or task
     
     
 # data = {

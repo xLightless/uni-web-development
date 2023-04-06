@@ -327,6 +327,10 @@ class Database(object):
         self.__db.commit()
         
         
+    def join_matching_pairs(self): pass
+        
+        
+        
         
 database = Database()
 # print(database.get_table('customers', False))

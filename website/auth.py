@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, url_for, redirect, request, sessio
 import hashlib
 
 from website.database import Database
+from website.booking_logic import Booking, preprocessor
+
 
 auth = Blueprint('auth', __name__)
 database = Database(database="ht_database", user="root", password="Password1")
@@ -125,6 +127,7 @@ def form_login(email, password):
 @auth.route('/account/', methods=['GET','POST'])
 def account():
     """ Manages account page authenticated users """
+    print("AUTH account page")
     
     if user_session.get_key_value('logged_in') == True:
         
@@ -270,11 +273,79 @@ def logout():
         session.clear()
     user_session.set_key('logged_in', False)
     return redirect(url_for('views.index'))
-    
+ 
 @auth.route('/booking/payment/', methods=['GET', 'POST'])
 def payment():
-    """ Handles payments from booking page """
+    """ Handles payments from booking page when the user clicks 'PAYPAL' button """
+    
+    # Although an existing dictionary of the data we want is available, it is being used before the customer clicks pay.
+    if request.method == 'POST':
+        print("PAYMENT POST TEST")
+        # booking_data = {
+        #     'location_from'     : request.form['location_from'],
+        #     'location_to'       : request.form['location_to'],
+        #     'passengers_amount' : request.form['passengers_amount'],
+        #     'seat_class_type'   : request.form['seat_class_type'],
+        #     'date_from'         : request.form['date_from'],
+        #     'date_to'           : request.form['date_to'],
+        #     'departure_time'    : request.form['departure_time'],
+        #     'return_time'       : request.form['return_time'],
+        #     'discount'          : request.form['discount'],
+        #     'trip_type'         : request.form['trip_type'],
+        #     'total_cost'        : request.form['total_cost']
+        # }
+        
+        # Get account id through contacts
+        contact_id = database.get_table_value_record('contacts', 'email_address', str(session['email']))[0]
+        account_id = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
+        payment_id = database.count_table_rows('booking_payment')
+        payment_id = payment_id + 12387 # Some random constant to scramble PK ID
+        
+        booking_data = preprocessor.get_dict()
+        # booking = Booking(booking_data)
+        from datetime import datetime
+        payment_date = datetime.now().date()
+        
+        price = str(booking_data.get('total_cost')) # May return None if user goes back to an expired page
+        discount = str(booking_data.get('discount'))
+        
+        database.set_table_record(
+            'booking_payment',
+            payment_id,
+            values=(
+                str(account_id), # account_id
+                str(price), # price
+                str(discount), # discount_percentage
+                'PayPal', # payment_method ### May need to update this later to include debit card?
+                str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
+                # str(['Approved' if str(booking_data.get('date_from')) == str(payment_date) else 'Pending']) # If purchase day is the same as day of travel then pay is approved else pending
+                'Approved'
+            )
+        )
+        
+        booking_record = database.get_table_value_record('booking_payment', 'payment_id', str(payment_id))
+        booking_id = payment_id + 34817 # (12392, 25000, Decimal('600.00'), '0', 'PayPal', datetime.date(2023, 4, 6), 'Approved')
+        
+        database.set_table_record(
+            'booking',
+            booking_id,
+            values=(
+                str(payment_id),
+                str(booking_data.get('seat_class_type')), # Business/Eco
+                str(booking_data.get('passengers_amount')), # No. People
+                str(booking_data.get('date_from')), # Leaving Time
+                str(booking_data.get('date_to')), # Returning if one
+                str(booking_data.get('trip_type')) # Commute type e.g. Return or Oneway
+            )
+        )
+    
     return render_template('payment_wall.html')
+
+
+@auth.route('/booking/payment/posting/')
+def form_payment():
+    """"""
+    pass
 
 @auth.route('/cancel-booking/', methods=['POST', 'GET'])
 def cancel_booking():
