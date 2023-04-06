@@ -142,7 +142,9 @@ def account_page():
     
     account_id = int(accounts[0])
     
+    # 1. SEARCH THROUGH ACCOUNT IDS FOR ALL BOOKINGS AND DYNAMICALLY UPDATE TO TABLE IN DASHBOARD
     
+    # 2. DELETE OLD RECORDS FROM DATABASE IF RETURN_DATE HAS BEEN SURPASSED
     
     
     # database.update_table_record('accounts', 'username', 'reeceturner', 'account_id', 25000)
