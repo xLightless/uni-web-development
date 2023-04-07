@@ -39,12 +39,12 @@ def form_index_search():
         seat_class_type     = request.form.get('seat-class-type'),
         date_from           = request.form.get('swing-from-datepicker'),
         date_to             = request.form.get('swing-to-datepicker')
-        print("SEARCH POST TEST")
+        # print("SEARCH POST TEST")
         
         return_trip = str(radio_return).replace(',','').replace('(','').replace(')','').replace("'", '')
         oneway_trip = str(radio_oneway).replace(',','').replace('(','').replace(')','').replace("'", '')            
         
-        global search_results
+        # global search_results
         search_results = {}
         if location_from is not None: search_results['location_from'] = location_from
         if location_to is not None: search_results['location_to'] = location_to
@@ -72,6 +72,8 @@ def form_index_search():
                 table_record = database.get_table_record('journey', i)
                 
                 if (search_results['location_from'] == table_record[1]) and (search_results['location_to'] == table_record[3]):
+                    
+                    
                     print(f"Route found for: {table_record[1]} to {table_record[3]}")
                     booking = Booking(search_results)
                     
@@ -98,11 +100,11 @@ def form_index_search():
                     search_results['discount'] = booking.get_booking_discount()
                     search_results['total_cost'] = booking.get_price()
                     
-                    discount = search_results['discount']
-                    total_cost = search_results['total_cost']
+                    # discount = search_results['discount']
+                    # total_cost = search_results['total_cost']
                     
                     preprocessor.set_dict(search_results)
-                    print(search_results)
+                    # print(search_results)
                     
                     return render_template('search.html', search_items = search_results)
                 
@@ -114,7 +116,7 @@ def form_index_search():
 
 @views.route('/about-us/')
 def about():
-    print()
+    # print()
     return render_template('about.html')
 
 @views.route('/terms-and-conditions/')
@@ -140,15 +142,49 @@ def account_page():
     accounts = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
     username = accounts[2]
     
-    account_id = int(accounts[0])
+    account_id = accounts[0]
     
     # 1. SEARCH THROUGH ACCOUNT IDS FOR ALL BOOKINGS AND DYNAMICALLY UPDATE TO TABLE IN DASHBOARD
+    data = database.get_table_records_of_key('booking_payment', 'account_id', account_id)
+    # print(data)
+    
+    # Get the row column value using list length rather than absolute value
+    booking_data = {}
+    for row in range(len(data)):
+        
+        journey_record = database.get_table_value_record('journey', 'journey_id', str(data[row][7]))
+        location_from = str(journey_record[1])
+        location_to =  str(journey_record[3])
+        price           = data[row][2]
+        payment_method  = data[row][4]
+        payment_date    = data[row][5]
+        purchase_status = data[row][6]
+    
+        booking_table = database.get_table_value_record('booking', 'payment_id', str(data[row][0]))
+        
+        booking_data[row] = {
+            'location_from'     :   location_from,
+            'location_to'       :   location_to,
+            'commute_type'         :   booking_table[6],
+            'price'             :   price,
+            'payment_method'    :   payment_method,
+            'payment_date'      :   payment_date,
+            'purchase_status'   :   purchase_status,
+        }
+        
+        booking_data[row]['payment_id'] = booking_table[0] # Sets payment_id of each row
+        
+        # print(booking_table[6]) 
+        
+        # Get appropriate journey_id locations
+        # journey_table = database.get_primary_key_record('journey', int(data[row][0]))
+        
+        # booking_record = database.get_table_value_record('booking', 'payment_id',  booking_data[row]['payment_id'])
+        # print(booking_record)
+        
     
     # 2. DELETE OLD RECORDS FROM DATABASE IF RETURN_DATE HAS BEEN SURPASSED
-    
-    
-    # database.update_table_record('accounts', 'username', 'reeceturner', 'account_id', 25000)
-    
+        
     
     
     return render_template(
@@ -157,7 +193,8 @@ def account_page():
         current_fname = str(fname),
         current_lname = str(lname),
         current_telephone = str(telephone),
-        current_email = str(email)
+        current_email = str(email),
+        booking_data = booking_data  
         )
 
 @views.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')

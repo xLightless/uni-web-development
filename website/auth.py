@@ -127,7 +127,7 @@ def form_login(email, password):
 @auth.route('/account/', methods=['GET','POST'])
 def account():
     """ Manages account page authenticated users """
-    print("AUTH account page")
+    # print("AUTH account page")
     
     if user_session.get_key_value('logged_in') == True:
         
@@ -146,9 +146,6 @@ def account():
                 telephone = telephone_,
                 email = email_
             ))
-        
-        # if request.method == 'POST':
-        #     pass
         
         return redirect(url_for('views.account_page'))
     return redirect(url_for('auth.login'))
@@ -280,7 +277,7 @@ def payment():
     
     # Although an existing dictionary of the data we want is available, it is being used before the customer clicks pay.
     if request.method == 'POST':
-        print("PAYMENT POST TEST")
+        # print("PAYMENT POST TEST")
         # booking_data = {
         #     'location_from'     : request.form['location_from'],
         #     'location_to'       : request.form['location_to'],
@@ -298,8 +295,8 @@ def payment():
         # Get account id through contacts
         contact_id = database.get_table_value_record('contacts', 'email_address', str(session['email']))[0]
         account_id = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
-        payment_id = database.count_table_rows('booking_payment')
-        payment_id = payment_id + 12387 # Some random constant to scramble PK ID
+        payment_id = database.count_table_rows('booking_payment')+12387
+        # payment_id = payment_row_count + 12387 # Some random constant to scramble PK ID
         
         booking_data = preprocessor.get_dict()
         # booking = Booking(booking_data)
@@ -308,6 +305,22 @@ def payment():
         
         price = str(booking_data.get('total_cost')) # May return None if user goes back to an expired page
         discount = str(booking_data.get('discount'))
+        
+        loc_from = str(preprocessor.get_dict().get('location_from'))
+        loc_to = str(preprocessor.get_dict().get('location_to'))    
+
+
+        # Obtain the journey key from database table
+        journey_table = database.get_table_records_of_value('journey', 'departure', loc_from)
+        journey_id:int = None
+        
+        for row in range(len(journey_table)):
+            jloc1 = journey_table[row][1]
+            jloc2 = journey_table[row][3]
+            
+            if (jloc1 == loc_from) and (jloc2 == loc_to):
+                journey_id = int(journey_table[row][0]) # Convert to INT since the Foreign key is integer
+            break
         
         database.set_table_record(
             'booking_payment',
@@ -319,7 +332,9 @@ def payment():
                 'PayPal', # payment_method ### May need to update this later to include debit card?
                 str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
                 # str(['Approved' if str(booking_data.get('date_from')) == str(payment_date) else 'Pending']) # If purchase day is the same as day of travel then pay is approved else pending
-                'Approved'
+                'Approved',
+                str(journey_id)
+                
             )
         )
         

@@ -32,7 +32,7 @@
         <div class="dashboard-container p-3 mt-3 mb-3">
             <div class="head">
                 <div class="title">ACCOUNT</div>
-                <div class="edit-profile text-small text-muted">Edit Profile</div>
+                <div class="edit-profile"><p class="text-small text-muted m-0 edit-profile-btn">Edit Profile</p></div>
             </div>
 
             <div class="head-divider"><div class="divider-item"></div></div>
@@ -48,18 +48,18 @@
                         </div>
 
                         <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
-                            <p class="account-info m-0"><span class="font-weight-bold">Name: </span>{{current_fname | capitalize}} {{current_lname | capitalize}}</p>
-                            <p class="account-info m-0"><span class="font-weight-bold">Date of Birth: </span>2000-03-08</p>
+                            <p class="account-info m-0"><span class="fw-bold">Name: </span>{{current_fname | capitalize}} {{current_lname | capitalize}}</p>
+                            <p class="account-info m-0"><span class="fw-bold">Date of Birth: </span>2000-03-08</p>
                         </div>
 
                         <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
-                            <p class="account-info m-0"><span class="font-weight-bold">Email: </span>{{current_email}}</p>
-                            <p class="account-info m-0"><span class="font-weight-bold">Phone Number: </span>{{current_telephone}}</p>
+                            <p class="account-info m-0"><span class="fw-bold">Email: </span>{{current_email}}</p>
+                            <p class="account-info m-0"><span class="fw-bold">Phone Number: </span>{{current_telephone}}</p>
                         </div>
                         
                         <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
-                            <p class="account-info m-0"><span class="font-weight-bold">Payment Method: </span>PayPal</p>
-                            <p class="account-info m-0"><span class="font-weight-bold">Currency: </span>GBP</p>
+                            <p class="account-info m-0"><span class="fw-bold">Default Payments: </span>PayPal</p>
+                            <p class="account-info m-0"><span class="fw-bold">Currency: </span>GBP</p>
                         </div>
                     </div>
                 </div>
@@ -81,22 +81,29 @@
                   <thead class="mybookings-thead">
                     <tr>
                       <th scope="col"></th>
-                      <th scope="col">Travel Route</th>
-                      <th scope="col">Travel Date</th>
+                      <th scope="col">Going From</th>
+                      <th scope="col">Going To</th>
+                      <th scope="col">Commute Type</th>
                       <th scope="col">Total Cost</th>
-                      <th scope="col">Payment</th>
+                      <th scope="col">Payment Method</th>
+                      <th scope="col">Payment Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Payment ID</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for key, value in booking_data.items() %}
                     <tr>
                       <th scope="row">
                         <input type="submit" class="cancel-booking-btn" value="X">
                       </th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                      <td>Approved</td>
+                        {% for key2 in value %}
+
+                          <td>{{ booking_data[key][key2] }}</td>
+                        {% endfor %}
                     </tr>
+                    {% endfor %}
+
                   </tbody>
                 </table>
               </div>

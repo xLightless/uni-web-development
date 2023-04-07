@@ -48,6 +48,16 @@ section.dashboard {
     padding-right: 1rem;
 }
 
+.edit-profile-btn {
+    width: fit-content;
+    float: right;
+}
+
+.edit-profile-btn:hover {
+    cursor: pointer;
+    color: black!important;
+}
+
 .head-divider {
     width: 100%;
     height: 16px;

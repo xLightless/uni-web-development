@@ -327,39 +327,131 @@ class Database(object):
         self.__db.commit()
         
         
-    def join_matching_pairs(self): pass
+    def get_table_records_of_key(self, table:str, key_column_name:str, key:int, dataframe:bool = False):
+        """ Obtains multiple records of the same column_name value e.g. if KEY = 25000 then return all records of 25000."""
         
+        self.cursor.close() # Close cursor without buffer
+        cursor_buffer = self.__db.cursor(buffered=True) # Open new connection
+        query = "SELECT * FROM %s WHERE %s = %s;" % (table, key_column_name, key)
+        cursor_buffer.execute(query)
+        self.__db.commit()
         
+        if dataframe == False:
+            result = cursor_buffer.fetchall()
+            cursor_buffer.close()
+            self.cursor = self.__db.cursor()
+            return result
         
+        # Produce a dataframe of sql query
+        dataframe = pd.read_sql_query(query, self.__db)
+        df = pd.DataFrame(dataframe)
         
-database = Database()
-# print(database.get_table('customers', False))
-
-# journeys = 'journey'
-
-# location_from = 'Newcastle' # User search results
-# location_to = 'Bristoasd'
-
-# # Check if user search matches journey table data
-# journey_table = database.get_table(journeys, False)
-# for i in range(database.count_table_rows(journeys)):
-#     table_item = database.get_table_record(journeys, i)
-#     journey_id = i
+        # Close old cursor and open original connection
+        cursor_buffer.close()
+        self.cursor = self.__db.cursor()
+        return df
     
-#     for item in table_item:
-#         departure = table_item[1]
-#         returning = table_item[3]
-#         if (location_from == departure) and (location_to == returning):
-#             print(departure, returning, "200 OK")
-#             break
+    def get_table_records_of_value(self, table:str, column_name:str, value, dataframe:bool = False):
+        """ Obtains multiple records of the same column_name value e.g. if KEY = 25000 then return all records of 25000."""
         
-#         # else: 
+        self.cursor.close() # Close cursor without buffer
+        cursor_buffer = self.__db.cursor(buffered=True) # Open new connection
+        query = "SELECT * FROM %s WHERE %s = '%s'" % (table, column_name, value)
+        cursor_buffer.execute(query)
+        self.__db.commit()
         
+        if dataframe == False:
+            result = cursor_buffer.fetchall()
+            cursor_buffer.close()
+            self.cursor = self.__db.cursor()
+            return result
+        
+        # Produce a dataframe of sql query
+        dataframe = pd.read_sql_query(query, self.__db)
+        df = pd.DataFrame(dataframe)
+        
+        # Close old cursor and open original connection
+        cursor_buffer.close()
+        self.cursor = self.__db.cursor()
+        return df
+
+        
+        
+   
+# loc_from = 'Newcastle'
+# loc_to = 'Bristol'     
+        
+# database = Database()
+# journey_table = database.get_table_records_of_value('journey', 'departure', loc_from)
+# # print(journey_table)
+
+# for row in range(len(journey_table)):
+#     jloc1 = journey_table[row][1]
+#     jloc2 = journey_table[row][3]
+    
+#     if (jloc1 == loc_from) and (jloc2 == loc_to):
+#         journey_id = journey_table[row][0]
+        
+#         print(journey_id)
+#         break
 
 
-# print(database.get_table_record('journey', row=2)[1])
-# print(database.get_table_record('journey', row=2)[3])
-# print(database.count_table_rows('journey'))
 
-# for i in range(1, database.count_table_rows('journey')+1):
-#     print(i)
+# data = database.get_table_records_of_key('booking_payment', 'account_id', 25000)
+
+# Get the row column value using list length rather than absolute value
+# kv_data = {}
+# price_data = {}
+# payment_method = {}
+# payment_date = {}
+# purchase_status = {}
+# for row in range(len(data)):
+#     price           = data[row][2]
+#     payment_method  = data[row][4]
+#     payment_date    = data[row][5]
+#     purchase_status = data[row][6]
+    
+# #     # Creates a nested dictionary using row number
+#     kv_data[row] = {
+#         'price'             :   price,
+#         'payment_method'    :   payment_method,
+#         'payment_date'      :   payment_date,
+#         'purchase_status'   :   purchase_status
+#     }
+#     # print(data[row][0])
+    
+#     payment_id = database.get_table_value_record('booking', 'payment_id', str(data[row][0]))
+#     kv_data[row]['payment_id'] = payment_id[0]
+    
+#     print(kv_data[row]['payment_id'])
+#     break
+    
+    
+    
+#     price_data[row]         = data[row][2]
+#     payment_method[row]     = data[row][4]
+#     payment_date[row]       = data[row][5]
+#     purchase_status[row]    = data[row][6]
+    
+# print(price_data)
+# print(payment_method)
+# print(payment_date)
+# print(purchase_status)
+    
+# for val in kv_data.values():
+#     # if (key == 0):
+#         # print(kv_data.get(key).get('price'))
+        
+#     for key in val:
+#         # print(kv_data[row].get(key))
+#         # print(kv_data.values())
+    
+    
+# for key, value in kv_data.items():
+#     for key2 in value:
+#         print(kv_data[key][key2])
+
+
+# for item in kv_data:
+#     for key, value in item.items():
+#         print(key, value)

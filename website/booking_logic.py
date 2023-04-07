@@ -146,9 +146,16 @@ class Preprocessor(object):
     def get_dict(self):
         return self.__data
     
+    def clear_dict(self):
+        self.__data.clear()
+        
+    def get_one(self, key):
+        return self.__data.get(key)
+        
+    
     
 preprocessor = Preprocessor() # Stores dictionary data seperate from session to use as input for another program or task
-    
+
     
 # data = {
 #     'location_from': 'Bristol',
@@ -157,6 +164,12 @@ preprocessor = Preprocessor() # Stores dictionary data seperate from session to 
 #     'seat_class_type' : 'Economy',
 #     'date_from' : '2023-06-27'
 # }
+
+# preprocessor.set_dict(data)
+
+# print(preprocessor.get_one('location_from'))
+
+
 # b = Booking(data)
 
 # b.return_trip = False
