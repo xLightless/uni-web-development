@@ -177,7 +177,7 @@ def account():
 #         pass
 #     return redirect(url_for('auth.logout'))
 
-@auth.route('/account/update-user-data/', methods=['POST', 'GET'])
+@auth.route('/account/edit-profile/', methods=['POST', 'GET'])
 def update_user_data():
     if request.method == 'POST':
         form = request.form.to_dict()
