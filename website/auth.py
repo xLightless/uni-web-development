@@ -132,50 +132,57 @@ def account():
     
     if user_session.get_key_value('logged_in') == True:
         
-        if request.method == 'POST':
-            username_ = request.form['username']
-            fname_ = request.form['fname']
-            lname_ = request.form['lname']
-            telephone_ = request.form['telephone']
-            email_ = request.form['email']
+        # if request.method == 'POST':
+        #     username_ = request.form['username']
+        #     fname_ = request.form['fname']
+        #     lname_ = request.form['lname']
+        #     telephone_ = request.form['telephone']
+        #     email_ = request.form['email']
             
-            return redirect(url_for(
-                'auth.update_account',
-                username = username_,
-                fname = fname_,
-                lname = lname_,
-                telephone = telephone_,
-                email = email_
-            ))
+        #     return redirect(url_for(
+        #         'auth.update_account',
+        #         username = username_,
+        #         fname = fname_,
+        #         lname = lname_,
+        #         telephone = telephone_,
+        #         email = email_
+        #     ))
         
         return redirect(url_for('views.account_page'))
     return redirect(url_for('auth.login'))
 
-@auth.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')
-def update_account(username, fname, lname, telephone, email):
-    # print(username, fname, lname, telephone, email)
+# @auth.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')
+# def update_account(username, fname, lname, telephone, email):
+#     # print(username, fname, lname, telephone, email)
     
-    try:
-        contacts = database.get_table_value_record('contacts', 'email_address', str(session['email']))
-        contact_id = contacts[0]
-        customer_id = contacts[1]
-        customer = database.get_table_value_record('customers', 'customer_id', str(customer_id))
-        account = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
-        account_id = account[0]
+#     try:
+#         contacts = database.get_table_value_record('contacts', 'email_address', str(session['email']))
+#         contact_id = contacts[0]
+#         customer_id = contacts[1]
+#         customer = database.get_table_value_record('customers', 'customer_id', str(customer_id))
+#         account = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
+#         account_id = account[0]
         
-        # Account table
-        database.update_table_record('accounts', 'username', username, 'account_id', account_id)
+#         # Account table
+#         database.update_table_record('accounts', 'username', username, 'account_id', account_id)
         
-        # Contacts table
-        database.update_table_record('contacts', 'telephone', telephone, 'contact_id', contact_id)
-        database.update_table_record('contacts', 'email_address', email, 'contact_id', contact_id)
+#         # Contacts table
+#         database.update_table_record('contacts', 'telephone', telephone, 'contact_id', contact_id)
+#         database.update_table_record('contacts', 'email_address', email, 'contact_id', contact_id)
         
-        # Customers table
-        database.update_table_record('customers', 'first_name', fname, 'customer_id', customer_id)
-        database.update_table_record('customers', 'last_name', lname, 'customer_id', customer_id)
-    except TypeError:
-        pass
-    return redirect(url_for('auth.logout'))
+#         # Customers table
+#         database.update_table_record('customers', 'first_name', fname, 'customer_id', customer_id)
+#         database.update_table_record('customers', 'last_name', lname, 'customer_id', customer_id)
+#     except TypeError:
+#         pass
+#     return redirect(url_for('auth.logout'))
+
+@auth.route('/account/update-user-data/', methods=['POST', 'GET'])
+def update_user_data():
+    if request.method == 'POST':
+        form = request.form.to_dict()
+        print(form)
+    return redirect(url_for('auth.account'))
 
 @auth.route('/account/register/', methods=['POST', 'GET'])
 def register():

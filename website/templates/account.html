@@ -60,7 +60,9 @@
         <div class="dashboard-container p-3 mt-3 mb-3">
             <div class="head">
                 <div class="title">ACCOUNT</div>
-                <div class="edit-profile"><p class="text-small text-muted m-0 edit-profile-btn">Edit Profile</p></div>
+                <div class="edit-profile">
+                  <a data-bs-toggle="modal" data-bs-target="#updateUserData"><p class="text-small text-muted m-0 edit-profile-btn">Edit Profile</p></a>
+                </div>
             </div>
 
             <div class="head-divider"><div class="divider-item"></div></div>
@@ -146,6 +148,7 @@
                   </tbody>
                 </table>
 
+                <!-- Cancellation booking form -->
                 <form action="{{url_for('auth.cancel_booking')}}" method="post">
                   <div class="modal" id="cancelBookingPopUp" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -172,14 +175,48 @@
                   </div>
                 </form>
 
-              </div>
+                <!-- Update user data form -->
+                <form action="{{url_for('auth.update_user_data')}}" method="post">
+                  <div class="modal" id="updateUserData" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Editing user profile:</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <label for="firstName">First name:</label>
+                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder="Enter your first name" value="{{current_fname | capitalize}}">
+                          </div>
+                          <div class="form-group mt-1">
+                            <label for="firstName">Last name:</label>
+                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder="Enter your last name" value="{{current_lname | capitalize}}">
+                          </div>
+                          <div class="form-group mt-1">
+                            <label for="firstName">Email address:</label>
+                            <input type="text" class="form-control" name="email_address" id="emailAddress" placeholder="johnsmith@example.com" value="{{current_email}}">
+                          </div>
+                          <div class="form-group mt-1"> 
+                            <label for="firstName">Set a new password:</label>
+                            <input type="password" class="form-control" name="new_password" id="newPassword">
+                          </div>
 
-              <!-- Booking Settings -->
-              <!-- <div class="container-fluid w-100 d-flex justify-content-center align-items-start flex-column">
-                <p class="text-large fw-bold">Booking settings:</p>
-                <button class="btn btn-danger m-0">Cancel booking</button>
-              </div> -->
-            <!-- </form> -->
+                          <!-- Required to make changes to the account -->
+                          <div class="form-group  mt-5">
+                            <label for="firstName">Current Password</label>
+                            <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter existing password" required>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger" id="confirmUpdateUserData" name="">Confirm</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
           </div>
         </div>
 
