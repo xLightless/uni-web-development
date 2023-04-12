@@ -468,6 +468,14 @@ section {
     height: 100%;
 }
 
+.sign-out-user:hover > label {
+    color: rgb(228, 105, 105);
+}
+
+/* .sign-in-user:hover > label {
+    color: rgb(92, 235, 119);
+} */
+
 @media only screen and (min-width: 1366px) {
     /* Grid in mobile mode by default, update to larger resolutions */
     .grid-container {

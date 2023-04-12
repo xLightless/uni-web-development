@@ -301,6 +301,24 @@ var returnDate = document.getElementById('return-date');
 departDate.addEventListener('change', updateDepartValue);
 returnDate.addEventListener('change', updateReturnValue);
 
+departDate.addEventListener('input', function(e) {
+  var day = new Date(this.value).getUTCDay();
+  if ([7,0].includes(day)) {
+    e.preventDefault();
+    this.value = '';
+    alert('You cannot make departures on Sundays.');
+  }
+});
+
+returnDate.addEventListener('input', function(e) {
+    var day = new Date(this.value).getUTCDay();
+    if ([7,0].includes(day)) {
+      e.preventDefault();
+      this.value = '';
+      alert('You cannot make returns on Sundays.');
+    }
+  });
+
 function updateDepartValue() {
     // Event listener function to handle updating input values
 

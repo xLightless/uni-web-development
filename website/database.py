@@ -375,6 +375,13 @@ class Database(object):
         self.cursor = self.__db.cursor()
         return df
 
+    def del_table_record(self, table:str, column_name:str, value):
+        """ Delete a table row from the database """
+        
+        query = "DELETE FROM %s WHERE %s = '%s'" % (table, column_name, value)
+        self.cursor.execute(query)
+        self.__db.commit()
+        
         
         
    

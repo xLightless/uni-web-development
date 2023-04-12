@@ -75,9 +75,17 @@ section.dashboard {
 .image-uploader {
     width: 126px;
     height: 126px;
-    background-color: red;
+    background-color: gainsboro;
     border-radius: 16px;
     filter: drop-shadow(0 0 0.125rem black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image-uploader > i {
+    font-size: 24px;
 }
 
 .image-uploader:hover {
@@ -106,9 +114,10 @@ section.dashboard {
 }
 
 .cancel-booking-btn {
-    width: 24px;
+    width: fit-content;
     height: 24px;
     background-color: var(--primary-color);
+    opacity: 0.5;
     border: none;
     color: white;
     font-weight: 600;
@@ -116,6 +125,11 @@ section.dashboard {
 
 .cancel-booking-btn:hover {
     transform: scale(1.03);
+    opacity: 1;
+}
+
+.modal-dialog {
+    margin-top: 64px!important;
 }
 
 

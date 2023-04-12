@@ -18,10 +18,38 @@
     <div class="hover-circle click"></div>
   </a> -->
 
-  <a class="grid-sidebar-nav-item">
+  <a class="grid-sidebar-nav-item" href="#mybookings">
     <label><i class="fa-solid fa-bookmark pr-2"></i><span>My Bookings</span></label>
     <div class="hover-circle click"></div>
   </a>
+
+</div>
+{% endblock %}
+
+{% block account %}
+<div>
+  <div class="grid-sidebar-nav-heading small-text">
+    <span>ACCOUNT</span>
+  </div>
+
+  {% if session['logged_in'] %}
+    <a class="grid-sidebar-nav-item sign-out-user" href="{{url_for('auth.logout')}}">
+      <label><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></label>
+      <div class="hover-circle click"></div>
+    </a>
+  {% endif %}
+
+  {% if not session['logged_in'] %}
+    <!-- <a class="grid-sidebar-nav-item" href="{{url_for('auth.account')}}">
+      <label><i class="fa-solid fa-user"></i><span>Dashboard</span></label>
+      <div class="hover-circle click"></div>
+    </a> -->
+    
+    <a class="grid-sidebar-nav-item" href="{{url_for('auth.login')}}">
+      <label><i class="fa-solid fa-right-from-bracket"></i><span>Login</span></label>
+      <div class="hover-circle click"></div>
+    </a>
+  {% endif %}
 
 </div>
 {% endblock %}
@@ -43,8 +71,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <!-- User image -->
-                        <div class="col-12 col-xl-3 p-3 d-flex justify-content-center">
-                            <div class="image-uploader"></div>
+                        <div class="col-12 col-xl-3 p-3 d-flex justify-content-center align-items-center">
+                            <div class="image-uploader">
+                              <i class="fas fa-file-upload"></i>
+                              <p class="m-0">Upload photo</p>
+                            </div>
                         </div>
 
                         <div class="col-xl-3 p-1 d-flex justify-content-center flex-column">
@@ -73,14 +104,16 @@
           </div>
           <div class="head-divider"><div class="divider-item"></div></div>
 
-          <div class="mybookings">
-            <form method="post" action="{{url_for('auth.cancel_booking')}}" class="w-100">
+
+          <!-- {{url_for('auth.cancel_booking')}} -->
+          <div class="mybookings" id="mybookings">
+            <!-- <form method="post" action="" class="w-100"> -->
               <div class="table-responsive" style="overflow: auto;">
                 <table class="table table-light table-hover mybookings-table">
                   <!-- <caption>List of users</caption> -->
                   <thead class="mybookings-thead">
                     <tr>
-                      <th scope="col"></th>
+                      <th scope="col">Action</th>
                       <th scope="col">Going From</th>
                       <th scope="col">Going To</th>
                       <th scope="col">Commute Type</th>
@@ -93,25 +126,68 @@
                   </thead>
                   <tbody>
                     {% for key, value in booking_data.items() %}
-                    <tr>
+                    <tr name="row_index_{{ key }}">
                       <th scope="row">
-                        <input type="submit" class="cancel-booking-btn" value="X">
+                        {% for key2 in value %}
+
+                        {% if key2 == 'payment_id' %}
+                          <button class="cancel-booking-btn row-selector m-0" id="cancelBookingBtn" data-bs-toggle="modal" data-bs-target="#cancelBookingPopUp" onclick="">Cancel</button>
+                        {% endif %}
+
+                      {% endfor %}
                       </th>
                         {% for key2 in value %}
 
-                          <td>{{ booking_data[key][key2] }}</td>
+                          <td id="{{ key2 }}">{{ booking_data[key][key2] }}</td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
 
                   </tbody>
                 </table>
+
+                <form action="{{url_for('auth.cancel_booking')}}" method="post">
+                  <div class="modal" id="cancelBookingPopUp" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Confirm booking cancellation</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Before cancelling a booking please read the following:</p>
+                          <ul>
+                            <li>Within 30 days of booking date 100% of booking price will be charged.</li>
+                            <li>Booking cancellation before 60 days of booking date does not incur cancellation charges.</li>
+                            <li>Booking cancellation between 30 and 60 days of booking date will incur charges up to 50% of
+                              booking price</li>
+                          </ul>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger" id="confirmCancellationBtn" name="">Confirm</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
               </div>
-            </form>
+
+              <!-- Booking Settings -->
+              <!-- <div class="container-fluid w-100 d-flex justify-content-center align-items-start flex-column">
+                <p class="text-large fw-bold">Booking settings:</p>
+                <button class="btn btn-danger m-0">Cancel booking</button>
+              </div> -->
+            <!-- </form> -->
           </div>
         </div>
 
+        <!-- <script src="{{url_for('static', filename='js/account.js')}}"></script> -->
+
     </section>
 
+
+  <script src="{{url_for('static', filename='js/account.js')}}"></script>
 
 {% endblock %}

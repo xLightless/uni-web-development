@@ -171,18 +171,12 @@ def account_page():
             'payment_date'      :   payment_date,
             'purchase_status'   :   purchase_status,
         }
+        booking_data[row]['payment_id'] = booking_table[1] # Sets payment_id of each row
         
-        booking_data[row]['payment_id'] = booking_table[0] # Sets payment_id of each row
-        
-        # print(booking_table[6]) 
-        
-        # Get appropriate journey_id locations
-        # journey_table = database.get_primary_key_record('journey', int(data[row][0]))
-        
-        # booking_record = database.get_table_value_record('booking', 'payment_id',  booking_data[row]['payment_id'])
-        # print(booking_record)
-        
-    
+        # Delete bad booking data that was not removed in the UI
+        if booking_data[row]['payment_id'] == 'n':
+            booking_data.pop(row)
+
     # 2. DELETE OLD RECORDS FROM DATABASE IF RETURN_DATE HAS BEEN SURPASSED
         
     

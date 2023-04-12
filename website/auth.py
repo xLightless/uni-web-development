@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, request, session
 import hashlib
+import time
 
 from website.database import Database
 from website.booking_logic import Booking, preprocessor
@@ -367,6 +368,34 @@ def cancel_booking():
     """ My bookings dashboard cancellation buttons """
     
     if request.method == 'POST':
-        print("booking cancelled, signing out")
         
-    return redirect(url_for('auth.logout'))
+        if session['logged_in'] == True:
+            try:
+                form = request.form.to_dict()
+                payment_id = form.get('payment_id')
+                
+            except ValueError:
+                print('The primary key %s was not found in the database.' % (payment_id))
+                return redirect(url_for('views.account_page'))
+            
+            # Check if the user is making modifications to the html before post
+            account_id_1 = database.get_table_value_record('booking_payment', 'payment_id', payment_id)[1]
+            contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
+            account_id_2 = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
+            if (account_id_1 == account_id_2):
+                print('Deleting selected record from database')
+                database.del_table_record('booking', 'payment_id', payment_id)
+                database.del_table_record('booking_payment', 'account_id', account_id_1)
+                print('Deleted records from database, refreshing web page.')
+                
+                return redirect(url_for('views.account_page'))
+            else:
+                print('Please do not try and attempt to malipulate our website software. You will be going against Terms and Conditions.')
+                return redirect(url_for('views.account_page'))
+            # If not then remove booking from system
+        
+        
+        
+        
+    # return redirect(url_for('auth.logout'))
+    return redirect(url_for('views.account_page'))

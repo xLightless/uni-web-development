@@ -55,6 +55,7 @@ https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
 <i class="fas fa-user"></i>
 <i class="fas fa-users"></i>
 <i class="fas fa-users-slash"></i>
+<i class="fa-solid fa-right-from-bracket"></i>
 
 
 replaced travel to booking payment and reformatted booking. also deleted users as it does nothing.
