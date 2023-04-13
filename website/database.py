@@ -311,7 +311,7 @@ class Database(object):
     
     def get_foreign_key_record():pass
     
-    def update_table_record(self, table:str, column_name:str, set_value, pk_column_name:str, pk_id:int):
+    def update_table_record_value(self, table:str, column_name:str, value, pk_column_name:str, pk_id):
         """ Update a table record by setting a new value in a single row
 
         Args:
@@ -322,7 +322,8 @@ class Database(object):
             pk_id (int): Primary key column name ID.
         """
         
-        query = "UPDATE %s SET %s = '%s' WHERE %s = '%s'" % (table, column_name, set_value, pk_column_name, pk_id)
+        #UPDATE TABLE SET COLUMN = VALUE WHERE PRIMARY_KEY = VALUE
+        query = "UPDATE %s SET %s = '%s' WHERE %s = %s" % (table, column_name, value, pk_column_name, pk_id)
         self.cursor.execute(query)
         self.__db.commit()
         

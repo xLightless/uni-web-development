@@ -44,3 +44,16 @@ query.forEach((e) => {
         }
     });
 });
+
+
+const newPassword = document.getElementById('newPassword');
+const confirmNewPassword = document.getElementById('confirmNewPassword');
+newPassword.addEventListener('change', (e) => {
+    if (e.target.value != '') {
+        confirmNewPassword.required = false;
+    }
+
+    if (e.target.value == '') {
+        confirmNewPassword.required = true;
+    }
+});

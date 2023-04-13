@@ -188,7 +188,8 @@ def account_page():
         current_lname = str(lname),
         current_telephone = str(telephone),
         current_email = str(email),
-        booking_data = booking_data  
+        booking_data = booking_data,
+        currency_type = str(accounts[5])
         )
 
 @views.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')

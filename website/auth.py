@@ -49,7 +49,8 @@ class Authenticated(Session):
             
             return ValueError("Hash failed. The string '%s' did not contain any special chars. " % string)
         
-        return ValueError("The string '%s' is too small for a password." % string)
+        else:
+            return ValueError("The string '%s' is too small for a password." % string)
         
     
     def authenticate_user(self, email, password):
@@ -180,9 +181,90 @@ def account():
 
 @auth.route('/account/edit-profile/', methods=['POST', 'GET'])
 def update_user_data():
+    
     if request.method == 'POST':
         form = request.form.to_dict()
-        print(form)
+        if session['logged_in'] == True:
+            email_address = session.get('email')
+            first_name = form.get('first_name')
+            last_name = form.get('last_name')
+            phone_number = form.get('phone_number')
+            currency_type = form.get('currency_type')
+            new_password = form.get('new_password')
+            confirm_new_password = form.get('confirm_new_password')
+            current_password = form.get('current_password')
+            
+            # Obtain the primary keys from database tables
+            contacts = database.get_table_value_record('contacts', 'email_address', str(email_address))
+            contact_id = contacts[0]
+            accounts = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
+            account_id = accounts[0]
+            account_password = accounts[3]
+            customer_id = contacts[1]
+            customers = database.get_table_value_record('customers', 'customer_id', str(customer_id))
+            current_first_name = customers[1]
+
+            # Check if passwords match before updating info
+            if user_auth.generate_password_hash(str(current_password)) == str(account_password):               
+                try:
+                    # if ((phone_number == 'None') or (phone_number == '') or (phone_number is None)):
+                    #     print(first_name, last_name, phone_number)
+                    if ((first_name or last_name or phone_number) != ('' or None or 'None')):
+                        
+                        print('Updating account information')
+                        
+                        # Update data in records
+                        database.update_table_record_value(
+                            'customers',
+                            'first_name',
+                            str(first_name),
+                            'customer_id',
+                            str(customer_id)
+                        )
+                        
+                        database.update_table_record_value(
+                            'customers',
+                            'last_name',
+                            str(last_name),
+                            'customer_id',
+                            str(customer_id)
+                        )
+                        
+                        database.update_table_record_value(
+                            'contacts',
+                            'telephone',
+                            str(int(str(phone_number))), # Convert phone number to an int to check if it is a real number else exception
+                            'customer_id',
+                            str(customer_id)
+                        )
+                        
+                        database.update_table_record_value(
+                            'accounts',
+                            'currency_type',
+                            str(currency_type),
+                            'account_id',
+                            str(account_id)
+                        )
+
+                        if (str(new_password) != '') and (str(confirm_new_password) != ''):
+                            if (str(new_password) == str(confirm_new_password)):
+                                print(new_password, confirm_new_password)
+                                database.update_table_record_value(
+                                    'accounts',
+                                    'password',
+                                    str(user_auth.generate_password_hash(new_password)),
+                                    'account_id',
+                                    str(account_id)
+                                )
+                        
+                    else:
+                        raise ValueError
+                    
+                except ValueError or TypeError:
+                    return redirect(url_for('auth.account'))
+            else:
+                print('An entered value did not match.')
+            
     return redirect(url_for('auth.account'))
 
 @auth.route('/account/register/', methods=['POST', 'GET'])
@@ -262,7 +344,8 @@ def form_register(email, name, secret, csecret, fname, lname, dob, phonenumber):
                         str(contacts_primary_key),
                         str(name),
                         str(user_auth.generate_password_hash(secret)),
-                        'Standard'
+                        'Standard',
+                        'Pounds'
                     )
                 )
             
