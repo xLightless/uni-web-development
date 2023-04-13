@@ -84,6 +84,8 @@ def form_index_search():
                     
                     search_results['departure_time'] = table_record[2]
                     search_results['return_time'] = table_record[4]
+                    contact_id = database.get_table_value_record('contacts', 'email_address', str(session['email']))[0]
+                    search_results['currency_type'] = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[5] # Get the database user preferred currency
                     booking = Booking(search_results)
                     
                     if (return_trip == 'on') and (oneway_trip == 'None'):
@@ -98,7 +100,8 @@ def form_index_search():
                     
                     # Apply discount and price to the UI
                     search_results['discount'] = booking.get_booking_discount()
-                    search_results['total_cost'] = booking.get_price()
+                    # search_results['total_cost'] = booking.get_price()
+                    search_results['total_cost'] = booking.get_price_string(str(search_results.get('currency_type'))) # Set total cost to price * currency
                     
                     # discount = search_results['discount']
                     # total_cost = search_results['total_cost']
@@ -150,6 +153,7 @@ def account_page():
     
     # Get the row column value using list length rather than absolute value
     booking_data = {}
+    currency_type = str(accounts[5])
     for row in range(len(data)):
         
         journey_record = database.get_table_value_record('journey', 'journey_id', str(data[row][7]))
@@ -165,14 +169,22 @@ def account_page():
         booking_data[row] = {
             'location_from'     :   location_from,
             'location_to'       :   location_to,
-            'commute_type'         :   booking_table[6],
+            'commute_type'      :   booking_table[6],
             'price'             :   price,
             'payment_method'    :   payment_method,
             'payment_date'      :   payment_date,
             'purchase_status'   :   purchase_status,
         }
-        booking_data[row]['payment_id'] = booking_table[1] # Sets payment_id of each row
         
+        user_table_data = Booking(booking_data)
+        
+        # Update the current price to the exchanged price before displaying to the page
+        exchanged_price = user_table_data.interate_price_string(float(booking_data[row]['price']), currency_type)
+        booking_data[row]['price'] = exchanged_price
+        
+        # Sets payment_id of each row
+        booking_data[row]['payment_id'] = booking_table[1]
+           
         # Delete bad booking data that was not removed in the UI
         if booking_data[row]['payment_id'] == 'n':
             booking_data.pop(row)

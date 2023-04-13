@@ -49,14 +49,15 @@ class Booking(object):
         self.return_trip = False
         
         # Format date time
-        today = str(datetime.now().date()).replace('-','/')
-        travel_day = str(self.booking_data['date_from']).replace('-', '/')
-        todays_date = datetime.strptime(today, "%Y/%m/%d")
-        travel_date = datetime.strptime(travel_day, "%Y/%m/%d")
-        self.__todays_date = today
+        if 'date_from' in booking_data:
+            today = str(datetime.now().date()).replace('-','/')
+            travel_day = str(self.booking_data['date_from']).replace('-', '/')
+            todays_date = datetime.strptime(today, "%Y/%m/%d")
+            travel_date = datetime.strptime(travel_day, "%Y/%m/%d")
+            self.__todays_date = today
         
-        # Discounted time difference. discounted_days = date_of_travel - day_of_purchase
-        self.timedelta = travel_date - todays_date
+            # Discounted time difference. discounted_days = date_of_travel - day_of_purchase
+            self.timedelta = travel_date - todays_date
         
     def get_todays_date(self):
         return self.__todays_date
@@ -131,7 +132,57 @@ class Booking(object):
         return self.journey_price if self.return_trip == False else self.journey_price * 2
         
     
-    def get_time_difference(self): pass
+    def get_price_string(self, currency_type:str) -> str:
+        """
+            Get the price with the numerical value and currency sign
+            #### Acceptable currencies:
+            - Pounds
+            - Dollars
+            - Euros
+        """
+        
+        conversion = { # Currency exchange rate as of 13/04/2023
+            'Pounds': 1.00,
+            'Dollars': 1.25,
+            'Euros': 1.13
+        }
+        
+        for key, value in conversion.items():
+            if currency_type == key:
+                price = self.get_price()
+                if key == 'Pounds':
+                    return "£%.2f" % (price*conversion.get(key))
+                if key == 'Dollars':
+                    return "$%.2f" % (price*conversion.get(key))
+                if key == 'Euros':
+                    return "€%.2f" % (price*conversion.get(key))
+                
+    def interate_price_string(self, data:int | float, currency_type:str) -> str:
+        """
+            Get the price with the numerical value and currency sign
+            #### Acceptable currencies:
+            - Pounds
+            - Dollars
+            - Euros
+        """
+        
+        conversion = { # Currency exchange rate as of 13/04/2023
+            'Pounds': 1.00,
+            'Dollars': 1.25,
+            'Euros': 1.13
+        }
+        
+        for key, _ in conversion.items():
+            if currency_type == key:
+                price = data
+                if key == 'Pounds':
+                    return "£%.2f" % (price*conversion.get(key))
+                if key == 'Dollars':
+                    return "$%.2f" % (price*conversion.get(key))
+                if key == 'Euros':
+                    return "€%.2f" % (price*conversion.get(key))
+        
+        
     
     
 class Preprocessor(object):
