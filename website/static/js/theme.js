@@ -212,27 +212,17 @@ removeButton.addEventListener('click', removeReturnDate);
 
 function removeReturnDate() {
     // Return remove button functionality
-    // let removeButton = document.getElementById('btn-datetime-remove');
-
-    // removeButton.addEventListener('click', (e) => {
-        
-    // })
 
     let returnLabel = document.getElementById('label-swing-to');
     if (returnLabel.innerText != "No return added") {
         returnLabel.innerText = "No return added."
         returnDate.value = "";
     }
-
-    // if (returnDate.value = "") {
-    //     returnDate.value = "";
-
-    // }
-
 }
 
 function pageReturn(buttonID, eventID) {
     // Returns the user to the previous page
+    
     var btn = document.getElementById(buttonID);
     var event = document.getElementById(eventID)
 
@@ -287,13 +277,13 @@ function removeReturnOptions() {
     });
 }
 
-// Sets datepicker min date to todays date
+// // Sets datepicker min date to todays date
 date = new Date();
 var minDate = date.toISOString().split('T')[0];
 document.getElementsByName("swing-from-datepicker")[0].setAttribute('min', minDate);
 returnInput = document.getElementsByName("swing-to-datepicker")[0].setAttribute('min', minDate);
 
-// Get input fields by ID
+// // Get input fields by ID
 var departDate = document.getElementById('depart-date');
 var returnDate = document.getElementById('return-date');
 
@@ -301,6 +291,21 @@ var returnDate = document.getElementById('return-date');
 departDate.addEventListener('change', updateDepartValue);
 returnDate.addEventListener('change', updateReturnValue);
 
+departDate.addEventListener('change', (e) => {
+    // Prevent user from selecting past 3 months from todays date
+    
+    let today = new Date();
+    let maxAdvancedDate = new Date();
+    maxAdvancedDate.setDate(today.getDate() + 90);
+    isoStringMaxDate = maxAdvancedDate.toISOString().split('T')[0];
+    
+    e.target.setAttribute('max', isoStringMaxDate);
+    let minReturnDate = document.getElementById('return-date');
+    minReturnDate.setAttribute('min', e.target.value);
+});
+
+
+// Checks if the user selected an invalid travel date
 departDate.addEventListener('input', function(e) {
   var day = new Date(this.value).getUTCDay();
   if ([7,0].includes(day)) {
@@ -310,6 +315,7 @@ departDate.addEventListener('input', function(e) {
   }
 });
 
+// Checks if the user selected an invalid travel date
 returnDate.addEventListener('input', function(e) {
     var day = new Date(this.value).getUTCDay();
     if ([7,0].includes(day)) {
@@ -360,9 +366,20 @@ function updateReturnValue() {
     returnLabel.innerText = newReturnLabel.toDateString();
 }
 
+// onDeparature.addEventListener('click', (e) => {
+//     // Store departure date
+//     // let departureDate;
+//     // console.log(departureDate);
+
+//     // Update departure date if changed
+//     e.target.addEventListener('change', () => {
+//         let departureDate = new Date(onDeparature.value);
+//         console.log(departureDate);
+//     })
+// })
 
 
-function locationsConfirmButtonEvent() {
+function locationsConfirmButtonEvent() { // Travel locations options confirmation
     let inputFrom = document.getElementById('input-box-from');
     let inputTo = document.getElementById('input-box-to');
     if ((inputFrom.value != "" && inputTo.value != "") && (inputFrom.value != inputTo.value)) {
@@ -376,9 +393,7 @@ function locationsConfirmButtonEvent() {
     }
 }
 
-function swingConfirmButtonEvent() {
-    let inputDepart = document.getElementById('depart-date');
-    let inputReturn = document.getElementById('return-date');
+function swingConfirmButtonEvent() { // Travel departure & return date options confirmation
     let selectPassengers = document.getElementById('passengers-amount');
     let selectSeatClass = document.getElementById('seat-class-type');
 
@@ -387,6 +402,32 @@ function swingConfirmButtonEvent() {
     // }
 
     // pageReturn('btn-confirmation-swing', 'page-swing');
+    
+    // Alert the user if the input date is a sunday
+    // let departDate = document.getElementById('depart-date');
+    // departDate.addEventListener('input', function(e) {
+    // var day = new Date(this.value).getUTCDay();
+    // if ([7,0].includes(day)) {
+    //     e.preventDefault();
+    //     this.value = '';
+    //     // alert('You cannot make departures on Sundays.');
+    // }
+    // });
+
+    // let btnSwingConfirm = document.getElementById('btn-confirmation-swing');
+    
+    // btnSwingConfirm.addEventListener('click', (e) => {
+    //     var departDate = document.getElementById('depart-date');
+    //     departDate.addEventListener('input', function(e) {
+    //       var day = new Date(this.value).getUTCDay();
+    //       if ([7,0].includes(day)) {
+    //         e.preventDefault();
+    //         this.value = '';
+    //         // alert('You cannot make departures on Sundays.');
+    //       }
+    //     });
+    // });
+    
     if (departDate.value != "" && selectPassengers.value != "" && selectSeatClass != "") {
         pageReturn('btn-confirmation-swing', 'page-swing');
 

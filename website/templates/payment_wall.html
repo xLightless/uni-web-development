@@ -6,28 +6,67 @@
 {% block main %}
 
     <section class="payment-wall p-3">
-
         <div class="payment-box p-3">
-            <p class="text-dark text-center">
-                Payment successful!
-            </p>
-            <p class="text-dark">
-                Click HERE to generate a report of the payment.
-            </p>
-            <p class="text-dark">
-                Click HERE to view your bookings in account.
-            </p>
+            <div class="container payment-container">
+                <div class="payment-icon-success">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <p class="payment-title">Payment Successful</p>
+            </div>
+            
+            <div class="container payment-container-info">
+                <div class="container w-100 h-50 d-flex justify-content-center align-items-center flex-column">
+                    <p class="fs-1">£{{ price }}</p>
+                    <p class="fs-4 fst-italic m-0">has been paid to</p>
+                    <p class="fs-4 fst-italic">Horizon Travels Ltd</p>
+                </div>
+                <div class="container w-100 h-50">
+                    <div class="payment-info">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <p class="m-0 fs-5"><span class="fw-bold">Date: </span>{{ payment_date }}</p>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <p class="m-0 fs-5"><span class="fw-bold">Reference ID: </span>{{ payment_id }}</p>
+                        </div>
+                    </div>
+                    <div class="payment-buttons">
 
-            <p>Payment type: paypal</p>
-            <p>Mobile: 0999999</p>
-            <p>Email: 123@123.com</p>
+                        <!-- Close payment page -->
+                        <form action="{{url_for('auth.account')}}">
+                            <button type="submit" class="btn btn-md btn-secondary">Close Page</button>
+                        </form>
 
-            <p>Amount Paid: 150.00</p>
-
-            <button>Download</button>
-            <button>Close</button>
+                        <!-- Download report of the payment -->
+                        <form action="" method="post">
+                            <button type="submit" class="btn btn-md btn-danger">Download</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+
+    <!-- <div class="payment-box p-3">
+        <p class="text-dark text-center">
+            Payment successful!
+        </p>
+        <p class="text-dark">
+            Click HERE to generate a report of the payment.
+        </p>
+        <p class="text-dark">
+            Click HERE to view your bookings in account.
+        </p>
+
+        <p>Payment type: paypal</p>
+        <p>Mobile: 0999999</p>
+        <p>Email: 123@123.com</p>
+
+        <p>Amount Paid: 150.00</p>
+
+        <button>Download</button>
+        <button>Close</button>
+    </div> -->
 
 {% endblock %}
 {% block booking %} {% endblock %}

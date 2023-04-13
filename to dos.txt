@@ -1,0 +1,11 @@
+// Booking
+- lock sunday calender booking 		// done
+- add cancellation popup 		//done
+- generate report
+
+// Profile editing
+- add popup to modify user profile. e.g. currency, payment method, password, first name, last name  	// in progress
+
+// Admin
+- add admin management
+- generate financial report

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request, session
 import hashlib
 import time
+import mysql.connector
 
 from website.database import Database
 from website.booking_logic import Booking, preprocessor
@@ -282,23 +283,17 @@ def logout():
 @auth.route('/booking/payment/', methods=['GET', 'POST'])
 def payment():
     """ Handles payments from booking page when the user clicks 'PAYPAL' button """
+    # print(session['payment_success'])
+    
+    payment_collection = {}
     
     # Although an existing dictionary of the data we want is available, it is being used before the customer clicks pay.
     if request.method == 'POST':
-        # print("PAYMENT POST TEST")
-        # booking_data = {
-        #     'location_from'     : request.form['location_from'],
-        #     'location_to'       : request.form['location_to'],
-        #     'passengers_amount' : request.form['passengers_amount'],
-        #     'seat_class_type'   : request.form['seat_class_type'],
-        #     'date_from'         : request.form['date_from'],
-        #     'date_to'           : request.form['date_to'],
-        #     'departure_time'    : request.form['departure_time'],
-        #     'return_time'       : request.form['return_time'],
-        #     'discount'          : request.form['discount'],
-        #     'trip_type'         : request.form['trip_type'],
-        #     'total_cost'        : request.form['total_cost']
-        # }
+        
+        # Check if the user has already been on the active page to prevent overload
+        # if 'payment_success' in session:
+        #     session.pop('payment_success')
+        #     return redirect(url_for('auth.account'))
         
         # Get account id through contacts
         contact_id = database.get_table_value_record('contacts', 'email_address', str(session['email']))[0]
@@ -317,6 +312,10 @@ def payment():
         loc_from = str(preprocessor.get_dict().get('location_from'))
         loc_to = str(preprocessor.get_dict().get('location_to'))    
 
+        # Add payment_wall information to dict
+        payment_collection['payment_id'] = payment_id
+        payment_collection['payment_date'] = payment_date
+        payment_collection['price'] = price
 
         # Obtain the journey key from database table
         journey_table = database.get_table_records_of_value('journey', 'departure', loc_from)
@@ -330,45 +329,51 @@ def payment():
                 journey_id = int(journey_table[row][0]) # Convert to INT since the Foreign key is integer
             break
         
-        database.set_table_record(
-            'booking_payment',
-            payment_id,
-            values=(
-                str(account_id), # account_id
-                str(price), # price
-                str(discount), # discount_percentage
-                'PayPal', # payment_method ### May need to update this later to include debit card?
-                str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
-                # str(['Approved' if str(booking_data.get('date_from')) == str(payment_date) else 'Pending']) # If purchase day is the same as day of travel then pay is approved else pending
-                'Approved',
-                str(journey_id)
-                
+        try:
+            database.set_table_record(
+                'booking_payment',
+                payment_id,
+                values=(
+                    str(account_id), # account_id
+                    str(price), # price
+                    str(discount), # discount_percentage
+                    'PayPal', # payment_method ### May need to update this later to include debit card?
+                    str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
+                    # str(['Approved' if str(booking_data.get('date_from')) == str(payment_date) else 'Pending']) # If purchase day is the same as day of travel then pay is approved else pending
+                    'Approved',
+                    str(journey_id)
+                    
+                )
             )
-        )
-        
-        booking_record = database.get_table_value_record('booking_payment', 'payment_id', str(payment_id))
-        booking_id = payment_id + 34817 # (12392, 25000, Decimal('600.00'), '0', 'PayPal', datetime.date(2023, 4, 6), 'Approved')
-        
-        database.set_table_record(
-            'booking',
-            booking_id,
-            values=(
-                str(payment_id),
-                str(booking_data.get('seat_class_type')), # Business/Eco
-                str(booking_data.get('passengers_amount')), # No. People
-                str(booking_data.get('date_from')), # Leaving Time
-                str(booking_data.get('date_to')), # Returning if one
-                str(booking_data.get('trip_type')) # Commute type e.g. Return or Oneway
+            
+            booking_record = database.get_table_value_record('booking_payment', 'payment_id', str(payment_id))
+            booking_id = payment_id + 34817 # (12392, 25000, Decimal('600.00'), '0', 'PayPal', datetime.date(2023, 4, 6), 'Approved')
+            
+            database.set_table_record(
+                'booking',
+                booking_id,
+                values=(
+                    str(payment_id),
+                    str(booking_data.get('seat_class_type')), # Business/Eco
+                    str(booking_data.get('passengers_amount')), # No. People
+                    str(booking_data.get('date_from')), # Leaving Time
+                    str(booking_data.get('date_to')), # Returning if one
+                    str(booking_data.get('trip_type')) # Commute type e.g. Return or Oneway
+                )
             )
-        )
+            
+            # session['payment_success'] = True
+            
+        except mysql.connector.errors.DatabaseError:
+            return redirect(url_for('auth.account'))
     
-    return render_template('payment_wall.html')
+    return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = payment_collection['price'])
 
 
-@auth.route('/booking/payment/posting/')
-def form_payment():
-    """"""
-    pass
+def delete_payment_records(payment_id, account_id):
+    database.del_table_record('booking', 'payment_id', payment_id)
+    time.sleep(3)
+    database.del_table_record('booking_payment', 'account_id', account_id)
 
 @auth.route('/cancel-booking/', methods=['POST', 'GET'])
 def cancel_booking():
@@ -390,9 +395,7 @@ def cancel_booking():
             contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
             account_id_2 = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
             if (account_id_1 == account_id_2):
-                print('Deleting selected record from database')
-                database.del_table_record('booking', 'payment_id', payment_id)
-                database.del_table_record('booking_payment', 'account_id', account_id_1)
+                delete_payment_records(payment_id=payment_id, account_id=account_id_1)
                 print('Deleted records from database, refreshing web page.')
                 
                 return redirect(url_for('views.account_page'))

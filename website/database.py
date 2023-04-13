@@ -382,8 +382,6 @@ class Database(object):
         self.cursor.execute(query)
         self.__db.commit()
         
-        
-        
    
 # loc_from = 'Newcastle'
 # loc_to = 'Bristol'     
