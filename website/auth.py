@@ -366,7 +366,7 @@ def logout():
 @auth.route('/booking/payment/', methods=['GET', 'POST'])
 def payment():
     """ Handles payments from booking page when the user clicks 'PAYPAL' button """
-    # print(session['payment_success'])
+    # print(preprocessor.get_dict())
     
     payment_collection = {}
     
@@ -380,7 +380,8 @@ def payment():
         
         # Get account id through contacts
         contact_id = database.get_table_value_record('contacts', 'email_address', str(session['email']))[0]
-        account_id = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
+        accounts = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
+        account_id = accounts[0]
         payment_id = database.count_table_rows('booking_payment')+12387
         # payment_id = payment_row_count + 12387 # Some random constant to scramble PK ID
         
@@ -389,7 +390,9 @@ def payment():
         from datetime import datetime
         payment_date = datetime.now().date()
         
-        price = str(booking_data.get('total_cost')) # May return None if user goes back to an expired page
+        # Get the GBP price without string prefix
+        price = str(booking_data.get('total_cost'))[1:] # May return None if user goes back to an expired page
+        
         discount = str(booking_data.get('discount'))
         
         loc_from = str(preprocessor.get_dict().get('location_from'))
@@ -398,7 +401,19 @@ def payment():
         # Add payment_wall information to dict
         payment_collection['payment_id'] = payment_id
         payment_collection['payment_date'] = payment_date
-        payment_collection['price'] = price
+        # payment_collection['price'] = price
+        
+        
+        
+        
+        
+        payment_data = Booking(preprocessor.get_dict())
+        payment_collection['price'] = payment_data.get_price_string(preprocessor.get_one('currency_type'))
+        
+        print(payment_collection['price'])
+
+
+
 
         # Obtain the journey key from database table
         journey_table = database.get_table_records_of_value('journey', 'departure', loc_from)
@@ -495,3 +510,7 @@ def cancel_booking():
         
     # return redirect(url_for('auth.logout'))
     return redirect(url_for('views.account_page'))
+
+
+def generate_booking_receipt():
+    pass
