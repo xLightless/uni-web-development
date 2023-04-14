@@ -37,9 +37,10 @@
                         </form>
 
                         <!-- Download report of the payment -->
-                        <form action="" method="post">
+                        <!-- <form action="{{url_for('auth.payment_download')}}">
                             <button type="submit" class="btn btn-md btn-danger">Download</button>
-                        </form>
+                        </form> -->
+                        <a class="btn btn-md btn-danger me-3 ms-3" href="{{ url_for('auth.payment_download') }}">Download</a>
                     </div>
                 </div>
             </div>

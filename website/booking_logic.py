@@ -111,13 +111,13 @@ class Booking(object):
         self.journey_price = 75 # GBP
         
         # Check if user is going to these locations
-        if (location_from == 'Dundee') and (location_to == 'Portsmouth'):self.journey_price         = 100.00
-        elif (location_from == 'Bristol') and (location_to == 'Manchester'): self.journey_price     = 60.00
-        elif (location_from == 'Bristol') and (location_to == 'Newcastle'): self.journey_price      = 80.00
-        elif (location_from == 'Bristol') and (location_to == 'Glasgow'): self.journey_price        = 90.00
-        elif (location_from == 'Bristol') and (location_to == 'London'): self.journey_price         = 60.00
-        elif (location_from == 'Manchester') and (location_to == 'Southampton'): self.journey_price = 70.00
-        elif (location_from == 'Cardiff') and (location_to == 'Edinburgh'): self.journey_price      = 80.00
+        if (location_from == 'Dundee') and (location_to == 'Portsmouth'):           self.journey_price = 100.00
+        elif (location_from == 'Bristol') and (location_to == 'Manchester'):        self.journey_price = 60.00
+        elif (location_from == 'Bristol') and (location_to == 'Newcastle'):         self.journey_price = 80.00
+        elif (location_from == 'Bristol') and (location_to == 'Glasgow'):           self.journey_price = 90.00
+        elif (location_from == 'Bristol') and (location_to == 'London'):            self.journey_price = 60.00
+        elif (location_from == 'Manchester') and (location_to == 'Southampton'):    self.journey_price = 70.00
+        elif (location_from == 'Cardiff') and (location_to == 'Edinburgh'):         self.journey_price = 80.00
         
         # If user is business class fare is twice as much
         if (seat_type == 'Business'): self.journey_price = self.journey_price * 2

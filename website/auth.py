@@ -410,7 +410,7 @@ def payment():
         payment_data = Booking(preprocessor.get_dict())
         payment_collection['price'] = payment_data.get_price_string(preprocessor.get_one('currency_type'))
         
-        print(payment_collection['price'])
+        # print(payment_collection['price'])
 
 
 
@@ -464,7 +464,7 @@ def payment():
             
         except mysql.connector.errors.DatabaseError:
             return redirect(url_for('auth.account'))
-    
+        
     return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = payment_collection['price'])
 
 
@@ -511,6 +511,10 @@ def cancel_booking():
     # return redirect(url_for('auth.logout'))
     return redirect(url_for('views.account_page'))
 
-
-def generate_booking_receipt():
-    pass
+@auth.route('/booking/payment/download/')
+def payment_download():
+    """ Generate a pdf based on a html document """
+    
+    template = render_template('export.html')
+    
+    return ''

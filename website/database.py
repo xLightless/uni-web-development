@@ -333,7 +333,7 @@ class Database(object):
         
         self.cursor.close() # Close cursor without buffer
         cursor_buffer = self.__db.cursor(buffered=True) # Open new connection
-        query = "SELECT * FROM %s WHERE %s = %s;" % (table, key_column_name, key)
+        query = "SELECT * FROM %s WHERE %s = '%s';" % (table, key_column_name, key)
         cursor_buffer.execute(query)
         self.__db.commit()
         

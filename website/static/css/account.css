@@ -105,6 +105,7 @@ section.dashboard {
     margin-top: 16px;
     width: 100%;
     height: calc(100% - 20px - 16px - 12px);
+    max-height: 492px;
     /* background-color: red; */
     overflow: auto;
 }
