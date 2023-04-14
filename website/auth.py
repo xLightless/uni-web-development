@@ -133,6 +133,7 @@ def account():
     # print("AUTH account page")
     
     if user_session.get_key_value('logged_in') == True:
+        user_auth.set_key('payment_successful', False)
         
         # if request.method == 'POST':
         #     username_ = request.form['username']
@@ -368,6 +369,8 @@ def payment():
     """ Handles payments from booking page when the user clicks 'PAYPAL' button """
     # print(preprocessor.get_dict())
     
+    if user_auth.get_key_value('payment_successful') == True: return redirect('auth.account')
+    
     payment_collection = {}
     
     # Although an existing dictionary of the data we want is available, it is being used before the customer clicks pay.
@@ -385,13 +388,22 @@ def payment():
         payment_id = database.count_table_rows('booking_payment')+12387
         # payment_id = payment_row_count + 12387 # Some random constant to scramble PK ID
         
+        # print(request.form.to_dict())
+        
         booking_data = preprocessor.get_dict()
-        # booking = Booking(booking_data)
+        booking = Booking(booking_data)
         from datetime import datetime
         payment_date = datetime.now().date()
         
         # Get the GBP price without string prefix
-        price = str(booking_data.get('total_cost'))[1:] # May return None if user goes back to an expired page
+        price = str(preprocessor.get_one('total_cost')) # May return None if user goes back to an expired page
+        try:
+            price = float(price[1:])
+            
+        except ValueError:
+            print(('Payment unsuccessful. Could not convert the price.'))
+            user_auth.set_key('payment_successful', False)
+            return redirect(url_for('views.index'))
         
         discount = str(booking_data.get('discount'))
         
@@ -461,6 +473,7 @@ def payment():
             )
             
             # session['payment_success'] = True
+            user_auth.set_key('payment_successful', True)
             
         except mysql.connector.errors.DatabaseError:
             return redirect(url_for('auth.account'))
@@ -518,3 +531,11 @@ def payment_download():
     template = render_template('export.html')
     
     return ''
+
+@auth.route('/account/admin/')
+def admin_portal():
+    return render_template('admin_portal.html')
+
+@auth.route('/account/admin/permissions/')
+def admin_permissions():
+    return '<h1> admin perms</h1>'

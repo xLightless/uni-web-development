@@ -1,0 +1,233 @@
+section.admin-portal-head {
+    width: 100%;
+    height: fit-content;
+    background: var(--primary-color);
+    position: relative;
+    display: block;
+}
+
+.admin-portal-path {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.portal-path-url {
+    font-size: 24px;
+    /* font-weight: 500; */
+    float: left;
+    color: white;
+    margin: 0;
+}
+
+.todays-date {
+    width: 100%;
+    height: 128px;
+    /* background-color:#fff; */
+}
+
+.todays-date-text {
+    font-size: 0.875rem;
+    /* font-weight: 400; */
+    color: rgb(255, 255, 255);
+}
+
+.admin-portal-stats { 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 16px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "total-sales total-bookings total-bookings-refunded";
+    height: 100%; /* 256px */
+    max-width: 1600px;
+  }
+  
+.total-sales {
+    grid-area: total-sales;
+}
+  
+.total-bookings {
+    grid-area: total-bookings;
+}
+  
+.total-bookings-refunded {
+    grid-area: total-bookings-refunded;
+}
+
+.admin-portal-stats-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.admin-portal-stats > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 0 0.55rem black);
+}
+
+
+.admin-stat-totals {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    background-color: #fff;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+section.admin-portal-insights {
+    width: 100%;
+    height: 100%;
+    /* background-color: var(--secondary-color); */
+}
+
+.stats-seperator {
+    margin-top: 128px;
+    margin-bottom: 128px;
+}
+
+.admin-portal-insight-stats { 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "monthly-sales sales-of-journey"
+      "top-customers permissions";
+    height: 100%;
+    width: 100%;
+    max-width: 1600px;
+    overflow-y: auto;
+  }
+  
+.monthly-sales {
+    grid-area: monthly-sales;
+}
+  
+.sales-of-journey {
+    grid-area: sales-of-journey;
+}
+  
+.top-customers {
+    grid-area: top-customers;
+}
+  
+.permissions {
+    grid-area: permissions;
+}
+
+.admin-portal-insight-stats > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 0 0.55rem black);
+    min-height: 437.5px;
+}
+  
+.admin-insights {
+    width: 100%;
+    height: 100%;
+    background-color: gainsboro;
+    border-radius: 16px;
+}
+
+.admin-insights:hover {
+    background-color: #fff;
+}
+
+.heading {
+    width: 100%;
+    height: 64px;
+    max-width: 1600px;
+}
+
+.heading-text {
+    font-size: 36px;
+    color: white;
+
+    margin: none;
+}
+
+.stat-heading {
+    width: 100%;
+    height: 20px;
+}
+
+.stat-heading-text {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+    .admin-portal-stats { 
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 16px;
+        grid-auto-flow: row;
+        grid-template-areas:
+          "total-sales"
+          "total-bookings"
+          "total-bookings-refunded";
+      }
+
+      .admin-portal-insight-stats { 
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        gap: 16px;
+        grid-auto-flow: row;
+        grid-template-areas:
+        "monthly-sales"
+        "sales-of-journey"
+        "top-customers"
+        "permissions";
+      }
+
+      /* .admin-portal-insight-stats > div {
+        width: 437.5px;
+      } */
+
+      .todays-date {
+        height: fit-content;
+      }
+
+      /* click item change z index to display info */
+      .admin-portal-stats > div {
+        max-height: 25px;
+      }
+
+
+      .admin-portal-stats > div > div:hover {
+        background-color: blue;
+      }
+}
+
+/* @media only screen and (max-width: 768px) {
+    .admin-portal-stats { 
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 16px;
+        grid-auto-flow: row;
+        grid-template-areas:
+          "total-sales total-bookings"
+          "total-bookings-refunded total-bookings-refunded";
+      }
+} */

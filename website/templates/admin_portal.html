@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block head %}
+<link href="{{url_for('static',filename='css/account.css')}}" rel="stylesheet">
+<link href="{{url_for('static',filename='css/admin_portal.css')}}" rel="stylesheet">
+    <title>Admin Portal</title>
+{% endblock %}
+
+
+{% block main %}
+    <section class="admin-portal-head p-3">
+        <div class="admin-portal-path">
+            <p class="portal-path-url">
+                Overview / Admin Portal
+            </p>
+        </div>
+
+        <div class="todays-date">
+            <p class="todays-date-text" id="update-todays-date">Cannot get todays date.</p>
+        </div>
+
+        <!-- Financial stats -->
+        <div class="container-fluid w-100 admin-portal-stats-grid stats-seperator">
+            <div class="admin-portal-stats w-100">
+                <div class="total-sales">
+                    <div class="admin-stat-totals">
+                        <div class="stat-heading">
+                            <p class="stat-heading-text">Total Sales</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-bookings">
+                    <div class="admin-stat-totals">
+                        <div class="stat-heading">
+                            <p class="stat-heading-text">Created Bookings</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-bookings-refunded">
+                    <div class="admin-stat-totals">
+                        <div class="stat-heading">
+                            <p class="stat-heading-text">Refunds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights into the brief stats above -->
+    <section class="admin-portal-insights p-3">
+
+        
+        <div class="container-fluid w-100 h-100 admin-portal-stats-grid">
+            <div class="container-fluid w-100 heading">
+                <h5 class="heading-text">Administrative Insights</h5>
+            </div>
+            
+            <div class="admin-portal-insight-stats">
+                <div class="monthly-sales">
+                    <div class="admin-insights">
+                    </div>
+                </div>
+                <div class="sales-of-journey">
+                    <div class="admin-insights"></div>
+                </div>
+                <div class="top-customers">
+                    <div class="admin-insights"></div>
+                </div>
+                <div class="permissions">
+                    <div class="admin-insights"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section></section> -->
+
+
+    <script src="{{url_for('static',filename='js/admin_portal.js')}}"></script>
+{% endblock%}

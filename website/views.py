@@ -13,7 +13,7 @@ database = Database(database="ht_database", user="root", password="Password1")
 @views.route('/')
 def index():
     """ Renders the index template and its search filter options """
-    
+    print(session)
     search_items = database.get_table_column('locations', 'location')[1]
     search_filter_items = []
     for item in search_items:

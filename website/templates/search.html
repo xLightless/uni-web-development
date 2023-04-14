@@ -13,10 +13,9 @@
             </div>
 
             <div class="w-100">
-                <form class="w-100" method="post" action="{{url_for('auth.payment')}}">
+                <form class="w-100" action="{{url_for('auth.payment')}}" method="post">                    
                     <div class="table-responsive">
                         <table class="table table-bordered text-light overflow-auto">
-        
                             {% for key, value in search_items.items() %}
                             <tr class="w-25">
                                 <th>{{ key | capitalize}}</th>
