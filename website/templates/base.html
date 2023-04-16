@@ -130,11 +130,12 @@
 
         {% block admin_portal %}
         <div>
-          <div class="grid-sidebar-nav-heading small-text">
-            <span>ADMINISTRATOR</span>
-          </div>
 
           {% if session['logged_in'] %}
+            <div class="grid-sidebar-nav-heading small-text">
+              <span>ADMINISTRATOR</span>
+            </div>
+            
             <a class="grid-sidebar-nav-item" href="{{url_for('auth.admin_portal')}}">
               <label><i class="fas fa-chart-bar"></i><span>Admin Portal</span></label>
               <div class="hover-circle click"></div>

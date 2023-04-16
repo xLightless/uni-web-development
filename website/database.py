@@ -383,6 +383,26 @@ class Database(object):
         self.cursor.execute(query)
         self.__db.commit()
         
+        
+    def count_permissible_rows(self, table:str, column_name:str, value):
+        """ Counts rows from an sql where clause
+        
+        Args:
+            table (str): Name of the table.
+            column_name (str): The column name in 'table'.
+            value (str): The value in 'column_name' to return integer position.
+
+        Returns:
+            tuple (int, int): x and y of 'table'.
+        
+        """
+        
+        query = "SELECT * FROM %s WHERE %s = '%s'" % (table, column_name, value)
+        self.cursor.execute(query)
+        self.cursor.fetchall()
+        rows = int(self.cursor.rowcount)
+        return rows
+        
    
 # loc_from = 'Newcastle'
 # loc_to = 'Bristol'     

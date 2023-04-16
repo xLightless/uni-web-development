@@ -154,13 +154,13 @@ section.admin-portal-insights {
 .heading-text {
     font-size: 36px;
     color: white;
-
-    margin: none;
+    margin: 0;
 }
 
 .stat-heading {
     width: 100%;
-    height: 20px;
+    height: 24px;
+    display: block;
 }
 
 .stat-heading-text {
@@ -169,8 +169,27 @@ section.admin-portal-insights {
     margin: 0;
 }
 
+.stat-body {
+    width: 100%;
+    height: calc(100% - 24px);
+    display: block;
+}
 
+.stat-body-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 
+}
+
+.stat-text {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+}
 
 
 
@@ -198,7 +217,9 @@ section.admin-portal-insights {
         "sales-of-journey"
         "top-customers"
         "permissions";
+        margin-top: 86px;
       }
+      
 
       /* .admin-portal-insight-stats > div {
         width: 437.5px;

@@ -26,6 +26,11 @@
                         <div class="stat-heading">
                             <p class="stat-heading-text">Total Sales</p>
                         </div>
+                        <div class="stat-body">
+                            <div class="stat-body-flex">
+                                <p class="stat-text"><i class="fa-solid fa-money-bill-trend-up"></i> {{ total_sales }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="total-bookings">
@@ -33,12 +38,22 @@
                         <div class="stat-heading">
                             <p class="stat-heading-text">Created Bookings</p>
                         </div>
+                        <div class="stat-body">
+                            <div class="stat-body-flex">
+                                <p class="stat-text"><i class="fa-solid fa-plane"></i> {{ created_bookings }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="total-bookings-refunded">
                     <div class="admin-stat-totals">
                         <div class="stat-heading">
                             <p class="stat-heading-text">Refunds</p>
+                        </div>
+                        <div class="stat-body">
+                            <div class="stat-body-flex">
+                                <p class="stat-text"><i class="fa-solid fa-rotate"></i> {{ total_refunded }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

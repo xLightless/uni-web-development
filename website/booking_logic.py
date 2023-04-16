@@ -147,7 +147,7 @@ class Booking(object):
             'Euros': 1.13
         }
         
-        for key, value in conversion.items():
+        for key, _ in conversion.items():
             if currency_type == key:
                 price = self.get_price()
                 if key == 'Pounds':
@@ -182,7 +182,32 @@ class Booking(object):
                 if key == 'Euros':
                     return "€%.2f" % (price*conversion.get(key))
         
+class Statistics(object):
+    """ Base object that handles statistics and non-specific information """
+    
+    def convert_price(self, price:int | float, currency_type:str) -> str:
+        """
+            Get the price with the numerical value and currency sign
+            #### Acceptable currencies:
+            - Pounds
+            - Dollars
+            - Euros
+        """
         
+        conversion = { # Currency exchange rate as of 13/04/2023
+            'Pounds': 1.00,
+            'Dollars': 1.25,
+            'Euros': 1.13
+        }
+        
+        for key, _ in conversion.items():
+            if currency_type == key:
+                if key == 'Pounds':
+                    return "£%.2f" % (price*conversion.get(key))
+                if key == 'Dollars':
+                    return "$%.2f" % (price*conversion.get(key))
+                if key == 'Euros':
+                    return "€%.2f" % (price*conversion.get(key))
     
     
 class Preprocessor(object):

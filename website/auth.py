@@ -4,11 +4,12 @@ import time
 import mysql.connector
 
 from website.database import Database
-from website.booking_logic import Booking, preprocessor
+from website.booking_logic import Booking, preprocessor, Statistics
 
 
 auth = Blueprint('auth', __name__)
 database = Database(database="ht_database", user="root", password="Password1")
+stats = Statistics()
 
 class Session(object):
     """ Public session data """        
@@ -506,7 +507,8 @@ def cancel_booking():
             contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
             account_id_2 = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
             if (account_id_1 == account_id_2):
-                delete_payment_records(payment_id=payment_id, account_id=account_id_1)
+                
+                # delete_payment_records(payment_id=payment_id, account_id=account_id_1)
                 print('Deleted records from database, refreshing web page.')
                 
                 return redirect(url_for('views.account_page'))
@@ -534,7 +536,24 @@ def payment_download():
 
 @auth.route('/account/admin/')
 def admin_portal():
-    return render_template('admin_portal.html')
+    
+    data = {}
+    total_sales:float = 0
+    
+    booking_payment_price = database.get_table_column('booking_payment', 'price')
+    created_bookings = database.count_table_rows('booking')
+    
+    contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
+    user_preferred_currency = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[5] # change to 4 if you remove username
+    total_refunded = database.count_permissible_rows('booking_payment', 'purchase_status', 'Refunded')
+    
+    # Get total sales from price
+    for price in booking_payment_price[1]:
+        total_sales = float(total_sales) + float(price[0])
+        
+    total_sales = stats.convert_price(total_sales, str(user_preferred_currency))
+    
+    return render_template('admin_portal.html', total_sales = total_sales, created_bookings = created_bookings, total_refunded = total_refunded)
 
 @auth.route('/account/admin/permissions/')
 def admin_permissions():

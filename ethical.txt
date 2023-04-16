@@ -38,6 +38,9 @@ https://www.pexels.com/photo/city-near-body-of-water-during-night-time-1119723/
 <i class="fas fa-chart-bar"></i>
 <i class="fa-solid fa-gear"></i>
 
+<i class="fa-solid fa-money-bill-trend-up"></i>
+<i class="fa-solid fa-rotate"></i>
+
 - FA dashboard:
 <i class="fa fa-history" aria-hidden="true"></i>
 <i class="fa fa-percent" aria-hidden="true"></i>
