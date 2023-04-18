@@ -3,7 +3,7 @@ from datetime import datetime
 
 from website import sitemap
 from website.database import Database
-from website.booking_logic import Booking, preprocessor
+from website.booking_logic import Booking, preprocessor, Cancellations
 
 views = Blueprint('views', __name__)
 database = Database(database="ht_database", user="root", password="Password1")
@@ -153,7 +153,10 @@ def account_page():
     
     # Get the row column value using list length rather than absolute value
     booking_data = {}
+    cancellation_data = {}
     currency_type = str(accounts[5])
+    cancellation_date = str(datetime.now().date()).replace('-','/')
+    
     for row in range(len(data)):
         
         journey_record = database.get_table_value_record('journey', 'journey_id', str(data[row][7]))
@@ -166,28 +169,41 @@ def account_page():
     
         booking_table = database.get_table_value_record('booking', 'payment_id', str(data[row][0]))
         
-        booking_data[row] = {
-            'location_from'     :   location_from,
-            'location_to'       :   location_to,
-            'commute_type'      :   booking_table[6],
-            'price'             :   price,
-            'payment_method'    :   payment_method,
-            'payment_date'      :   payment_date,
-            'purchase_status'   :   purchase_status,
-        }
+        if str(purchase_status) == 'Cancelled':
+            cancellation = Cancellations(float(price), currency_type, cancellation_date)
+            
+            cancellation_data[row] = {
+                'payment_id'        :   data[row][0],
+                'purchase_status'   :   purchase_status,
+                'booking_date'      :   booking_table[4],
+                'price'             :   price,
+                'cancellation_fee'  :   cancellation.get_cancellation_fee()
+            }
+            
+        elif str(purchase_status) == 'Approved':
         
-        user_table_data = Booking(booking_data)
-        
-        # Update the current price to the exchanged price before displaying to the page
-        exchanged_price = user_table_data.interate_price_string(float(booking_data[row]['price']), currency_type)
-        booking_data[row]['price'] = exchanged_price
-        
-        # Sets payment_id of each row
-        booking_data[row]['payment_id'] = booking_table[1]
+            booking_data[row] = {
+                'location_from'     :   location_from,
+                'location_to'       :   location_to,
+                'commute_type'      :   booking_table[6],
+                'price'             :   price,
+                'payment_method'    :   payment_method,
+                'payment_date'      :   payment_date,
+                'purchase_status'   :   purchase_status,
+            }
+            
+            user_table_data = Booking(booking_data)
+            
+            # Update the current price to the exchanged price before displaying to the page
+            exchanged_price = user_table_data.interate_price_string(float(booking_data[row]['price']), currency_type)
+            booking_data[row]['price'] = exchanged_price
+            
+            # Sets payment_id of each row
+            booking_data[row]['payment_id'] = booking_table[1]
            
-        # Delete bad booking data that was not removed in the UI
-        if booking_data[row]['payment_id'] == 'n':
-            booking_data.pop(row)
+            # Delete bad booking data that was not removed in the UI
+            if booking_data[row]['payment_id'] == 'n':
+                booking_data.pop(row)
 
     # 2. DELETE OLD RECORDS FROM DATABASE IF RETURN_DATE HAS BEEN SURPASSED
         
@@ -201,7 +217,8 @@ def account_page():
         current_telephone = str(telephone),
         current_email = str(email),
         booking_data = booking_data,
-        currency_type = str(accounts[5])
+        currency_type = str(accounts[5]),
+        cancellation_data = cancellation_data
         )
 
 @views.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')

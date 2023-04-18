@@ -119,7 +119,7 @@
                       <th scope="col">Going From</th>
                       <th scope="col">Going To</th>
                       <th scope="col">Commute Type</th>
-                      <th scope="col">Total Cost</th>
+                      <th scope="col">Price</th>
                       <th scope="col">Payment Method</th>
                       <th scope="col">Payment Date</th>
                       <th scope="col">Status</th>
@@ -174,64 +174,130 @@
                     </div>
                   </div>
                 </form>
-
-                <!-- Update user data form -->
-                <form action="{{url_for('auth.update_user_data')}}" method="post">
-                  <div class="modal" id="updateUserData" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Editing user profile:</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="form-group">
-                            <label for="firstName">First name:</label>
-                            <input type="text" class="form-control" name="first_name" id="firstName" placeholder="Enter your first name" value="{{current_fname | capitalize}}">
-                          </div>
-                          <div class="form-group mt-1">
-                            <label for="lastName">Last name:</label>
-                            <input type="text" class="form-control" name="last_name" id="lastName" placeholder="Enter your last name" value="{{current_lname | capitalize}}">
-                          </div>
-                          <div class="form-group mt-1">
-                            <label for="phoneNumber">Phone Number:</label>
-                            <input type="text" class="form-control" name="phone_number" id="phoneNumber" placeholder="Enter your phone number" value="{{ current_telephone }}">
-                          </div>
-                          <div class="form-group mt-1"> 
-                            <label for="newPassword">Set a new password:</label>
-                            <input type="password" class="form-control" name="new_password" id="newPassword">
-                          </div>
-                          <div class="form-group mt-1"> 
-                            <label for="newPassword">Confirm new password:</label>
-                            <input type="password" class="form-control" name="confirm_new_password" id="confirmNewPassword">
-                          </div>
-
-
-                          <div class="form-group">
-                            <label for="currencyType">Example select</label>
-                            <select class="form-control form-select" name="currency_type">
-                              <option>Pounds</option>
-                              <option>Dollars</option>
-                              <option>Euros</option>
-                            </select>
-                          </div>
-
-                          <!-- Required to make changes to the account -->
-                          <div class="form-group  mt-5">
-                            <label for="firstName">Current Password</label>
-                            <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter existing password" required>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-danger" id="confirmUpdateUserData" name="">Confirm</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
               </div>
           </div>
+
+          <!-- Update user data form -->
+          <form action="{{url_for('auth.update_user_data')}}" method="post">
+            <div class="modal" id="updateUserData" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Editing user profile:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="firstName">First name:</label>
+                      <input type="text" class="form-control" name="first_name" id="firstName" placeholder="Enter your first name" value="{{current_fname | capitalize}}">
+                    </div>
+                    <div class="form-group mt-1">
+                      <label for="lastName">Last name:</label>
+                      <input type="text" class="form-control" name="last_name" id="lastName" placeholder="Enter your last name" value="{{current_lname | capitalize}}">
+                    </div>
+                    <div class="form-group mt-1">
+                      <label for="phoneNumber">Phone Number:</label>
+                      <input type="text" class="form-control" name="phone_number" id="phoneNumber" placeholder="Enter your phone number" value="{{ current_telephone }}">
+                    </div>
+                    <div class="form-group mt-1"> 
+                      <label for="newPassword">Set a new password:</label>
+                      <input type="password" class="form-control" name="new_password" id="newPassword">
+                    </div>
+                    <div class="form-group mt-1"> 
+                      <label for="newPassword">Confirm new password:</label>
+                      <input type="password" class="form-control" name="confirm_new_password" id="confirmNewPassword">
+                    </div>
+
+
+                    <div class="form-group">
+                      <label for="currencyType">Example select</label>
+                      <select class="form-control form-select" name="currency_type">
+                        <option>Pounds</option>
+                        <option>Dollars</option>
+                        <option>Euros</option>
+                      </select>
+                    </div>
+
+                    <!-- Required to make changes to the account -->
+                    <div class="form-group  mt-5">
+                      <label for="firstName">Current Password</label>
+                      <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter existing password" required>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="confirmUpdateUserData" name="">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+        <!-- Bookings Cancellations and refunds -->
+
+        <div class="dashboard-container p-3 mt-3 mb-3">
+          <div class="head">
+            <div class="title w-100">REFUNDED BOOKINGS</div>
+          </div>
+
+          <div class="head-divider"><div class="divider-item"></div></div>
+
+          <div class="table-responsive" style="overflow: auto;">
+            <table class="table table-light table-hover mybookings-table">
+              <!-- <caption>List of users</caption> -->
+              <thead class="mybookings-thead">
+                <tr>
+                  <!-- <th scope="col">Action</th> -->
+                  <th scope="col">Payment ID</th>
+                  <th scope="col">Purchase Status</th>
+                  <th scope="col">Booking Date</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Cancellation Fee</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key, value in cancellation_data.items() %}
+                <tr name="row_index_{{ key }}">
+                    {% for key2 in value %}
+
+                      <td id="{{ key2 }}">{{ cancellation_data[key][key2] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+
+            <!-- Cancellation booking form -->
+            <form action="{{url_for('auth.cancel_booking')}}" method="post">
+              <div class="modal" id="cancelBookingPopUp" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Confirm booking cancellation</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Before cancelling a booking please read the following:</p>
+                      <ul>
+                        <li>Within 30 days of booking date 100% of booking price will be charged.</li>
+                        <li>Booking cancellation before 60 days of booking date does not incur cancellation charges.</li>
+                        <li>Booking cancellation between 30 and 60 days of booking date will incur charges up to 50% of
+                          booking price</li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-danger" id="confirmCancellationBtn" name="">Confirm</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
         </div>
 
         <!-- <script src="{{url_for('static', filename='js/account.js')}}"></script> -->

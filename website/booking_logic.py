@@ -33,8 +33,7 @@ database = Database(database="ht_database", user="root", password="Password1")
 
 class Booking(object):
     """
-    
-    This booking object is designed to handle payment pre-processing and update the user about important information.
+    Base classification for processing booking information and updating user booking info.
 
     Args:
         booking_data (dict): a dictionary of data to process
@@ -181,6 +180,87 @@ class Booking(object):
                     return "$%.2f" % (price*conversion.get(key))
                 if key == 'Euros':
                     return "€%.2f" % (price*conversion.get(key))
+        
+
+class Cancellations(object):
+    """ Base classification for booking cancellations """
+    
+    def __init__(self, price:int | float, currency_type:str, cancellation_date:str):
+        """
+            price (int | float): price of the booking.
+            currency_type (str): the exchangable type.
+            cancellation_date(str(YYYY-MM-DD)): the day of the booking date.
+        """
+         
+        self.__price = price
+        self.__currency_type = currency_type
+        self.__cancellation_date = cancellation_date
+        
+        try: # Catches value error if database table is empty
+            today = str(datetime.now().date()).replace('-','/')
+            cancel_date = str(self.get_cancellation_date()).replace('-', '/')
+            todays_date_datetime = datetime.strptime(today, "%Y/%m/%d")
+            booking_date_datetime = datetime.strptime(cancel_date, "%Y/%m/%d")
+            self.timedelta = booking_date_datetime - todays_date_datetime
+        except ValueError:
+            pass
+    
+    def get_price(self):
+        price = self.__price
+        return price
+        
+    def get_price_string(self) -> str:
+        """
+            Get the price with the numerical value and currency sign
+            #### Acceptable currencies:
+            - Pounds
+            - Dollars
+            - Euros
+        """
+        
+        conversion = { # Currency exchange rate as of 13/04/2023
+            'Pounds': 1.00,
+            'Dollars': 1.25,
+            'Euros': 1.13
+        }
+        
+        for key, _ in conversion.items():
+            if self.__currency_type == key:
+                price = self.get_price()
+                if key == 'Pounds':
+                    return "£%.2f" % (price*conversion.get(key))
+                if key == 'Dollars':
+                    return "$%.2f" % (price*conversion.get(key))
+                if key == 'Euros':
+                    return "€%.2f" % (price*conversion.get(key))
+                
+    def get_cancellation_date(self):
+        return self.__cancellation_date
+                
+    def get_cancellation_fee(self):
+        """ Returns the cancellation fee of the cancelled booking in GBP """
+        
+        cancellation_fee = 0 # Cancellation percentage
+        days = self.timedelta.days
+        
+        price = self.get_price()
+        
+        if (days > 60):
+            return price
+        elif (days <= 60) and (days >= 30):
+            cancellation_fee = 0.5
+            return price*cancellation_fee
+        elif (days < 30):
+            cancellation_fee = 1
+            return price*cancellation_fee
+        
+        
+        
+# cancel = Cancellations(100.87, 'Pounds', '2023-05-19')
+# print(cancel.get_cancellation_fee(), cancel.timedelta.days)
+    
+    
+        
         
 class Statistics(object):
     """ Base object that handles statistics and non-specific information """
