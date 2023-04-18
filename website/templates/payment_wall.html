@@ -32,15 +32,14 @@
                     <div class="payment-buttons">
 
                         <!-- Close payment page -->
-                        <form action="{{url_for('auth.account')}}">
+                        <form action="{{ url_for('auth.account') }}">
                             <button type="submit" class="btn btn-md btn-secondary">Close Page</button>
                         </form>
 
                         <!-- Download report of the payment -->
-                        <!-- <form action="{{url_for('auth.payment_download')}}">
-                            <button type="submit" class="btn btn-md btn-danger">Download</button>
-                        </form> -->
-                        <a class="btn btn-md btn-danger me-3 ms-3" href="{{ url_for('auth.payment_download') }}">Download</a>
+                        <form method="post" action="{{ url_for('auth.payment_download') }}">
+                            <button type="submit" class="btn btn-md btn-danger me-3 ms-3" name="download_payment">Download</button>
+                        </form>
                     </div>
                 </div>
             </div>

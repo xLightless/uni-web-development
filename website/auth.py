@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect, request, session
+from flask import Blueprint, render_template, url_for, redirect, request, session, send_file
 import hashlib
 import time
 import mysql.connector
@@ -370,7 +370,7 @@ def payment():
     """ Handles payments from booking page when the user clicks 'PAYPAL' button """
     # print(preprocessor.get_dict())
     
-    if user_auth.get_key_value('payment_successful') == True: return redirect('auth.account')
+    if user_auth.get_key_value('payment_successful') == True: return redirect(url_for('auth.account'))
     
     payment_collection = {}
     
@@ -476,8 +476,8 @@ def payment():
             # session['payment_success'] = True
             user_auth.set_key('payment_successful', True)
             
-        except mysql.connector.errors.DatabaseError as e:
-            print(e)
+        except mysql.connector.errors.DatabaseError:
+            # print(e)
             return redirect(url_for('auth.account'))
         
     return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = payment_collection['price'])
@@ -508,7 +508,7 @@ def cancel_booking():
             contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
             account_id_2 = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
             if (account_id_1 == account_id_2):
-                database.update_table_record_value('booking_payment', 'purchase_status', 'Cancelled', 'account_id', account_id_1)
+                database.update_table_record_value('booking_payment', 'purchase_status', 'Cancelled', 'payment_id', payment_id)
                 # delete_payment_records(payment_id=payment_id, account_id=account_id_1)
                 print('Deleted records from database, refreshing web page.')
                 
@@ -527,13 +527,18 @@ def cancel_booking():
     # return redirect(url_for('auth.logout'))
     return redirect(url_for('views.account_page'))
 
-@auth.route('/booking/payment/download/')
+@auth.route('/booking/payment/download/', methods=['POST'])
 def payment_download():
-    """ Generate a pdf based on a html document """
+    """ Generate a pdf/txt based on a html document about the payment created """
     
-    template = render_template('export.html')
+    if request.method == 'POST':
+        if 'download_payment' in request.form['download_payment']:
+            pass
     
-    return ''
+    
+    file_path = auth.root_path + '\\generator\\receipt.txt'
+    
+    return send_file(file_path, as_attachment = True)
 
 @auth.route('/account/admin/')
 def admin_portal():
