@@ -76,9 +76,7 @@ class Authenticated(Session):
                         self.set_key('Admin', True)
                     if user_type == 'Standard':
                         self.set_key('Standard', True)
-                    
-                    # print(session.keys())
-                    
+                
                     return redirect(url_for('views.index'))
         except IndexError:
             login_error =  'Invalid email or password used.'
@@ -92,7 +90,6 @@ def login():
     """ Renders the login page """
     
     error = ""
-    # print(session.keys())
     
     # If new session then create a login boolean
     if user_session.has_key('logged_in') == False:
@@ -131,8 +128,7 @@ def form_login(email, password):
 @auth.route('/account/', methods=['GET','POST'])
 def account():
     """ Manages account page authenticated users """
-    # print("AUTH account page")
-    
+
     if user_session.get_key_value('logged_in') == True:
         user_auth.set_key('payment_successful', False)
         
@@ -154,32 +150,6 @@ def account():
         
         return redirect(url_for('views.account_page'))
     return redirect(url_for('auth.login'))
-
-# @auth.route('/account/<username>/<fname>/<lname>/<telephone>/<email>/')
-# def update_account(username, fname, lname, telephone, email):
-#     # print(username, fname, lname, telephone, email)
-    
-#     try:
-#         contacts = database.get_table_value_record('contacts', 'email_address', str(session['email']))
-#         contact_id = contacts[0]
-#         customer_id = contacts[1]
-#         customer = database.get_table_value_record('customers', 'customer_id', str(customer_id))
-#         account = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
-#         account_id = account[0]
-        
-#         # Account table
-#         database.update_table_record('accounts', 'username', username, 'account_id', account_id)
-        
-#         # Contacts table
-#         database.update_table_record('contacts', 'telephone', telephone, 'contact_id', contact_id)
-#         database.update_table_record('contacts', 'email_address', email, 'contact_id', contact_id)
-        
-#         # Customers table
-#         database.update_table_record('customers', 'first_name', fname, 'customer_id', customer_id)
-#         database.update_table_record('customers', 'last_name', lname, 'customer_id', customer_id)
-#     except TypeError:
-#         pass
-#     return redirect(url_for('auth.logout'))
 
 @auth.route('/account/edit-profile/', methods=['POST', 'GET'])
 def update_user_data():
@@ -209,8 +179,6 @@ def update_user_data():
             # Check if passwords match before updating info
             if user_auth.generate_password_hash(str(current_password)) == str(account_password):               
                 try:
-                    # if ((phone_number == 'None') or (phone_number == '') or (phone_number is None)):
-                    #     print(first_name, last_name, phone_number)
                     if ((first_name or last_name or phone_number) != ('' or None or 'None')):
                         
                         print('Updating account information')
@@ -368,11 +336,10 @@ def logout():
 @auth.route('/booking/payment/', methods=['GET', 'POST'])
 def payment():
     """ Handles payments from booking page when the user clicks 'PAYPAL' button """
-    # print(preprocessor.get_dict())
     
     if user_auth.get_key_value('payment_successful') == True: return redirect(url_for('auth.account'))
     
-    payment_collection = {}
+    payment_collection = {} # Temporarily store extra info about the payment that wouldnt be in booking or preprocessor
     
     # Although an existing dictionary of the data we want is available, it is being used before the customer clicks pay.
     if request.method == 'POST':
@@ -387,10 +354,7 @@ def payment():
         accounts = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
         account_id = accounts[0]
         payment_id = database.count_table_rows('booking_payment')+12387
-        # payment_id = payment_row_count + 12387 # Some random constant to scramble PK ID
-        
-        # print(request.form.to_dict())
-        
+
         booking_data = preprocessor.get_dict()
         booking = Booking(booking_data)
         from datetime import datetime
@@ -398,8 +362,19 @@ def payment():
         
         # Get the GBP price without string prefix
         price = str(preprocessor.get_one('total_cost')) # May return None if user goes back to an expired page
+        prefix_price = price[0] # Price string with exchange type
         try:
-            price = float(price[1:])
+            
+            # Reset values back to gbp before putting them into the database so it does not look like we are overcharging the user.
+            if prefix_price == '£':
+                price = float(price[1:])/1
+                
+            elif prefix_price == '$':
+                price = float(price[1:])/1.25
+                
+            elif prefix_price == '€':
+                price = float(price[1:])/1.13
+                
             
         except ValueError:
             print(('Payment unsuccessful. Could not convert the price.'))
@@ -416,17 +391,8 @@ def payment():
         payment_collection['payment_date'] = payment_date
         # payment_collection['price'] = price
         
-        
-        
-        
-        
+        print(preprocessor.get_dict())
         payment_data = Booking(preprocessor.get_dict())
-        payment_collection['price'] = payment_data.get_price_string(preprocessor.get_one('currency_type'))
-        
-        # print(payment_collection['price'])
-
-
-
 
         # Obtain the journey key from database table
         journey_table = database.get_table_records_of_value('journey', 'departure', loc_from)
@@ -477,10 +443,9 @@ def payment():
             user_auth.set_key('payment_successful', True)
             
         except mysql.connector.errors.DatabaseError:
-            # print(e)
             return redirect(url_for('auth.account'))
         
-    return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = payment_collection['price'])
+    return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = preprocessor.get_one('total_cost'))
 
 
 def delete_payment_records(payment_id, account_id):

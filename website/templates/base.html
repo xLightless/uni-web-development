@@ -131,7 +131,7 @@
         {% block admin_portal %}
         <div>
 
-          {% if session['logged_in'] %}
+          {% if session['Admin'] == True %}
             <div class="grid-sidebar-nav-heading small-text">
               <span>ADMINISTRATOR</span>
             </div>

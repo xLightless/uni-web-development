@@ -162,7 +162,11 @@ def account_page():
         journey_record = database.get_table_value_record('journey', 'journey_id', str(data[row][7]))
         location_from = str(journey_record[1])
         location_to =  str(journey_record[3])
+        
+        
         price           = data[row][2]
+        
+        
         payment_method  = data[row][4]
         payment_date    = data[row][5]
         purchase_status = data[row][6]
