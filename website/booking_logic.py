@@ -156,7 +156,7 @@ class Booking(object):
                 if key == 'Euros':
                     return "€%.2f" % (price*conversion.get(key))
                 
-    def interate_price_string(self, data:int | float, currency_type:str) -> str:
+    def interate_price_string(self, price:int | float, currency_type:str) -> str:
         """
             Get the price with the numerical value and currency sign
             #### Acceptable currencies:
@@ -173,7 +173,6 @@ class Booking(object):
         
         for key, _ in conversion.items():
             if currency_type == key:
-                price = data
                 if key == 'Pounds':
                     return "£%.2f" % (price*conversion.get(key))
                 if key == 'Dollars':
@@ -185,7 +184,7 @@ class Booking(object):
 class Cancellations(object):
     """ Base classification for booking cancellations """
     
-    def __init__(self, price:int | float, currency_type:str, cancellation_date:str):
+    def __init__(self, price:int | float, currency_type:str, cancellation_date:str, booking_date:str):
         """
             price (int | float): price of the booking.
             currency_type (str): the exchangable type.
@@ -196,18 +195,20 @@ class Cancellations(object):
         self.__currency_type = currency_type
         self.__cancellation_date = cancellation_date
         
-        try: # Catches value error if database table is empty
-            today = str(datetime.now().date()).replace('-','/')
-            cancel_date = str(self.get_cancellation_date()).replace('-', '/')
-            todays_date_datetime = datetime.strptime(today, "%Y/%m/%d")
-            booking_date_datetime = datetime.strptime(cancel_date, "%Y/%m/%d")
-            self.timedelta = booking_date_datetime - todays_date_datetime
-        except ValueError:
-            pass
+        # may throw error if database empty
+        cancel_date = str(self.get_cancellation_date()).replace('-', '/')
+        todays_date_datetime = datetime.strptime(cancel_date, "%Y/%m/%d")
+        booking_date_datetime = datetime.strptime(booking_date.replace('-', '/'), "%Y/%m/%d")
+        self.timedelta = booking_date_datetime - todays_date_datetime
+        print(self.timedelta.days, "days")
     
     def get_price(self):
-        price = self.__price
-        return price
+        """ Return the price of the object """
+        return self.__price
+    
+    def set_price(self, price:float | int):
+        """ Set a new price for the object """
+        self.__price = price
         
     def get_price_string(self) -> str:
         """
@@ -246,7 +247,7 @@ class Cancellations(object):
         price = self.get_price()
         
         if (days > 60):
-            return price
+            return price*cancellation_fee
         elif (days <= 60) and (days >= 30):
             cancellation_fee = 0.5
             return price*cancellation_fee
@@ -256,8 +257,9 @@ class Cancellations(object):
         
         
         
-# cancel = Cancellations(100.87, 'Pounds', '2023-05-19')
-# print(cancel.get_cancellation_fee(), cancel.timedelta.days)
+# cancel = Cancellations(80, 'Pounds', '2023-05-19', '2023-07-17')
+# print(cancel.get_price())
+# print(cancel.get_cancellation_fee())
     
     
         
@@ -311,7 +313,6 @@ class Preprocessor(object):
     
     
 preprocessor = Preprocessor() # Stores dictionary data seperate from session to use as input for another program or task
-
     
 # data = {
 #     'location_from': 'Bristol',

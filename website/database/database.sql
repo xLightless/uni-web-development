@@ -28,6 +28,7 @@ CREATE TABLE `accounts` (
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `user_type` varchar(45) DEFAULT NULL,
+  `currency_type` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`account_id`),
   KEY `contact_id_idx` (`contact_id`),
   CONSTRAINT `contact_id` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`contact_id`)
@@ -40,7 +41,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (25000,20000,'lightless','70ccd9007338d6d81dd3b6271621b9cf9a97ea00','Admin'),(25001,20001,'username1','70ccd9007338d6d81dd3b6271621b9cf9a97ea00','Standard'),(25002,20002,'SomeUsername1','68e54fe4343438960957a1979449a73d0bc83e2d','Standard');
+INSERT INTO `accounts` VALUES (25000,20000,'lightless','70ccd9007338d6d81dd3b6271621b9cf9a97ea00','Admin','Pounds'),(25001,20001,'lightless','67a258218f68f6b5f7142593cf4b1f7d87622dd8','Standard','Euros'),(25002,20002,'johnsmith2','058010c2776afdf1d7afec578d1330616cf92567','Standard','Pounds'),(25003,20003,'jsmith3','058010c2776afdf1d7afec578d1330616cf92567','Standard','Pounds'),(25004,20004,'User1','039aa1b8d4260122f0eff3fb1b82e1a2a055816e','Standard','Pounds'),(25005,20005,'user2','039aa1b8d4260122f0eff3fb1b82e1a2a055816e','Standard','Pounds');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,7 +72,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (123,NULL,'Economy',NULL,'2022-10-13',NULL,NULL);
+INSERT INTO `booking` VALUES (47204,12387,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47205,12388,'Economy',1,'2023-04-19','2023-04-19','Oneway Trip'),(47206,12389,'Economy',1,'2023-04-19','2023-04-19','Oneway Trip'),(47207,12390,'Economy',3,'2023-04-22','2023-04-22','Oneway Trip'),(47208,12391,'Business',5,'2023-04-27','2023-04-27','Return Trip'),(47209,12392,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47210,12393,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47211,12394,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47212,12395,'Economy',1,'2023-04-20','2023-04-20','Return Trip'),(47213,12396,'Economy',1,'2023-04-21','2023-04-21','Return Trip'),(47214,12397,'Economy',1,'2023-04-27','2023-04-27','Return Trip'),(47215,12398,'Economy',1,'2023-04-20','2023-04-20','Return Trip'),(47216,12399,'Economy',1,'2023-04-19','2023-04-19','Return Trip'),(47217,12400,'Economy',1,'2023-04-19','2023-04-19','Return Trip'),(47218,12401,'Economy',1,'2023-04-19','2023-04-19','Return Trip'),(47219,12402,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47220,12403,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47221,12404,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47222,12405,'Economy',1,'2023-04-27','2023-04-27','Oneway Trip'),(47223,12406,'Economy',1,'2023-04-28','2023-04-28','Oneway Trip'),(47224,12407,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47225,12408,'Economy',1,'2023-05-25','2023-05-25','Return Trip');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,9 +91,12 @@ CREATE TABLE `booking_payment` (
   `payment_method` varchar(15) DEFAULT NULL,
   `payment_date` date DEFAULT NULL,
   `purchase_status` varchar(45) DEFAULT NULL,
+  `journey_id` int DEFAULT NULL,
   PRIMARY KEY (`payment_id`),
   KEY `account_id_idx` (`account_id`),
-  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`)
+  KEY `journey_id_idx` (`journey_id`),
+  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`),
+  CONSTRAINT `journey_id` FOREIGN KEY (`journey_id`) REFERENCES `journey` (`journey_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -102,7 +106,7 @@ CREATE TABLE `booking_payment` (
 
 LOCK TABLES `booking_payment` WRITE;
 /*!40000 ALTER TABLE `booking_payment` DISABLE KEYS */;
-INSERT INTO `booking_payment` VALUES (20115,25000,300.00,'0.20','PayPal',NULL,'Approved'),(20116,25000,300.00,'0.20','PayPal',NULL,'Pending');
+INSERT INTO `booking_payment` VALUES (12387,25001,80.00,'0','PayPal','2023-04-18','Cancelled',2),(12388,25001,80.00,'0','PayPal','2023-04-18','Cancelled',2),(12389,25001,80.00,'0','PayPal','2023-04-18','Cancelled',2),(12390,25001,240.00,'0','PayPal','2023-04-18','Cancelled',2),(12391,25001,1600.00,'0','PayPal','2023-04-18','Cancelled',2),(12392,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12393,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12394,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12395,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12396,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12397,25001,200.00,'0','PayPal','2023-04-18','Cancelled',2),(12398,25001,200.00,'0','PayPal','2023-04-18','Cancelled',2),(12399,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12400,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12401,25001,160.00,'0','PayPal','2023-04-18','Approved',2),(12402,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12403,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12404,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12405,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12406,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12407,25001,160.00,'0','PayPal','2023-04-18','Approved',2),(12408,25001,160.00,'0','PayPal','2023-04-18','Approved',2);
 /*!40000 ALTER TABLE `booking_payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +120,7 @@ DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts` (
   `contact_id` int NOT NULL,
   `customer_id` int DEFAULT NULL,
-  `telephone` varchar(15) DEFAULT NULL,
+  `telephone` varchar(20) DEFAULT NULL,
   `email_address` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contact_id`),
   KEY `customer_id_idx` (`customer_id`),
@@ -130,7 +134,7 @@ CREATE TABLE `contacts` (
 
 LOCK TABLES `contacts` WRITE;
 /*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
-INSERT INTO `contacts` VALUES (20000,10000,'9999999999','lightlessgaming@gmail.com'),(20001,10001,'0999999999','test123@mail.com'),(20002,10002,'07763000000','registertest@123.com');
+INSERT INTO `contacts` VALUES (20000,10000,'7763470820','lightlessgaming@gmail.com'),(20001,10001,'7763470820','reeceturner35@gmail.com'),(20002,10002,'09999999999','johnsmith2@gmail.com'),(20003,10003,'9999999999','johnsmith3@gmail.com'),(20004,10004,'0999999999','user1@user1.com'),(20005,10005,'083838383','user2@x.com');
 /*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +160,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (10000,'Reece','Turner','2000-08-03'),(10001,'Test','User123','1996-12-03'),(10002,'SomeName1','LastName1','2000-08-03');
+INSERT INTO `customers` VALUES (10000,'Reece','Turner','2000-08-03'),(10001,'Reece','Turner','2000-08-03'),(10002,'John','Smith','1999-08-03'),(10003,'John','Smith3','1998-08-02'),(10004,'UserFirst','UserLast','1999-08-03'),(10005,'lana','kane','1999-04-03');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-05  2:15:29
+-- Dump completed on 2023-04-18  4:05:11

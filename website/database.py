@@ -402,6 +402,73 @@ class Database(object):
         self.cursor.fetchall()
         rows = int(self.cursor.rowcount)
         return rows
+    
+    
+    def insert_table_null_record(self, table:str, pk_id:int, values:tuple, null_column:int):
+        """ Insert a new record into the database including a null record. This works by inserting the NULL value between values.
+
+        Args:
+            table (str): Name of the table.
+            pk_id (int): Primary key value to enter into 'table'.
+            values (tuple): Tuple of values to insert into 'table'.
+            null_column (int): The column to insert NULL.
+        """
+        
+        values_list = list(values)
+        sub_list = []
+        
+        # -1 would be the primary key
+        for col in range(0, len(values_list)):
+            # Place NULL item between list items
+            if col == null_column:
+                
+                # Make a sub list and clear entries past null
+                sub_list = values_list[col::]
+                del values_list[col::]
+                
+                # Append NULL and add the old values back
+                values_list.append('NULL')
+                for item in sub_list:
+                    values_list.append(item)
+                
+        
+        # Append null value to value list if not found null_column
+        list_length = len(values_list)
+        if null_column >= list_length:
+            values_list.append('NULL')
+            
+        values = tuple(values_list)
+        str_values = str(values)
+        
+        # Remove quotes from NULL
+        if 'NULL' in str_values:
+            prefix = str_values.find('NULL') - 1
+            suffix = str_values.find('NULL') + 4
+            build_values = ""
+            startswith = str_values.find('(')
+            endswith = str_values.find(')')
+            for char in range(len(str_values)):
+                if (char != prefix) and (char != suffix) and (char != startswith) and (char != endswith):
+                    build_values = build_values + str_values[char]
+        values = build_values
+        
+        # Build NULL query
+        query = "INSERT INTO %s VALUES (%s, %s)" % (table, pk_id, values)
+        self.cursor.execute(query)
+        self.__db.commit()
+        
+        
+# database = Database()
+# database.insert_table_null_record(
+#     'booking_payment',
+#     9999,
+#     values = (
+#         '25000', '10.99', '0', 'PayPal', '2023-04-19', 'Approved', '2'
+#     ),
+#     null_column = 8
+# )
+
+
         
    
 # loc_from = 'Newcastle'

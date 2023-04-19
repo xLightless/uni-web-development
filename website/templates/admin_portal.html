@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block head %}
-<link href="{{url_for('static',filename='css/account.css')}}" rel="stylesheet">
-<link href="{{url_for('static',filename='css/admin_portal.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/account.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='css/admin_portal.css')}}" rel="stylesheet">
+
     <title>Admin Portal</title>
 {% endblock %}
 
@@ -19,7 +20,7 @@
         </div>
 
         <!-- Financial stats -->
-        <div class="container-fluid w-100 admin-portal-stats-grid stats-seperator">
+        <div class="container-fluid w-100 admin-portal-stats-grid stats-seperator p-0">
             <div class="admin-portal-stats w-100">
                 <div class="total-sales">
                     <div class="admin-stat-totals">
@@ -48,7 +49,7 @@
                 <div class="total-bookings-refunded">
                     <div class="admin-stat-totals">
                         <div class="stat-heading">
-                            <p class="stat-heading-text">Refunds</p>
+                            <p class="stat-heading-text">Cancelled Bookings</p>
                         </div>
                         <div class="stat-body">
                             <div class="stat-body-flex">
@@ -65,7 +66,7 @@
     <section class="admin-portal-insights p-3">
 
         
-        <div class="container-fluid w-100 h-100 admin-portal-stats-grid">
+        <div class="container-fluid w-100 h-100 admin-portal-stats-grid p-0">
             <div class="container-fluid w-100 heading">
                 <h5 class="heading-text">Administrative Insights</h5>
             </div>
@@ -88,8 +89,93 @@
         </div>
     </section>
 
-    <!-- <section></section> -->
 
+    <section class="dashboard p-3">
+
+        <div class="container-fluid w-100 h-100 p-0 admin-portal-stats-grid">
+            <div class="container-fluid w-100 heading">
+                <h5 class="heading-text">Customise Journeys</h5>
+            </div>
+
+            <!-- Active journeys table -->
+            <div class="dashboard-container p-3 mb-3">
+                <div class="head">
+                    <div class="title w-100 p-0">ACTIVE JOURNEYS</div>
+                </div>
+        
+                <div class="head-divider"><div class="divider-item"></div></div>
+
+                <div class="table-responsive active-journeys">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Journey ID</th>
+                                <th scope="col">Departure Location</th>
+                                <th scope="col">Return Location</th>
+                                <th scope="col">Depart Time</th>
+                                <th scope="col">Return Time</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for key, value in journey_data.items() %}
+                            <tr>
+                                {% for key2 in value %}
+            
+                                  <td>{{ journey_data[key][key2] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add/Update or Remove Journeys -->
+            <div class="dashboard-container p-3 mt-3 mb-3">
+                <div class="head">
+                    <div class="title w-100 p-0">MODIFY ACTIVE JOURNEYS</div>
+                </div>
+        
+                <div class="head-divider"><div class="divider-item"></div></div>
+
+                <form action="{{ url_for('auth.admin_portal_journeys') }}" method="post">
+                    <div class="form-group mt-1">
+                        <label for="departure-location">Departure Location</label>
+                        <input type="text" class="form-control" name="departure-location">
+                    </div>
+
+                    <div class="form-group mt-1">
+                        <label for="departure-time">Departure Time</label>
+                        <input type="time" class="form-control" name="departure-time" required>
+                    </div>
+
+                    <div class="form-group mt-1">
+                        <label for="return-location">Return Location</label>
+                        <input type="text" class="form-control" name="return-location" required>
+                    </div>
+
+                    <div class="form-group mt-1">
+                        <label for="return-time">Return Time</label>
+                        <input type="time" class="form-control" name="return-time" required>
+                    </div>
+
+                    <div class="form-group mt-1 journey-submits">
+                        <ul class="admin-portal-journey-list">
+                            <li><p class="m-0"><span class="fst-italic">Add Journey</span> creates a new journey of the entered values.</p></li>
+                            <li><p class="m-0"><span class="fst-italic">Update Journey</span> changes the current time state of existing departs and returns.</p></li>
+                            <li><p class="m-0"><span class="fst-italic">Remove Journey</span> deletes a single travel route.</p></li>
+                        </ul>
+                        <button type="submit" name="add-journey" class="btn btn-success m-1 journey-submit-btn">Add Journey</button>
+                        <button type="submit" name="update-journey" class="btn btn-warning m-1 journey-submit-btn">Update Journey</button>
+                        <button type="submit" name="remove-journey" class="btn btn-danger m-1 journey-submit-btn">Remove Journey</button>
+                    </div>
+                </form>
+            </div>
+
+
+    </section>
 
     <script src="{{url_for('static',filename='js/admin_portal.js')}}"></script>
 {% endblock%}

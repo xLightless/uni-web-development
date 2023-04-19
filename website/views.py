@@ -13,7 +13,7 @@ database = Database(database="ht_database", user="root", password="Password1")
 @views.route('/')
 def index():
     """ Renders the index template and its search filter options """
-    print(session)
+    # print(session)
     search_items = database.get_table_column('locations', 'location')[1]
     search_filter_items = []
     for item in search_items:
@@ -39,7 +39,6 @@ def form_index_search():
         seat_class_type     = request.form.get('seat-class-type'),
         date_from           = request.form.get('swing-from-datepicker'),
         date_to             = request.form.get('swing-to-datepicker')
-        # print("SEARCH POST TEST")
         
         return_trip = str(radio_return).replace(',','').replace('(','').replace(')','').replace("'", '')
         oneway_trip = str(radio_oneway).replace(',','').replace('(','').replace(')','').replace("'", '')            
@@ -107,7 +106,6 @@ def form_index_search():
                     # total_cost = search_results['total_cost']
                     
                     preprocessor.set_dict(search_results)
-                    # print(search_results)
                     
                     return render_template('search.html', search_items = search_results)
                 
@@ -155,36 +153,27 @@ def account_page():
     booking_data = {}
     cancellation_data = {}
     currency_type = str(accounts[5])
-    cancellation_date = str(datetime.now().date()).replace('-','/')
+    
+    
+    # Set a cancellation-date in database when cancellation has been created so that is no bug    
+
+    # cancellation_date = str(datetime.now().date()).replace('-','/') # Date of cancellation
     
     for row in range(len(data)):
         
         journey_record = database.get_table_value_record('journey', 'journey_id', str(data[row][7]))
         location_from = str(journey_record[1])
         location_to =  str(journey_record[3])
-        
-        
         price           = data[row][2]
-        
-        
         payment_method  = data[row][4]
         payment_date    = data[row][5]
         purchase_status = data[row][6]
     
+    
+    
         booking_table = database.get_table_value_record('booking', 'payment_id', str(data[row][0]))
         
-        if str(purchase_status) == 'Cancelled':
-            cancellation = Cancellations(float(price), currency_type, cancellation_date)
-            
-            cancellation_data[row] = {
-                'payment_id'        :   data[row][0],
-                'purchase_status'   :   purchase_status,
-                'booking_date'      :   booking_table[4],
-                'price'             :   price,
-                'cancellation_fee'  :   cancellation.get_cancellation_fee()
-            }
-            
-        elif str(purchase_status) == 'Approved':
+        if str(purchase_status) == 'Approved':
         
             booking_data[row] = {
                 'location_from'     :   location_from,
@@ -199,7 +188,8 @@ def account_page():
             user_table_data = Booking(booking_data)
             
             # Update the current price to the exchanged price before displaying to the page
-            exchanged_price = user_table_data.interate_price_string(float(booking_data[row]['price']), currency_type)
+            price = float(booking_data[row]['price'])
+            exchanged_price = user_table_data.interate_price_string(price, currency_type)
             booking_data[row]['price'] = exchanged_price
             
             # Sets payment_id of each row
@@ -208,6 +198,42 @@ def account_page():
             # Delete bad booking data that was not removed in the UI
             if booking_data[row]['payment_id'] == 'n':
                 booking_data.pop(row)
+        
+        elif str(purchase_status) == 'Cancelled':
+            
+            # Go to next iteration if cancellation_date is NULL
+            if data[row][8] is not None:
+                cancellation_date = data[row][8]
+            else:
+                continue
+            
+            booking_date = str(booking_table[4]).replace('-', '/')
+            cancellation = Cancellations(float(price), currency_type, cancellation_date, booking_date)
+            cancel_fee = cancellation.get_cancellation_fee()
+            
+            cancellation_data[row] = {
+                'payment_id'        :   data[row][0],
+                'purchase_status'   :   purchase_status,
+                'booking_date'      :   booking_table[4]
+            }
+            
+            # Convert the price and cancellation fee
+            if (currency_type == 'Euros'):
+                currency_type_symbol = '€'
+                cancellation_data[row]['price'] = "%s" % (cancellation.get_price_string())
+                cancellation_data[row]['cancellation_fee'] = "%s%.2f" % (currency_type_symbol, cancel_fee * 1.13)
+            
+            elif (currency_type == 'Dollars'):
+                currency_type_symbol = '$'
+                cancellation_data[row]['price'] = "%s" % (cancellation.get_price_string())
+                cancellation_data[row]['cancellation_fee'] = "%s%.2f" % (currency_type_symbol, cancel_fee * 1.25)
+            
+            else:
+                currency_type_symbol = '£'
+                cancellation_data[row]['price'] = "%s" % (cancellation.get_price_string())
+                cancellation_data[row]['cancellation_fee'] = "%s%.2f" % (currency_type_symbol, cancel_fee * 1)
+
+        cancellation_data[row]['cancellation_date'] = cancellation_date
 
     # 2. DELETE OLD RECORDS FROM DATABASE IF RETURN_DATE HAS BEEN SURPASSED
         

@@ -72,12 +72,16 @@ section.admin-portal-head {
     filter: drop-shadow(0 0 0.55rem black);
 }
 
+.admin-portal-stats > div > div:hover {
+    background-color: white;
+}
+
 
 .admin-stat-totals {
     width: 100%;
     height: 200px;
-    border-radius: 16px;
-    background-color: #fff;
+    /* border-radius: 16px; */
+    background-color: white;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 8px;
@@ -137,18 +141,25 @@ section.admin-portal-insights {
 .admin-insights {
     width: 100%;
     height: 100%;
-    background-color: gainsboro;
-    border-radius: 16px;
+    background-color: white;
+    cursor: pointer;
 }
 
 .admin-insights:hover {
-    background-color: #fff;
+    border-radius: 32px;
+    transition-duration: 500ms;
+}
+
+.admin-insights:not(:hover) {
+    transition-duration: 500ms;
 }
 
 .heading {
     width: 100%;
-    height: 64px;
+    /* height: 64px; */
+    height: fit-content;
     max-width: 1600px;
+    margin-bottom: 16px;
 }
 
 .heading-text {
@@ -191,6 +202,33 @@ section.admin-portal-insights {
     margin: 0;
 }
 
+[class*="total-"]:hover {
+    transform: scale(1.03) translateY(-20px);
+    transition-duration: 500ms;
+}
+
+[class*="total-"]:not(:hover) {
+    transition-duration: 500ms;
+}
+
+
+.journeys {
+    width: 100%;
+    height: 75%;
+    background-color: #fff;
+    display: block;
+    max-width: 1600px;
+}
+
+.active-journeys {
+    overflow-y: auto;
+    max-height: 304px;
+}
+
+.admin-portal-journey-list {
+    width: 100%;
+    height: 100%;
+}
 
 
 @media only screen and (max-width: 768px) {
@@ -217,9 +255,12 @@ section.admin-portal-insights {
         "sales-of-journey"
         "top-customers"
         "permissions";
-        margin-top: 86px;
       }
-      
+
+      .admin-portal-insight-stats::-webkit-scrollbar {
+        display: none;
+      }
+
 
       /* .admin-portal-insight-stats > div {
         width: 437.5px;
@@ -233,11 +274,32 @@ section.admin-portal-insights {
       .admin-portal-stats > div {
         max-height: 25px;
       }
+      
+    [class*="total-"]:hover {
+        transform: translateY(-20px);
+        transition-duration: 500ms;
+    }
+
+    .journey-submits {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .journey-submit-btn {
+        width: 200px!important;
+    }
+
+      /* .admin-portal-stats > div > div:hover {
+        border-top-right-radius: 16px;
+      } */
+
+      /* .admin-portal-stats > div > div:not(:hover) {
+        border-top-right-radius: 24px;
+      } */
 
 
-      .admin-portal-stats > div > div:hover {
-        background-color: blue;
-      }
 }
 
 /* @media only screen and (max-width: 768px) {

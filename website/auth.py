@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, sessio
 import hashlib
 import time
 import mysql.connector
+from datetime import datetime
 
 from website.database import Database
 from website.booking_logic import Booking, preprocessor, Statistics
@@ -130,7 +131,7 @@ def account():
     """ Manages account page authenticated users """
 
     if user_session.get_key_value('logged_in') == True:
-        user_auth.set_key('payment_successful', False)
+        # user_auth.set_key('payment_successful', False)
         
         # if request.method == 'POST':
         #     username_ = request.form['username']
@@ -337,7 +338,7 @@ def logout():
 def payment():
     """ Handles payments from booking page when the user clicks 'PAYPAL' button """
     
-    if user_auth.get_key_value('payment_successful') == True: return redirect(url_for('auth.account'))
+    # if user_auth.get_key_value('payment_successful') == True: return redirect(url_for('auth.account'))
     
     payment_collection = {} # Temporarily store extra info about the payment that wouldnt be in booking or preprocessor
     
@@ -353,6 +354,7 @@ def payment():
         contact_id = database.get_table_value_record('contacts', 'email_address', str(session['email']))[0]
         accounts = database.get_table_value_record('accounts', 'contact_id', str(contact_id))
         account_id = accounts[0]
+        
         payment_id = database.count_table_rows('booking_payment')+12387
 
         booking_data = preprocessor.get_dict()
@@ -376,9 +378,10 @@ def payment():
                 price = float(price[1:])/1.13
                 
             
-        except ValueError:
-            print(('Payment unsuccessful. Could not convert the price.'))
-            user_auth.set_key('payment_successful', False)
+        except ValueError as e:
+            print(e)
+            print('Payment unsuccessful. Could not convert the price.')
+            # user_auth.set_key('payment_successful', False)
             return redirect(url_for('views.index'))
         
         discount = str(booking_data.get('discount'))
@@ -403,24 +406,25 @@ def payment():
             jloc2 = journey_table[row][3]
             
             if (jloc1 == loc_from) and (jloc2 == loc_to):
-                journey_id = int(journey_table[row][0]) # Convert to INT since the Foreign key is integer
-            break
+                journey_id_int = int(journey_table[row][0]) # Convert to INT since the Foreign key is integer
+                break
+        
+        journey_id = journey_id_int
         
         try:
-            database.set_table_record(
+            database.insert_table_null_record(
                 'booking_payment',
                 payment_id,
                 values=(
                     str(account_id), # account_id
                     str(price), # price
                     str(discount), # discount_percentage
-                    'PayPal', # payment_method ### May need to update this later to include debit card?
+                    'PayPal', # Payment Type
                     str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
-                    # str(['Approved' if str(booking_data.get('date_from')) == str(payment_date) else 'Pending']) # If purchase day is the same as day of travel then pay is approved else pending
-                    'Approved',
+                    'Approved', # Purchase Status
                     str(journey_id)
-                    
-                )
+                ),
+                null_column = 8 # (NULL) No cancellation date created yet so the value has to be null
             )
             
             booking_record = database.get_table_value_record('booking_payment', 'payment_id', str(payment_id))
@@ -440,9 +444,10 @@ def payment():
             )
             
             # session['payment_success'] = True
-            user_auth.set_key('payment_successful', True)
+            # user_auth.set_key('payment_successful', True)
             
-        except mysql.connector.errors.DatabaseError:
+        except mysql.connector.errors.DatabaseError as e:
+            print(e)
             return redirect(url_for('auth.account'))
         
     return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = preprocessor.get_one('total_cost'))
@@ -472,8 +477,12 @@ def cancel_booking():
             account_id_1 = database.get_table_value_record('booking_payment', 'payment_id', payment_id)[1]
             contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
             account_id_2 = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[0]
+            
+            cancellation_date = str(datetime.now().date()).replace('-','/')
+            
             if (account_id_1 == account_id_2):
                 database.update_table_record_value('booking_payment', 'purchase_status', 'Cancelled', 'payment_id', payment_id)
+                database.update_table_record_value('booking_payment', 'cancellation_date', cancellation_date, 'payment_id', payment_id)
                 # delete_payment_records(payment_id=payment_id, account_id=account_id_1)
                 print('Deleted records from database, refreshing web page.')
                 
@@ -496,11 +505,6 @@ def cancel_booking():
 def payment_download():
     """ Generate a pdf/txt based on a html document about the payment created """
     
-    if request.method == 'POST':
-        if 'download_payment' in request.form['download_payment']:
-            pass
-    
-    
     file_path = auth.root_path + '\\generator\\receipt.txt'
     
     return send_file(file_path, as_attachment = True)
@@ -508,7 +512,6 @@ def payment_download():
 @auth.route('/account/admin/')
 def admin_portal():
     
-    data = {}
     total_sales:float = 0
     
     booking_payment_price = database.get_table_column('booking_payment', 'price')
@@ -516,15 +519,102 @@ def admin_portal():
     
     contact_id = database.get_table_value_record('contacts', 'email_address', str(session.get('email')))[0]
     user_preferred_currency = database.get_table_value_record('accounts', 'contact_id', str(contact_id))[5] # change to 4 if you remove username
-    total_refunded = database.count_permissible_rows('booking_payment', 'purchase_status', 'Refunded')
+    total_refunded = database.count_permissible_rows('booking_payment', 'purchase_status', 'Cancelled')
     
     # Get total sales from price
     for price in booking_payment_price[1]:
         total_sales = float(total_sales) + float(price[0])
-        
-    total_sales = stats.convert_price(total_sales, str(user_preferred_currency))
     
-    return render_template('admin_portal.html', total_sales = total_sales, created_bookings = created_bookings, total_refunded = total_refunded)
+    # If not dollars or euros then it must be GBP (pounds)
+    if (user_preferred_currency == 'Dollars') or (user_preferred_currency == 'Euros'):
+        total_sales = stats.convert_price(total_sales, str(user_preferred_currency))
+    else:
+        total_sales = stats.convert_price(total_sales, 'Pounds')
+        
+     
+    # Journey table data
+    journey_data = {}
+    
+    jdata = database.get_table('journey')
+    
+    for row in range(len(jdata)): 
+        journey_data[row] = {
+            'journey_id'        : jdata[row][0],
+            'departure'         : jdata[row][1],
+            'deparature_time'   : jdata[row][2],
+            'return'            :  jdata[row][3],
+            'return_time'       : jdata[row][4]
+        }
+        
+    
+    return render_template('admin_portal.html', total_sales = total_sales, created_bookings = created_bookings, total_refunded = total_refunded, journey_data = journey_data)
+
+@auth.route('/account/admin/edit-journeys/', methods=['POST', 'GET'])
+def admin_portal_journeys():
+    """ Handle post request for forms in admin portal """
+    
+    if request.method == 'POST':
+        
+        # Check if the user clicked add, update or remove journey buttons
+        response = request.form.to_dict()
+        departure = str(response['departure-location']).capitalize()
+        returning = str(response['return-location']).capitalize()
+        
+        # Check if departure_location and return_location not/are in the existing table
+        journey_table = database.get_table_records_of_value('journey', 'departure', str(response['departure-location']))
+        new_journey_id = database.count_table_rows('journey')+1
+        
+        if (departure.isalpha() == True) and (returning.isalpha() == True):
+            for row in range(len(journey_table)):
+                
+                # for col in journey_table[row]:
+                journey_id = journey_table[row][0]
+                departure_loc = journey_table[row][1]
+                departure_time = journey_table[row][2]
+                returning_loc = journey_table[row][3]
+                returning_time = journey_table[row][4]
+                
+                
+                if 'add-journey' in request.form.to_dict().keys():
+                    print("Adding journey to the database.")
+                    database.set_table_record(
+                        'journey',
+                        new_journey_id,
+                        values=(
+                            str(departure),
+                            str(departure_time),
+                            str(returning),
+                            str(returning_time)
+                        ))
+                    
+                elif 'update-journey' in request.form.to_dict().keys():
+                    if (departure == departure_loc) and (returning == returning_loc):
+                        database.update_table_record_value(
+                            'journey',
+                            'departure_time',
+                            departure_time,
+                            'journey_id',
+                            str(journey_id)
+                        )
+                        
+                        database.update_table_record_value(
+                            'journey',
+                            'returning',
+                            returning,
+                            'journey_id',
+                            str(journey_id)
+                        )
+                
+                # elif 'remove-journey' in response:
+                #     pass
+                
+                # else:
+                #     print('Could not handle your post request for admin portal.')
+                #     break
+        
+    
+    return redirect(url_for('auth.admin_portal'))
+
 
 @auth.route('/account/admin/permissions/')
 def admin_permissions():
