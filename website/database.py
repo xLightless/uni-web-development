@@ -327,6 +327,38 @@ class Database(object):
         self.cursor.execute(query)
         self.__db.commit()
         
+    def update_table_record_values(self, table:str, column_names:tuple, values:tuple, pk_column_name:str, pk_id:int):
+        """ Update the entire row of a record obtained by primary key id
+        
+        Args:
+            table (str): Name of the table.
+            column_name (str): The column name in 'table'.
+            set_value (_type_): Updates the current value to a new value.
+            pk_column_name (str): Primary key column name.
+            pk_id (int): Primary key column name ID.
+        """
+        
+        
+        build_values = ""
+        build_list = list(values)
+        build_columns = list(column_names)
+        
+        # print(build_columns)
+        # print(build_list)
+        
+        for i in range(len(build_columns)):
+            if i != len(build_columns)-1:
+              build_values = build_values + build_columns[i] + ' = ' + "'" + build_list[i] + "'" + ', '
+            else:
+                build_values = build_values + build_columns[i] + ' = ' + "'" + build_list[i] + "'"
+
+        query = "UPDATE %s SET %s WHERE %s = '%s'" % (table, build_values, pk_column_name, pk_id)
+        
+        # print(query)
+        self.cursor.execute(query)
+        self.__db.commit()
+        
+        
         
     def get_table_records_of_key(self, table:str, key_column_name:str, key:int, dataframe:bool = False):
         """ Obtains multiple records of the same column_name value e.g. if KEY = 25000 then return all records of 25000."""
@@ -466,6 +498,26 @@ class Database(object):
 #         '25000', '10.99', '0', 'PayPal', '2023-04-19', 'Approved', '2'
 #     ),
 #     null_column = 8
+# )
+
+# UPDATE journey SET departure_location = 'Bristol', departure_time = '05:00', return_location = 'Leeds', return_time = '06:00' WHERE journey_id = '22'
+
+# database.update_table_record_values(
+#     'journey',
+#     column_names = (
+#         'departure_location',
+#         'departure_time',
+#         'return_location',
+#         'return_time'
+#     ),
+#     values = (
+#         'Bristol',
+#         '16:00',
+#         'Leeds',
+#         '17:00'
+#     ),
+#     pk_column_name = 'journey_id',
+#     pk_id = 22
 # )
 
 

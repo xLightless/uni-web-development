@@ -72,7 +72,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (47204,12387,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47205,12388,'Economy',1,'2023-04-19','2023-04-19','Oneway Trip'),(47206,12389,'Economy',1,'2023-04-19','2023-04-19','Oneway Trip'),(47207,12390,'Economy',3,'2023-04-22','2023-04-22','Oneway Trip'),(47208,12391,'Business',5,'2023-04-27','2023-04-27','Return Trip'),(47209,12392,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47210,12393,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47211,12394,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47212,12395,'Economy',1,'2023-04-20','2023-04-20','Return Trip'),(47213,12396,'Economy',1,'2023-04-21','2023-04-21','Return Trip'),(47214,12397,'Economy',1,'2023-04-27','2023-04-27','Return Trip'),(47215,12398,'Economy',1,'2023-04-20','2023-04-20','Return Trip'),(47216,12399,'Economy',1,'2023-04-19','2023-04-19','Return Trip'),(47217,12400,'Economy',1,'2023-04-19','2023-04-19','Return Trip'),(47218,12401,'Economy',1,'2023-04-19','2023-04-19','Return Trip'),(47219,12402,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47220,12403,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47221,12404,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47222,12405,'Economy',1,'2023-04-27','2023-04-27','Oneway Trip'),(47223,12406,'Economy',1,'2023-04-28','2023-04-28','Oneway Trip'),(47224,12407,'Economy',1,'2023-04-26','2023-04-26','Return Trip'),(47225,12408,'Economy',1,'2023-05-25','2023-05-25','Return Trip');
+INSERT INTO `booking` VALUES (47204,12387,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47205,12388,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47206,12389,'Economy',1,'2023-07-17','2023-07-17','Oneway Trip'),(47207,12390,'Economy',1,'2023-07-14','2023-07-14','Oneway Trip'),(47208,12391,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47209,12392,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47210,12393,'Economy',1,'2023-07-13','2023-07-13','Oneway Trip');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,6 +92,7 @@ CREATE TABLE `booking_payment` (
   `payment_date` date DEFAULT NULL,
   `purchase_status` varchar(45) DEFAULT NULL,
   `journey_id` int DEFAULT NULL,
+  `cancellation_date` date DEFAULT NULL,
   PRIMARY KEY (`payment_id`),
   KEY `account_id_idx` (`account_id`),
   KEY `journey_id_idx` (`journey_id`),
@@ -106,7 +107,7 @@ CREATE TABLE `booking_payment` (
 
 LOCK TABLES `booking_payment` WRITE;
 /*!40000 ALTER TABLE `booking_payment` DISABLE KEYS */;
-INSERT INTO `booking_payment` VALUES (12387,25001,80.00,'0','PayPal','2023-04-18','Cancelled',2),(12388,25001,80.00,'0','PayPal','2023-04-18','Cancelled',2),(12389,25001,80.00,'0','PayPal','2023-04-18','Cancelled',2),(12390,25001,240.00,'0','PayPal','2023-04-18','Cancelled',2),(12391,25001,1600.00,'0','PayPal','2023-04-18','Cancelled',2),(12392,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12393,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12394,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12395,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12396,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12397,25001,200.00,'0','PayPal','2023-04-18','Cancelled',2),(12398,25001,200.00,'0','PayPal','2023-04-18','Cancelled',2),(12399,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12400,25001,160.00,'0','PayPal','2023-04-18','Cancelled',2),(12401,25001,160.00,'0','PayPal','2023-04-18','Approved',2),(12402,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12403,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12404,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12405,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12406,25001,80.00,'0','PayPal','2023-04-18','Approved',2),(12407,25001,160.00,'0','PayPal','2023-04-18','Approved',2),(12408,25001,160.00,'0','PayPal','2023-04-18','Approved',2);
+INSERT INTO `booking_payment` VALUES (12387,25000,80.00,'0','PayPal','2023-04-19','Cancelled',2,NULL),(12388,25000,80.00,'0','PayPal','2023-04-19','Cancelled',2,NULL),(12389,25000,64.00,'0.2','PayPal','2023-04-19','Cancelled',2,NULL),(12390,25000,64.00,'0.2','PayPal','2023-04-19','Cancelled',2,NULL),(12391,25000,80.00,'0','PayPal','2023-04-19','Cancelled',2,NULL),(12392,25000,75.00,'0','PayPal','2023-04-19','Cancelled',1,'2023-04-19'),(12393,25000,60.00,'0.2','PayPal','2023-04-19','Cancelled',1,'2023-04-19');
 /*!40000 ALTER TABLE `booking_payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,9 +174,9 @@ DROP TABLE IF EXISTS `journey`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `journey` (
   `journey_id` int NOT NULL,
-  `departure` varchar(45) DEFAULT NULL,
+  `departure_location` varchar(45) DEFAULT NULL,
   `departure_time` time DEFAULT NULL,
-  `return` varchar(45) DEFAULT NULL,
+  `return_location` varchar(45) DEFAULT NULL,
   `return_time` time DEFAULT NULL,
   PRIMARY KEY (`journey_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -224,4 +225,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-18  4:05:11
+-- Dump completed on 2023-04-19  6:30:25

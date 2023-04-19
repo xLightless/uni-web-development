@@ -559,10 +559,14 @@ def admin_portal_journeys():
         response = request.form.to_dict()
         departure = str(response['departure-location']).capitalize()
         returning = str(response['return-location']).capitalize()
+        departure_response = str(response['departure-time'])
+        returning_response = str(response['return-time'])
         
         # Check if departure_location and return_location not/are in the existing table
-        journey_table = database.get_table_records_of_value('journey', 'departure', str(response['departure-location']))
+        journey_table = database.get_table_records_of_value('journey', 'departure_location', str(response['departure-location']))
         new_journey_id = database.count_table_rows('journey')+1
+
+        # print(request.form.to_dict().keys())
         
         if (departure.isalpha() == True) and (returning.isalpha() == True):
             for row in range(len(journey_table)):
@@ -576,42 +580,47 @@ def admin_portal_journeys():
                 
                 
                 if 'add-journey' in request.form.to_dict().keys():
-                    print("Adding journey to the database.")
                     database.set_table_record(
                         'journey',
                         new_journey_id,
                         values=(
                             str(departure),
-                            str(departure_time),
+                            str(departure_response),
                             str(returning),
-                            str(returning_time)
+                            str(returning_response)
                         ))
+                    
+                    print(f"Added new route to database:\n - Going From: {departure} at {departure_response},\n - Going To: {returning} at {returning_response}.")
+                    break
                     
                 elif 'update-journey' in request.form.to_dict().keys():
                     if (departure == departure_loc) and (returning == returning_loc):
-                        database.update_table_record_value(
-                            'journey',
-                            'departure_time',
-                            departure_time,
-                            'journey_id',
-                            str(journey_id)
-                        )
                         
-                        database.update_table_record_value(
+                        database.update_table_record_values(
                             'journey',
-                            'returning',
-                            returning,
-                            'journey_id',
-                            str(journey_id)
+                            column_names = (
+                                'departure_location',
+                                'departure_time',
+                                'return_location',
+                                'return_time'
+                            ),
+                            values = (
+                                str(departure_loc),
+                                str(departure_response),
+                                str(returning_loc),
+                                str(returning_response)
+                            ),
+                            pk_column_name = str('journey_id'),
+                            pk_id = int(journey_id)
                         )
+                        print(f"Updated a route in the database:\n - Going From: {departure_loc} at {departure_response},\n - Going To:   {returning_loc} at {returning_response}.")
                 
-                # elif 'remove-journey' in response:
-                #     pass
-                
-                # else:
-                #     print('Could not handle your post request for admin portal.')
-                #     break
-        
+                elif 'remove-journey' in response:
+                    if (departure == departure_loc) and (returning == returning_loc):
+                        database.del_table_record('journey', 'journey_id', int(journey_id))
+                        
+                        print(f"Deleted route in the database:\n - Going From: {departure_loc} at {departure_response},\n - Going To:   {returning_loc} at {returning_response}.")
+                        # I could add time based deletion but its not a necessary requirement.
     
     return redirect(url_for('auth.admin_portal'))
 
