@@ -559,26 +559,18 @@ def admin_portal():
         
         strtime = datetime.strptime(col_date, "%Y-%m-%d")
         numerical_month = strtime.month
-        
-        # print(col_date, col_price)
-        
-        # # if month[int] in months
-        # for _ in range(len(data)):
-        #     if months_of_year[numerical_month] in months_of_year:
-        #         total_price = total_price + col_price
-        #         month = months_of_year[numerical_month]
-        
-        #         # Add total_price to monthly sales
-        #         monthly_sales[month] = total_price
-        
-        
+
         for month in months_of_year:
             if month == months_of_year[numerical_month]:
                 total_price = total_price + col_price
                 month = months_of_year[numerical_month]
         
-                # # Add total_price to monthly sales
-                monthly_sales[month] = total_price
+                # Add total_price to monthly sales
+                # monthly_sales[month] = total_price
+                monthly_sales[month] = stats.convert_price(float(total_price), str(user_preferred_currency))[1:] # Get the converted sale price - prefix char
+                
+                # Add 100 percent refunds to monthly sales
+                
                 
     
     return render_template(

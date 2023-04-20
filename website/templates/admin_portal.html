@@ -78,15 +78,11 @@
 
                         <script>
                             var xMonthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                            
                             let salesData = '{{ monthly_sales | tojson }}';
                             salesData = JSON.parse(salesData); // Parse string to dict object
-                            
                             salesMonths = Object.keys(salesData); 
-                            console.log(salesData);
-                            // console.log(salesMonths);
-
                             let monthlySalesData = []
+                            
                             for (let month in xMonthsOfYear) {
                                 calenderMonth = xMonthsOfYear[month];
 
@@ -101,13 +97,7 @@
                                         monthlySalesData[calenderMonth] = salesData[calenderMonth];
                                     }
                                 }
-
                             }
-
-
-                            //for (let month in xMonthsOfYear) {
-                            //    console.log(monthlySalesData);
-                            //}
 
                             var yMonthlySalesData = []
                             const monthlySales = Object.values(monthlySalesData).forEach(val => {
@@ -115,14 +105,10 @@
                                 yMonthlySalesData.push(val);
                             });
 
-
-                            
-                            //var yMonthlySalesData = [10, 20, 30, 55, 80, 11, 39, 99, 999, 1233, 30, 250];
-                            
                             var data = [{
                                 x:xMonthsOfYear,
                                 y:yMonthlySalesData,
-                                type:"bar"
+                                type:"line"
                             }];
                             
                             var layout = {title:"Net Sales Per Month"};
