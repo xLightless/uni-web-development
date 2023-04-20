@@ -72,7 +72,6 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (47204,12387,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47205,12388,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47206,12389,'Economy',1,'2023-07-17','2023-07-17','Oneway Trip'),(47207,12390,'Economy',1,'2023-07-14','2023-07-14','Oneway Trip'),(47208,12391,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47209,12392,'Economy',1,'2023-04-20','2023-04-20','Oneway Trip'),(47210,12393,'Economy',1,'2023-07-13','2023-07-13','Oneway Trip');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +106,6 @@ CREATE TABLE `booking_payment` (
 
 LOCK TABLES `booking_payment` WRITE;
 /*!40000 ALTER TABLE `booking_payment` DISABLE KEYS */;
-INSERT INTO `booking_payment` VALUES (12387,25000,80.00,'0','PayPal','2023-04-19','Cancelled',2,NULL),(12388,25000,80.00,'0','PayPal','2023-04-19','Cancelled',2,NULL),(12389,25000,64.00,'0.2','PayPal','2023-04-19','Cancelled',2,NULL),(12390,25000,64.00,'0.2','PayPal','2023-04-19','Cancelled',2,NULL),(12391,25000,80.00,'0','PayPal','2023-04-19','Cancelled',2,NULL),(12392,25000,75.00,'0','PayPal','2023-04-19','Cancelled',1,'2023-04-19'),(12393,25000,60.00,'0.2','PayPal','2023-04-19','Cancelled',1,'2023-04-19');
 /*!40000 ALTER TABLE `booking_payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-19  6:30:25
+-- Dump completed on 2023-04-20  1:39:47

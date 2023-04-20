@@ -82,7 +82,7 @@
                             salesData = JSON.parse(salesData); // Parse string to dict object
                             salesMonths = Object.keys(salesData); 
                             let monthlySalesData = []
-                            
+
                             for (let month in xMonthsOfYear) {
                                 calenderMonth = xMonthsOfYear[month];
 
@@ -212,6 +212,84 @@
                         <button type="submit" name="add-journey" class="btn btn-success m-1 journey-submit-btn">Add Journey</button>
                         <button type="submit" name="update-journey" class="btn btn-warning m-1 journey-submit-btn">Update Journey</button>
                         <button type="submit" name="remove-journey" class="btn btn-danger m-1 journey-submit-btn">Remove Journey</button>
+                    </div>
+                </form>
+            </div>
+
+
+    </section>
+
+
+    <section class="dashboard p-3">
+
+        <div class="container-fluid w-100 h-100 p-0 admin-portal-stats-grid">
+            <div class="container-fluid w-100 heading">
+                <h5 class="heading-text">Administrative User Settings</h5>
+            </div>
+
+            <!-- Active journeys table -->
+            <div class="dashboard-container p-3 mb-3">
+                <div class="head">
+                    <div class="title w-100 p-0">USER ACCOUNTS</div>
+                </div>
+        
+                <div class="head-divider"><div class="divider-item"></div></div>
+
+                <div class="table-responsive active-journeys">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Account ID</th>
+                                <th scope="col">Contact ID</th>
+                                <th scope="col">Customer ID</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Telephone</th>
+                                <th scope="col">Email Address</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add/Update or Remove Journeys -->
+            <div class="dashboard-container p-3 mt-3 mb-3">
+                <div class="head">
+                    <div class="title w-100 p-0">MODIFY USER ACCOUNTS</div>
+                </div>
+        
+                <div class="head-divider"><div class="divider-item"></div></div>
+
+                <form action="{{ url_for('auth.admin_portal_accounts') }}" method="post">
+                    <div class="form-group mt-1">
+                        <label for="account-id">Account ID</label>
+                        <input type="number" class="form-control" name="account-id" id="account-pk-input" required>
+                    </div>
+
+                    <div class="form-group mt-1">
+                        <label for="contact-id">Contact ID</label>
+                        <input type="number" class="form-control" name="contact-id" id="account-pk-input" required>
+                    </div>
+
+                    <div class="form-group mt-1">
+                        <label for="customer-id">Customer ID</label>
+                        <input type="number" class="form-control" name="customer-id" id="account-pk-input" required>
+                    </div>
+
+                    <div class="form-group mt-1 account-submits">
+                        <ul class="admin-portal-journey-list">
+                            <li><p class="m-0"><span class="fst-italic">Modifying or removing</span> user profiles must require primary keys for confirmation.</p></li>
+                            <li><p class="m-0"><span class="fst-italic">Modifying or removing</span> user profiles must require primary keys for confirmation.</p></li>
+
+                        </ul>
+                        <!-- Add a modal to 'add-account' button with registration inputs -->
+                        <button type="button" name="add-account" class="btn btn-success m-1 account-submit-btn" id="add-account">Add Account</button>
+                        <button type="submit" name="update-account" class="btn btn-warning m-1 account-submit-btn">Update Account</button>
+                        <button type="submit" name="remove-account" class="btn btn-danger m-1 account-submit-btn">Remove Account</button>
                     </div>
                 </form>
             </div>

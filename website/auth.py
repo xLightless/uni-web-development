@@ -658,6 +658,11 @@ def admin_portal_journeys():
     return redirect(url_for('auth.admin_portal'))
 
 
+@auth.route('/account/admin/edit-accounts/')
+def admin_portal_accounts():
+    return redirect(url_for('auth.admin_portal'))
+
+
 @auth.route('/account/admin/permissions/')
 def admin_permissions():
     return '<h1> admin perms</h1>'
