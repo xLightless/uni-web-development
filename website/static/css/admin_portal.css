@@ -137,12 +137,18 @@ section.admin-portal-insights {
     filter: drop-shadow(0 0 0.55rem black);
     min-height: 437.5px;
 }
+
+/* .admin-portal-insight-stats > div,
+.admin-portal-insight-stats > div > div {
+    border-radius: 30%;
+} */
   
 .admin-insights {
     width: 100%;
     height: 100%;
     background-color: white;
     cursor: pointer;
+    padding: 16px;
 }
 
 .admin-insights:hover {
@@ -231,6 +237,19 @@ section.admin-portal-insights {
 }
 
 
+/* Charts */
+.monthly-sales-canvas {
+    width: 100%;
+    height: 100%;
+    /* overflow: auto; */
+}
+
+.modebar-btn--logo {
+    display: none!important;
+}
+
+/* #modebar-1a27d9 > div:nth-child(1) >  */
+
 @media only screen and (max-width: 768px) {
     .admin-portal-stats { 
         display: grid;
@@ -289,6 +308,9 @@ section.admin-portal-insights {
 
     .journey-submit-btn {
         width: 200px!important;
+    }
+
+    .monthly-sales-canvas {
     }
 
       /* .admin-portal-stats > div > div:hover {

@@ -2,7 +2,7 @@
 {% block head %}
     <link href="{{url_for('static',filename='css/account.css')}}" rel="stylesheet">
     <link href="{{url_for('static',filename='css/admin_portal.css')}}" rel="stylesheet">
-
+    <script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
     <title>Admin Portal</title>
 {% endblock %}
 
@@ -73,7 +73,63 @@
             
             <div class="admin-portal-insight-stats">
                 <div class="monthly-sales">
-                    <div class="admin-insights">
+                    <div class="admin-insights d-flex justify-content-center align-items-center">
+                        <div class="monthly-sales-canvas" id="monthlySalesChart"></div>
+
+                        <script>
+                            var xMonthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            
+                            let salesData = '{{ monthly_sales | tojson }}';
+                            salesData = JSON.parse(salesData); // Parse string to dict object
+                            
+                            salesMonths = Object.keys(salesData); 
+                            console.log(salesData);
+                            // console.log(salesMonths);
+
+                            let monthlySalesData = []
+                            for (let month in xMonthsOfYear) {
+                                calenderMonth = xMonthsOfYear[month];
+
+                                // Set the month and total sales to the object
+                                monthlySalesData[calenderMonth] = 0;
+
+                                for (let [key, _] in salesMonths) {
+                                    salesMonth = salesMonths[key];
+                                    if (calenderMonth == salesMonth) {
+                                        
+                                        // Update the object if sales have been made
+                                        monthlySalesData[calenderMonth] = salesData[calenderMonth];
+                                    }
+                                }
+
+                            }
+
+
+                            //for (let month in xMonthsOfYear) {
+                            //    console.log(monthlySalesData);
+                            //}
+
+                            var yMonthlySalesData = []
+                            const monthlySales = Object.values(monthlySalesData).forEach(val => {
+                                //console.log(val);
+                                yMonthlySalesData.push(val);
+                            });
+
+
+                            
+                            //var yMonthlySalesData = [10, 20, 30, 55, 80, 11, 39, 99, 999, 1233, 30, 250];
+                            
+                            var data = [{
+                                x:xMonthsOfYear,
+                                y:yMonthlySalesData,
+                                type:"bar"
+                            }];
+                            
+                            var layout = {title:"Net Sales Per Month"};
+                            var config = {responsive: true}
+                            
+                            Plotly.newPlot("monthlySalesChart", data, layout, config);
+                        </script>
                     </div>
                 </div>
                 <div class="sales-of-journey">
@@ -176,6 +232,5 @@
 
 
     </section>
-
     <script src="{{url_for('static',filename='js/admin_portal.js')}}"></script>
 {% endblock%}

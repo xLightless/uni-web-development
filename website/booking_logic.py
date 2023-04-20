@@ -200,7 +200,7 @@ class Cancellations(object):
         todays_date_datetime = datetime.strptime(cancel_date, "%Y/%m/%d")
         booking_date_datetime = datetime.strptime(booking_date.replace('-', '/'), "%Y/%m/%d")
         self.timedelta = booking_date_datetime - todays_date_datetime
-        print(self.timedelta.days, "days")
+        # print(self.timedelta.days, "days")
     
     def get_price(self):
         """ Return the price of the object """

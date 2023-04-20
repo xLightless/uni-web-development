@@ -394,61 +394,57 @@ def payment():
         payment_collection['payment_date'] = payment_date
         # payment_collection['price'] = price
         
-        print(preprocessor.get_dict())
+        # print(preprocessor.get_dict())
         payment_data = Booking(preprocessor.get_dict())
 
         # Obtain the journey key from database table
-        journey_table = database.get_table_records_of_value('journey', 'departure', loc_from)
-        journey_id:int = None
-        
+        journey_table = database.get_table_records_of_value('journey', 'departure_location', loc_from)
+        # journey_id:int = None
         for row in range(len(journey_table)):
             jloc1 = journey_table[row][1]
             jloc2 = journey_table[row][3]
             
+            print(jloc1, loc_from, jloc2, loc_to)
             if (jloc1 == loc_from) and (jloc2 == loc_to):
-                journey_id_int = int(journey_table[row][0]) # Convert to INT since the Foreign key is integer
-                break
-        
-        journey_id = journey_id_int
-        
-        try:
-            database.insert_table_null_record(
-                'booking_payment',
-                payment_id,
-                values=(
-                    str(account_id), # account_id
-                    str(price), # price
-                    str(discount), # discount_percentage
-                    'PayPal', # Payment Type
-                    str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
-                    'Approved', # Purchase Status
-                    str(journey_id)
-                ),
-                null_column = 8 # (NULL) No cancellation date created yet so the value has to be null
-            )
-            
-            booking_record = database.get_table_value_record('booking_payment', 'payment_id', str(payment_id))
-            booking_id = payment_id + 34817 # (12392, 25000, Decimal('600.00'), '0', 'PayPal', datetime.date(2023, 4, 6), 'Approved')
-            
-            database.set_table_record(
-                'booking',
-                booking_id,
-                values=(
-                    str(payment_id),
-                    str(booking_data.get('seat_class_type')), # Business/Eco
-                    str(booking_data.get('passengers_amount')), # No. People
-                    str(booking_data.get('date_from')), # Leaving Time
-                    str(booking_data.get('date_to')), # Returning if one
-                    str(booking_data.get('trip_type')) # Commute type e.g. Return or Oneway
-                )
-            )
-            
-            # session['payment_success'] = True
-            # user_auth.set_key('payment_successful', True)
-            
-        except mysql.connector.errors.DatabaseError as e:
-            print(e)
-            return redirect(url_for('auth.account'))
+                journey_id = int(journey_table[row][0]) # Convert to INT since the Foreign key is integer
+                try:
+                    database.insert_table_null_record(
+                        'booking_payment',
+                        payment_id,
+                        values=(
+                            str(account_id), # account_id
+                            str(price), # price
+                            str(discount), # discount_percentage
+                            'PayPal', # Payment Type
+                            str(payment_date), # The purchase date of the ticket but not the date the purchase is finalised due to cancellation
+                            'Approved', # Purchase Status
+                            str(journey_id)
+                        ),
+                        null_column = 8 # (NULL) No cancellation date created yet so the value has to be null
+                    )
+                    
+                    booking_record = database.get_table_value_record('booking_payment', 'payment_id', str(payment_id))
+                    booking_id = payment_id + 34817 # (12392, 25000, Decimal('600.00'), '0', 'PayPal', datetime.date(2023, 4, 6), 'Approved')
+                    
+                    database.set_table_record(
+                        'booking',
+                        booking_id,
+                        values=(
+                            str(payment_id),
+                            str(booking_data.get('seat_class_type')), # Business/Eco
+                            str(booking_data.get('passengers_amount')), # No. People
+                            str(booking_data.get('date_from')), # Leaving Time
+                            str(booking_data.get('date_to')), # Returning if one
+                            str(booking_data.get('trip_type')) # Commute type e.g. Return or Oneway
+                        )
+                    )
+                    
+                    # session['payment_success'] = True
+                    # user_auth.set_key('payment_successful', True)
+                    
+                except mysql.connector.errors.DatabaseError as e:
+                    print(e)
+                    return redirect(url_for('auth.account'))
         
     return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = preprocessor.get_one('total_cost'))
 
@@ -546,8 +542,53 @@ def admin_portal():
             'return_time'       : jdata[row][4]
         }
         
+    ### Add data to graphs
     
-    return render_template('admin_portal.html', total_sales = total_sales, created_bookings = created_bookings, total_refunded = total_refunded, journey_data = journey_data)
+    # Get only data that is not cancelled to display true Net value
+    data = database.get_table_records_of_value('booking_payment', 'purchase_status', 'Approved')
+    
+    months_of_year = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    total_price = 0
+    month = ''
+    monthly_sales = {}
+    
+    for row in range(len(data)):
+        # print(months_of_year[row])
+        col_date = str(data[row][5]) # Use payment date as the month date. Change to booking-date for testing purposes.
+        col_price = data[row][2] # Row Price data
+        
+        strtime = datetime.strptime(col_date, "%Y-%m-%d")
+        numerical_month = strtime.month
+        
+        # print(col_date, col_price)
+        
+        # # if month[int] in months
+        # for _ in range(len(data)):
+        #     if months_of_year[numerical_month] in months_of_year:
+        #         total_price = total_price + col_price
+        #         month = months_of_year[numerical_month]
+        
+        #         # Add total_price to monthly sales
+        #         monthly_sales[month] = total_price
+        
+        
+        for month in months_of_year:
+            if month == months_of_year[numerical_month]:
+                total_price = total_price + col_price
+                month = months_of_year[numerical_month]
+        
+                # # Add total_price to monthly sales
+                monthly_sales[month] = total_price
+                
+    
+    return render_template(
+        'admin_portal.html',
+        total_sales = total_sales,
+        created_bookings = created_bookings,
+        total_refunded = total_refunded,
+        journey_data = journey_data,
+        monthly_sales = monthly_sales
+    )
 
 @auth.route('/account/admin/edit-journeys/', methods=['POST', 'GET'])
 def admin_portal_journeys():

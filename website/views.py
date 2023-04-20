@@ -200,12 +200,18 @@ def account_page():
                 booking_data.pop(row)
         
         elif str(purchase_status) == 'Cancelled':
-            
-            # Go to next iteration if cancellation_date is NULL
-            if data[row][8] is not None:
-                cancellation_date = data[row][8]
-            else:
+            if data[row][8] is None:
                 continue
+            else:
+                cancellation_date = data[row][8]
+            
+            # print(type(data[row][8]))
+            # Go to next iteration if cancellation_date is NULL
+            # if (type(data[row][8]) != datetime.date):
+            #     print(True)
+            # cancellation_date = data[row][8] if data[row][8] is not None else ''
+            # else:
+            #     continue
             
             booking_date = str(booking_table[4]).replace('-', '/')
             cancellation = Cancellations(float(price), currency_type, cancellation_date, booking_date)
@@ -216,6 +222,8 @@ def account_page():
                 'purchase_status'   :   purchase_status,
                 'booking_date'      :   booking_table[4]
             }
+            
+            cancellation_data[row]['cancellation_date'] = cancellation_date
             
             # Convert the price and cancellation fee
             if (currency_type == 'Euros'):
@@ -232,8 +240,10 @@ def account_page():
                 currency_type_symbol = '£'
                 cancellation_data[row]['price'] = "%s" % (cancellation.get_price_string())
                 cancellation_data[row]['cancellation_fee'] = "%s%.2f" % (currency_type_symbol, cancel_fee * 1)
-
-        cancellation_data[row]['cancellation_date'] = cancellation_date
+        
+        # cancellation_data[row]['cancellation_date'] = cancellation_date
+        
+        
 
     # 2. DELETE OLD RECORDS FROM DATABASE IF RETURN_DATE HAS BEEN SURPASSED
         
