@@ -239,6 +239,9 @@ section.admin-portal-insights {
 
 
 /* Charts */
+.journey-sales-canvas,
+.top-customers-canvas,
+.permissions-canvas,
 .monthly-sales-canvas {
     width: 100%;
     height: 100%;

@@ -75,60 +75,76 @@
                 <div class="monthly-sales">
                     <div class="admin-insights d-flex justify-content-center align-items-center">
                         <div class="monthly-sales-canvas" id="monthlySalesChart"></div>
-
-                        <script>
-                            var xMonthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                            let salesData = '{{ monthly_sales | tojson }}';
-                            salesData = JSON.parse(salesData); // Parse string to dict object
-                            salesMonths = Object.keys(salesData); 
-                            let monthlySalesData = []
-
-                            for (let month in xMonthsOfYear) {
-                                calenderMonth = xMonthsOfYear[month];
-
-                                // Set the month and total sales to the object
-                                monthlySalesData[calenderMonth] = 0;
-
-                                for (let [key, _] in salesMonths) {
-                                    salesMonth = salesMonths[key];
-                                    if (calenderMonth == salesMonth) {
-                                        
-                                        // Update the object if sales have been made
-                                        monthlySalesData[calenderMonth] = salesData[calenderMonth];
-                                    }
-                                }
-                            }
-
-                            var yMonthlySalesData = []
-                            const monthlySales = Object.values(monthlySalesData).forEach(val => {
-                                //console.log(val);
-                                yMonthlySalesData.push(val);
-                            });
-
-                            var data = [{
-                                x:xMonthsOfYear,
-                                y:yMonthlySalesData,
-                                type:"line"
-                            }];
-                            
-                            var layout = {title:"Net Sales Per Month"};
-                            var config = {responsive: true}
-                            
-                            Plotly.newPlot("monthlySalesChart", data, layout, config);
-                        </script>
                     </div>
                 </div>
                 <div class="sales-of-journey">
-                    <div class="admin-insights"></div>
+                    <div class="admin-insights">
+                        <div class="monthly-sales-canvas" id="monthlySalesChart1"></div>
+                    </div>
                 </div>
                 <div class="top-customers">
-                    <div class="admin-insights"></div>
+                    <div class="admin-insights">
+                        <div class="monthly-sales-canvas" id="monthlySalesChart2"></div>
+                    </div>
                 </div>
                 <div class="permissions">
-                    <div class="admin-insights"></div>
+                    <div class="admin-insights">
+                        <div class="monthly-sales-canvas" id="monthlySalesChart3"></div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        
+        <script>
+            var xMonthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let salesData = '{{ monthly_sales | tojson }}';
+            salesData = JSON.parse(salesData); // Parse string to dict object
+            salesMonths = Object.keys(salesData); 
+            let monthlySalesData = []
+
+            for (let month in xMonthsOfYear) {
+                calenderMonth = xMonthsOfYear[month];
+
+                // Set the month and total sales to the object
+                monthlySalesData[calenderMonth] = 0;
+
+                for (let [key, _] in salesMonths) {
+                    salesMonth = salesMonths[key];
+                    if (calenderMonth == salesMonth) {
+                        
+                        // Update the object if sales have been made
+                        monthlySalesData[calenderMonth] = salesData[calenderMonth];
+                    }
+                }
+            }
+
+            var yMonthlySalesData = []
+            const monthlySales = Object.values(monthlySalesData).forEach(val => {
+                //console.log(val);
+                yMonthlySalesData.push(val);
+            });
+
+            var data = [{
+                x:xMonthsOfYear,
+                y:yMonthlySalesData,
+                type:"line"
+            }];
+
+            var data2 = [{
+                x:xMonthsOfYear,
+                y:yMonthlySalesData,
+                type:"bar"
+            }];
+            
+            var layout = {title:"Net Sales Per Month"};
+            var layout2 = {title:"Top Customers Per Month"};
+            var layout3 = {title:"Journey Sales Per Month"};
+            var layout4 = {title:"Returning Users"};
+            var config = {responsive: true}
+            
+            Plotly.newPlot("monthlySalesChart", data, layout, config); Plotly.newPlot("monthlySalesChart1", data2, layout2, config); Plotly.newPlot("monthlySalesChart2", data2, layout3, config); Plotly.newPlot("monthlySalesChart3", data, layout4, config);
+        </script>
     </section>
 
 
