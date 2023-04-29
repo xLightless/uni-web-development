@@ -445,7 +445,18 @@ def payment():
                 except mysql.connector.errors.DatabaseError as e:
                     print(e)
                     return redirect(url_for('auth.account'))
+    
+
+        # Get payment data after confirming booking
+        payment_data = {
+            'payment_id' : payment_collection['payment_id'],
+            'payment_date' : payment_collection['payment_date'],
+            'price'    : preprocessor.get_one('total_cost')
+        }
         
+        # Place the data into preprocessor to create a dict object for downloading receipts
+        preprocessor.set_dict(payment_data)
+    
     return render_template('payment_wall.html', payment_id = payment_collection['payment_id'], payment_date = payment_collection['payment_date'], price = preprocessor.get_one('total_cost'))
 
 
@@ -502,6 +513,10 @@ def payment_download():
     """ Generate a pdf/txt based on a html document about the payment created """
     
     file_path = auth.root_path + '\\generator\\receipt.txt'
+    if request.method == 'POST':
+        payment_data = preprocessor.get_dict()
+        with open(file_path, "w") as file:
+            file.write(f"Horizon Travels -> Payment Receipt. \n\n- Payment Price: {payment_data.get('price')}. \n- Payment Date: {payment_data.get('payment_date')}. \n- Payment ID: {payment_data.get('payment_id')} \n\n Thank you for travelling with us. We wish you a safe journey!")
     
     return send_file(file_path, as_attachment = True)
 

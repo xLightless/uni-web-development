@@ -15,8 +15,7 @@ class Preprocessor(object):
         return self.__data
     
     
-preprocessor = Preprocessor()
-        
+preprocessor = Preprocessor()    
         
 # pre = Preprocessor()
 

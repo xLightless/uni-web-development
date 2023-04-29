@@ -313,6 +313,7 @@ class Preprocessor(object):
     
     
 preprocessor = Preprocessor() # Stores dictionary data seperate from session to use as input for another program or task
+preprocessor2 = Preprocessor()
     
 # data = {
 #     'location_from': 'Bristol',

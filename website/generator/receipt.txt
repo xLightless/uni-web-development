@@ -1,1 +1,7 @@
-Some payment information
+Horizon Travels -> Payment Receipt. 
+
+- Payment Price: None. 
+- Payment Date: None. 
+- Payment ID: None 
+
+ Thank you for travelling with us. We wish you a safe journey!

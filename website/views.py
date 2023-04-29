@@ -3,7 +3,7 @@ from datetime import datetime
 
 from website import sitemap
 from website.database import Database
-from website.booking_logic import Booking, preprocessor, Cancellations
+from website.booking_logic import Booking, preprocessor, Cancellations, preprocessor2
 
 views = Blueprint('views', __name__)
 database = Database(database="ht_database", user="root", password="Password1")
