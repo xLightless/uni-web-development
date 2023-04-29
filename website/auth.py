@@ -497,7 +497,7 @@ def cancel_booking():
             else:
                 url_build = url_for('views.legal')
                 char = url_build[0]
-                print('Please do not try and attempt to malipulate our website software. You will be going against Terms and Conditions.')
+                print('Please do not try and attempt to malipulate our website software. You will be going against the Terms and Conditions.')
                 print(str(request.url_root) + "".join(url_build.replace(char, '')))
                 return redirect(url_for('views.account_page'))
             # If not then remove booking from system
